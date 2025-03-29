@@ -6,9 +6,11 @@ Exzing-EnergyX is a modular system consisting of:
 2. **Frontend** – Dashboard for user interaction  
 3. **AI Models** – Carbon analytics and prediction  
 4. **Blockchain** – Secure transactions for carbon credit trading  
+5. **Mobile App** -  Mobile app to enhance access
 
 **Deployment Strategy:**  
 - Hosted on **Azure**, using **Kubernetes and serverless functions**  
 - Continuous integration and deployment using **GitHub Actions**  
+
 
 ---
