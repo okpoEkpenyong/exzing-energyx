@@ -1,0 +1,16 @@
+# Python dependencies  
+__pycache__/  
+*.pyc  
+*.pyo  
+
+# Node.js dependencies  
+node_modules/  
+package-lock.json  
+
+# Environment variables  
+.env  
+config.json  
+
+# Logs and temp files  
+logs/  
+*.log  
