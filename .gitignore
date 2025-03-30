@@ -14,3 +14,5 @@ config.json
 # Logs and temp files  
 logs/  
 *.log  
+
+/docs

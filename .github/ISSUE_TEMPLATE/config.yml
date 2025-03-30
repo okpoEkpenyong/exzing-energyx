@@ -1,0 +1,9 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📖 Documentation
+    url: https://github.com/your-repo/docs
+    about: Read the project documentation.
+  - name:  Feature Requests & Ideas
+    url: https://github.com/your-repo/discussions
+    about: Discuss new ideas and improvements.
+
