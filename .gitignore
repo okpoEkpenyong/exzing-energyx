@@ -16,3 +16,14 @@ logs/
 *.log  
 
 /docs
+
+# Terraform state & backup files
+*.tfstate
+*.tfstate.backup
+
+# Terraform plan output
+tfplan
+
+# Sensitive provider files
+.terraform/
+.terraform.lock.hcl
