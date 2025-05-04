@@ -1,16 +1,16 @@
 import { useEffect, useContext, useMemo, useState, Fragment } from 'react';
 import { IconButton, IContextualMenuProps, IIconProps, Stack, Text, Shimmer, ShimmerElementType } from '@fluentui/react';
-import TodoItemListPane from '../components/todoItemListPane';
-import { TodoItem, TodoItemState } from '../models';
-import * as itemActions from '../actions/itemActions';
-import * as listActions from '../actions/listActions';
-import { TodoContext } from '../components/todoContext';
-import { AppContext } from '../models/applicationState';
-import { ItemActions } from '../actions/itemActions';
-import { ListActions } from '../actions/listActions';
-import { stackItemPadding, stackPadding, titleStackStyles } from '../ux/styles';
+import TodoItemListPane from '../components/todoItemListPane.tsx';
+import { TodoItem, TodoItemState } from '../models/index.ts';
+import * as itemActions from '../actions/itemActions.ts';
+import * as listActions from '../actions/listActions.ts';
+import { TodoContext } from '../components/todoContext.ts';
+import { AppContext } from '../models/applicationState.ts';
+import { ItemActions } from '../actions/itemActions.ts';
+import { ListActions } from '../actions/listActions.ts';
+import { stackItemPadding, stackPadding, titleStackStyles } from '../ux/styles.ts';
 import { useNavigate, useParams } from 'react-router-dom';
-import { bindActionCreators } from '../actions/actionCreators';
+import { bindActionCreators } from '../actions/actionCreators.ts';
 import WithApplicationInsights from '../components/telemetryWithAppInsights.tsx';
 
 const HomePage = () => {
