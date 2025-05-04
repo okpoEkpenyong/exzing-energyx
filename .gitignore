@@ -1,1 +1,29 @@
-.azure
+# Python dependencies  
+__pycache__/  
+*.pyc  
+*.pyo  
+
+# Node.js dependencies  
+node_modules/  
+package-lock.json  
+
+# Environment variables  
+.env  
+config.json  
+
+# Logs and temp files  
+logs/  
+*.log  
+
+/docs
+
+# Terraform state & backup files
+*.tfstate
+*.tfstate.backup
+
+# Terraform plan output
+tfplan
+
+# Sensitive provider files
+.terraform/
+.terraform.lock.hcl
