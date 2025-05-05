@@ -14,7 +14,7 @@ export enum ActionTypes {
     DELETE_energyx_ITEM = "DELETE_energyx_ITEM"
 }
 
-export type energyxActions =
+export type EnergyxActions =
     itemActions.ListItemsAction |
     itemActions.SelectItemAction |
     itemActions.LoadItemAction |

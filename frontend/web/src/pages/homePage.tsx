@@ -1,21 +1,21 @@
-import { useEffect, useContext, useMemo, useState, Fragment } from 'react';
-import { IconButton, IContextualMenuProps, IIconProps, Stack, Text, Shimmer, ShimmerElementType } from '@fluentui/react';
+import { IconButton, IContextualMenuProps, IIconProps, Shimmer, ShimmerElementType, Stack, Text } from '@fluentui/react';
+import { Fragment, useContext, useEffect, useMemo, useState } from 'react';
 // import energyxItemListPane from '../components/energyxItemListPane.tsx';
-import { energyxItem, energyxItemState } from '../models/index.ts';
-import * as itemActions from '../actions/itemActions.ts';
-import * as listActions from '../actions/listActions.ts';
-import { energyxContext } from '../components/energyxContext.ts';
-import { AppContext } from '../models/applicationState.ts';
-import { ItemActions } from '../actions/itemActions.ts';
-import { ListActions } from '../actions/listActions.ts';
-import { stackItemPadding, stackPadding, titleStackStyles } from '../ux/styles.ts';
 import { useNavigate, useParams } from 'react-router-dom';
 import { bindActionCreators } from '../actions/actionCreators.ts';
+import * as itemActions from '../actions/itemActions.ts';
+import { ItemActions } from '../actions/itemActions.ts';
+import * as listActions from '../actions/listActions.ts';
+import { ListActions } from '../actions/listActions.ts';
+import { EnergyxContext } from '../components/energyxContext.ts';
 import WithApplicationInsights from '../components/telemetryWithAppInsights.tsx';
+import { AppContext } from '../models/applicationState.ts';
+import { EnergyxItem, EnergyxItemState } from '../models/index.ts';
+import { stackItemPadding, stackPadding, titleStackStyles } from '../ux/styles.ts';
 
 const HomePage = () => {
     const navigate = useNavigate();
-    const appContext = useContext<AppContext>(energyxContext)
+    const appContext = useContext<AppContext>(EnergyxContext)
     const { listId, itemId } = useParams();
     const actions = useMemo(() => ({
         lists: bindActionCreators(listActions, appContext.dispatch) as unknown as ListActions,
@@ -65,21 +65,21 @@ const HomePage = () => {
         }
     }, [actions.items, appContext.state.selectedList?.id, appContext.state.selectedList?.items])
 
-    const onItemCreated = async (item: energyxItem) => {
+    const onItemCreated = async (item: EnergyxItem) => {
         return await actions.items.save(item.listId, item);
     }
 
-    const onItemCompleted = (item: energyxItem) => {
-        item.state = energyxItemState.Done;
+    const onItemCompleted = (item: EnergyxItem) => {
+        item.state = EnergyxItemState.Done;
         item.completedDate = new Date();
         actions.items.save(item.listId, item);
     }
 
-    const onItemSelected = (item?: energyxItem) => {
+    const onItemSelected = (item?: EnergyxItem) => {
         actions.items.select(item);
     }
 
-    const onItemDeleted = (item: energyxItem) => {
+    const onItemDeleted = (item: EnergyxItem) => {
         if (item.id) {
             actions.items.remove(item.listId, item);
             navigate(`/lists/${item.listId}`);

@@ -1,9 +1,9 @@
-import { energyxItem } from "./energyxItem";
+import { EnergyxItem } from "./energyxItem";
 
-export interface energyxList {
+export interface EnergyxList {
     id?: string
     name: string
-    items?: energyxItem[]
+    items?: EnergyxItem[]
     description?: string
     createdDate?: Date
     updatedDate?: Date

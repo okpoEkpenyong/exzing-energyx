@@ -1,8 +1,8 @@
 import { Reducer } from "react";
-import { ActionTypes, energyxActions } from "../actions/common";
-import { energyxItem } from "../models"
+import { ActionTypes, EnergyxActions } from "../actions/common";
+import { EnergyxItem } from "../models";
 
-export const selectedItemReducer: Reducer<energyxItem | undefined, energyxActions> = (state: energyxItem | undefined, action: energyxActions): energyxItem | undefined => {
+export const selectedItemReducer: Reducer<EnergyxItem | undefined, EnergyxActions> = (state: EnergyxItem | undefined, action: EnergyxActions): EnergyxItem | undefined => {
     switch (action.type) {
         case ActionTypes.SELECT_energyx_ITEM:
         case ActionTypes.LOAD_energyx_ITEM:

@@ -1,17 +1,17 @@
-import { FC, ReactElement, useContext, useEffect, useMemo } from 'react';
-import Header from './header';
-import Sidebar from './sidebar';
-import { Routes, Route, useNavigate } from 'react-router-dom';
-import HomePage from '../pages/homePage';
 import { Stack } from '@fluentui/react';
-import { AppContext } from '../models/applicationState';
-import { energyxContext } from '../components/energyxContext';
+import { FC, ReactElement, useContext, useEffect, useMemo } from 'react';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import * as itemActions from '../actions/itemActions';
+import { ItemActions } from '../actions/itemActions';
 import * as listActions from '../actions/listActions';
 import { ListActions } from '../actions/listActions';
-import { ItemActions } from '../actions/itemActions';
-import { energyxItem, energyxList } from '../models';
+import { energyxContext } from '../components/energyxContext';
+import { EnergyxItem, EnergyxList } from '../models';
+import { AppContext } from '../models/applicationState';
+import HomePage from '../pages/homePage';
 import { headerStackStyles, mainStackStyles, rootStackStyles, sidebarStackStyles } from '../ux/styles';
+import Header from './header';
+import Sidebar from './sidebar';
 // import energyxItemDetailPane from '../components/energyxItemDetailPane';
 import { bindActionCreators } from '../actions/actionCreators';
 
@@ -30,12 +30,12 @@ const Layout: FC = (): ReactElement => {
         }
     }, [actions.lists, appContext.state.lists]);
 
-    const onListCreated = async (list: energyxList) => {
+    const onListCreated = async (list: EnergyxList) => {
         const newList = await actions.lists.save(list);
         navigate(`/lists/${newList.id}`);
     }
 
-    const onItemEdited = (item: energyxItem) => {
+    const onItemEdited = (item: EnergyxItem) => {
         actions.items.save(item.listId, item);
         actions.items.select(undefined);
         navigate(`/lists/${item.listId}`);

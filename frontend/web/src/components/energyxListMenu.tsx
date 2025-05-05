@@ -1,13 +1,13 @@
 import { IIconProps, INavLink, INavLinkGroup, Nav, Stack, TextField } from '@fluentui/react';
-import { FC, ReactElement, useState, FormEvent, MouseEvent } from 'react';
+import { FC, FormEvent, MouseEvent, ReactElement, useState } from 'react';
 import { useNavigate } from 'react-router';
-import { energyxList } from '../models/energyxList';
+import { EnergyxList } from '../models/energyxList';
 import { stackItemPadding } from '../ux/styles';
 
 interface energyxListMenuProps {
-    selectedList?: energyxList
-    lists?: energyxList[]
-    onCreate: (list: energyxList) => void
+    selectedList?: EnergyxList
+    lists?: EnergyxList[]
+    onCreate: (list: EnergyxList) => void
 }
 
 const iconProps: IIconProps = {
@@ -28,7 +28,7 @@ const energyxListMenu: FC<energyxListMenuProps> = (props: energyxListMenuProps):
         navigate(`/lists/${item.key}`);
     }
 
-    const createNavGroups = (lists: energyxList[]): INavLinkGroup[] => {
+    const createNavGroups = (lists: EnergyxList[]): INavLinkGroup[] => {
         const links = lists.map(list => ({
             key: list.id,
             name: list.name,
@@ -50,7 +50,7 @@ const energyxListMenu: FC<energyxListMenuProps> = (props: energyxListMenuProps):
         evt.preventDefault();
 
         if (newListName) {
-            const list: energyxList = {
+            const list: EnergyxList = {
                 name: newListName
             };
 

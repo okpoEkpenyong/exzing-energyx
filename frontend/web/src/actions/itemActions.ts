@@ -1,23 +1,23 @@
 import { Dispatch } from "react";
-import { energyxItem } from "../models";
+import config from "../config";
+import { EnergyxItem } from "../models";
 import { ItemService } from "../services/itemService";
-import { ActionTypes } from "./common";
-import config from "../config"
 import { ActionMethod, createPayloadAction, PayloadAction } from "./actionCreators";
+import { ActionTypes } from "./common";
 
 export interface QueryOptions {
     [key: string]: RegExp | boolean
 }
 
 export interface ItemActions {
-    list(listId: string, options?: QueryOptions): Promise<energyxItem[]>
-    select(item?: energyxItem): Promise<energyxItem>
-    load(listId: string, id: string): Promise<energyxItem>
-    save(listId: string, Item: energyxItem): Promise<energyxItem>
-    remove(listId: string, Item: energyxItem): Promise<void>
+    list(listId: string, options?: QueryOptions): Promise<EnergyxItem[]>
+    select(item?: EnergyxItem): Promise<EnergyxItem>
+    load(listId: string, id: string): Promise<EnergyxItem>
+    save(listId: string, Item: EnergyxItem): Promise<EnergyxItem>
+    remove(listId: string, Item: EnergyxItem): Promise<void>
 }
 
-export const list = (listId: string, options?: QueryOptions): ActionMethod<energyxItem[]> => async (dispatch: Dispatch<ListItemsAction>) => {
+export const list = (listId: string, options?: QueryOptions): ActionMethod<EnergyxItem[]> => async (dispatch: Dispatch<ListItemsAction>) => {
     const itemService = new ItemService(config.api.baseUrl, `/lists/${listId}/items`);
     const items = await itemService.getList(options);
 
@@ -26,13 +26,13 @@ export const list = (listId: string, options?: QueryOptions): ActionMethod<energ
     return items;
 }
 
-export const select = (item?: energyxItem): ActionMethod<energyxItem | undefined> => async (dispatch: Dispatch<SelectItemAction>) => {
+export const select = (item?: EnergyxItem): ActionMethod<EnergyxItem | undefined> => async (dispatch: Dispatch<SelectItemAction>) => {
     dispatch(selectItemAction(item));
 
     return Promise.resolve(item);
 }
 
-export const load = (listId: string, id: string): ActionMethod<energyxItem> => async (dispatch: Dispatch<LoadItemAction>) => {
+export const load = (listId: string, id: string): ActionMethod<EnergyxItem> => async (dispatch: Dispatch<LoadItemAction>) => {
     const itemService = new ItemService(config.api.baseUrl, `/lists/${listId}/items`);
     const item = await itemService.get(id);
 
@@ -41,7 +41,7 @@ export const load = (listId: string, id: string): ActionMethod<energyxItem> => a
     return item;
 }
 
-export const save = (listId: string, item: energyxItem): ActionMethod<energyxItem> => async (dispatch: Dispatch<SaveItemAction>) => {
+export const save = (listId: string, item: EnergyxItem): ActionMethod<EnergyxItem> => async (dispatch: Dispatch<SaveItemAction>) => {
     const itemService = new ItemService(config.api.baseUrl, `/lists/${listId}/items`);
     const newItem = await itemService.save(item);
 
@@ -50,7 +50,7 @@ export const save = (listId: string, item: energyxItem): ActionMethod<energyxIte
     return newItem;
 }
 
-export const remove = (listId: string, item: energyxItem): ActionMethod<void> => async (dispatch: Dispatch<DeleteItemAction>) => {
+export const remove = (listId: string, item: EnergyxItem): ActionMethod<void> => async (dispatch: Dispatch<DeleteItemAction>) => {
     const itemService = new ItemService(config.api.baseUrl, `/lists/${listId}/items`);
     if (item.id) {
         await itemService.delete(item.id);
@@ -58,19 +58,19 @@ export const remove = (listId: string, item: energyxItem): ActionMethod<void> =>
     }
 }
 
-export interface ListItemsAction extends PayloadAction<string, energyxItem[]> {
+export interface ListItemsAction extends PayloadAction<string, EnergyxItem[]> {
     type: ActionTypes.LOAD_energyx_ITEMS
 }
 
-export interface SelectItemAction extends PayloadAction<string, energyxItem | undefined> {
+export interface SelectItemAction extends PayloadAction<string, EnergyxItem | undefined> {
     type: ActionTypes.SELECT_energyx_ITEM
 }
 
-export interface LoadItemAction extends PayloadAction<string, energyxItem> {
+export interface LoadItemAction extends PayloadAction<string, EnergyxItem> {
     type: ActionTypes.LOAD_energyx_ITEM
 }
 
-export interface SaveItemAction extends PayloadAction<string, energyxItem> {
+export interface SaveItemAction extends PayloadAction<string, EnergyxItem> {
     type: ActionTypes.SAVE_energyx_ITEM
 }
 

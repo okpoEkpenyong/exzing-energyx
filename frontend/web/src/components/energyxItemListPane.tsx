@@ -1,29 +1,29 @@
-import { CommandBar, DetailsList, DetailsListLayoutMode, IStackStyles, Selection, Label, Spinner, SpinnerSize, Stack, IIconProps, SearchBox, Text, IGroup, IColumn, MarqueeSelection, FontIcon, IObjectWithKey, CheckboxVisibility, IDetailsGroupRenderProps, getTheme } from '@fluentui/react';
-import { ReactElement, useEffect, useState, FormEvent, FC } from 'react';
+import { CheckboxVisibility, CommandBar, DetailsList, DetailsListLayoutMode, FontIcon, getTheme, IColumn, IDetailsGroupRenderProps, IGroup, IIconProps, IObjectWithKey, IStackStyles, Label, MarqueeSelection, SearchBox, Selection, Spinner, SpinnerSize, Stack, Text } from '@fluentui/react';
+import { FC, FormEvent, ReactElement, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import { energyxItem, energyxItemState, energyxList } from '../models';
+import { EnergyxItem, EnergyxItemState, EnergyxList } from '../models';
 import { stackItemPadding } from '../ux/styles';
 
-interface energyxItemListPaneProps {
-    list?: energyxList
-    items?: energyxItem[]
-    selectedItem?: energyxItem;
+interface EnergyxItemListPaneProps {
+    list?: EnergyxList
+    items?: EnergyxItem[]
+    selectedItem?: EnergyxItem;
     disabled: boolean
-    onCreated: (item: energyxItem) => void
-    onDelete: (item: energyxItem) => void
-    onComplete: (item: energyxItem) => void
-    onSelect: (item?: energyxItem) => void
+    onCreated: (item: EnergyxItem) => void
+    onDelete: (item: EnergyxItem) => void
+    onComplete: (item: EnergyxItem) => void
+    onSelect: (item?: EnergyxItem) => void
 }
 
 interface energyxDisplayItem extends IObjectWithKey {
     id?: string
     listId: string
     name: string
-    state: energyxItemState
+    state: EnergyxItemState
     description?: string
     dueDate: Date | string
     completedDate: Date | string
-    data: energyxItem
+    data: EnergyxItem
     createdDate?: Date
     updatedDate?: Date
 }
@@ -36,7 +36,7 @@ const addIconProps: IIconProps = {
     }
 };
 
-const createListItems = (items: energyxItem[]): energyxDisplayItem[] => {
+const createListItems = (items: EnergyxItem[]): energyxDisplayItem[] => {
     return items.map(item => ({
         ...item,
         key: item.id,
@@ -52,12 +52,12 @@ const stackStyles: IStackStyles = {
     }
 }
 
-const energyxItemListPane: FC<energyxItemListPaneProps> = (props: energyxItemListPaneProps): ReactElement => {
+const energyxItemListPane: FC<EnergyxItemListPaneProps> = (props: EnergyxItemListPaneProps): ReactElement => {
     const theme = getTheme();
     const navigate = useNavigate();
     const [newItemName, setNewItemName] = useState('');
     const [items, setItems] = useState(createListItems(props.items || []));
-    const [selectedItems, setSelectedItems] = useState<energyxItem[]>([]);
+    const [selectedItems, setSelectedItems] = useState<EnergyxItem[]>([]);
     const [isDoneCategoryCollapsed, setIsDoneCategoryCollapsed] = useState(true);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -92,7 +92,7 @@ const energyxItemListPane: FC<energyxItemListPaneProps> = (props: energyxItemLis
             selection.setKeySelected(props.selectedItem.id, true, true);
         }
 
-        const doneItems = selectedItems.filter(i => i.state === energyxItemState.Done);
+        const doneItems = selectedItems.filter(i => i.state === EnergyxItemState.Done);
         if (doneItems.length > 0) {
             setIsDoneCategoryCollapsed(false);
         }
@@ -101,22 +101,22 @@ const energyxItemListPane: FC<energyxItemListPaneProps> = (props: energyxItemLis
 
     const groups: IGroup[] = [
         {
-            key: energyxItemState.energyx,
+            key: EnergyxItemState.energyx,
             name: 'energyx',
-            count: items.filter(i => i.state === energyxItemState.energyx).length,
-            startIndex: items.findIndex(i => i.state === energyxItemState.energyx),
+            count: items.filter(i => i.state === EnergyxItemState.energyx).length,
+            startIndex: items.findIndex(i => i.state === EnergyxItemState.energyx),
         },
         {
-            key: energyxItemState.InProgress,
+            key: EnergyxItemState.InProgress,
             name: 'In Progress',
-            count: items.filter(i => i.state === energyxItemState.InProgress).length,
-            startIndex: items.findIndex(i => i.state === energyxItemState.InProgress)
+            count: items.filter(i => i.state === EnergyxItemState.InProgress).length,
+            startIndex: items.findIndex(i => i.state === EnergyxItemState.InProgress)
         },
         {
-            key: energyxItemState.Done,
+            key: EnergyxItemState.Done,
             name: 'Done',
-            count: items.filter(i => i.state === energyxItemState.Done).length,
-            startIndex: items.findIndex(i => i.state === energyxItemState.Done),
+            count: items.filter(i => i.state === EnergyxItemState.Done).length,
+            startIndex: items.findIndex(i => i.state === EnergyxItemState.Done),
             isCollapsed: isDoneCategoryCollapsed
         },
     ]
@@ -125,10 +125,10 @@ const energyxItemListPane: FC<energyxItemListPaneProps> = (props: energyxItemLis
         evt.preventDefault();
 
         if (newItemName && props.onCreated) {
-            const item: energyxItem = {
+            const item: EnergyxItem = {
                 name: newItemName,
                 listId: props.list?.id || '',
-                state: energyxItemState.energyx,
+                state: EnergyxItemState.energyx,
             }
             props.onCreated(item);
             setNewItemName('');
@@ -243,7 +243,7 @@ const energyxItemListPane: FC<energyxItemListPaneProps> = (props: energyxItemLis
             {!props.items &&
                 <Stack.Item align="center" tokens={stackItemPadding}>
                     <Label>Loading List Items...</Label>
-                    <Spinner size={SpinnerSize.large} labelPosition="top" /> 
+                    <Spinner size={SpinnerSize.large} labelPosition="top" />
                 </Stack.Item>
             }
             {props.items && items.length === 0 &&

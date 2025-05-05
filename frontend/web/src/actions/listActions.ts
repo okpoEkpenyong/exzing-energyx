@@ -1,23 +1,23 @@
 import { Dispatch } from "react";
-import { energyxList } from "../models";
+import config from "../config";
+import { EnergyxList } from "../models";
 import { ListService } from "../services/listService";
-import { ActionTypes } from "./common";
-import config from "../config"
 import { trackEvent } from "../services/telemetryService";
 import { ActionMethod, createPayloadAction, PayloadAction } from "./actionCreators";
+import { ActionTypes } from "./common";
 import { QueryOptions } from "./itemActions";
 
 const listService = new ListService(config.api.baseUrl, '/lists');
 
 export interface ListActions {
-    list(options?: QueryOptions): Promise<energyxList[]>
-    load(id: string): Promise<energyxList>
-    select(list: energyxList): Promise<energyxList>
-    save(list: energyxList): Promise<energyxList>
+    list(options?: QueryOptions): Promise<EnergyxList[]>
+    load(id: string): Promise<EnergyxList>
+    select(list: EnergyxList): Promise<EnergyxList>
+    save(list: EnergyxList): Promise<EnergyxList>
     remove(id: string): Promise<void>
 }
 
-export const list = (options?: QueryOptions): ActionMethod<energyxList[]> => async (dispatch: Dispatch<ListListsAction>) => {
+export const list = (options?: QueryOptions): ActionMethod<EnergyxList[]> => async (dispatch: Dispatch<ListListsAction>) => {
     const lists = await listService.getList(options);
 
     dispatch(listListsAction(lists));
@@ -25,13 +25,13 @@ export const list = (options?: QueryOptions): ActionMethod<energyxList[]> => asy
     return lists;
 }
 
-export const select = (list: energyxList): ActionMethod<energyxList> => (dispatch: Dispatch<SelectListAction>) => {
+export const select = (list: EnergyxList): ActionMethod<EnergyxList> => (dispatch: Dispatch<SelectListAction>) => {
     dispatch(selectListAction(list));
 
     return Promise.resolve(list);
 }
 
-export const load = (id: string): ActionMethod<energyxList> => async (dispatch: Dispatch<LoadListAction>) => {
+export const load = (id: string): ActionMethod<EnergyxList> => async (dispatch: Dispatch<LoadListAction>) => {
     const list = await listService.get(id);
 
     dispatch(loadListAction(list));
@@ -39,7 +39,7 @@ export const load = (id: string): ActionMethod<energyxList> => async (dispatch: 
     return list;
 }
 
-export const save = (list: energyxList): ActionMethod<energyxList> => async (dispatch: Dispatch<SaveListAction>) => {
+export const save = (list: EnergyxList): ActionMethod<EnergyxList> => async (dispatch: Dispatch<SaveListAction>) => {
     const newList = await listService.save(list);
 
     dispatch(saveListAction(newList));
@@ -55,19 +55,19 @@ export const remove = (id: string): ActionMethod<void> => async (dispatch: Dispa
     dispatch(deleteListAction(id));
 }
 
-export interface ListListsAction extends PayloadAction<string, energyxList[]> {
+export interface ListListsAction extends PayloadAction<string, EnergyxList[]> {
     type: ActionTypes.LOAD_energyx_LISTS
 }
 
-export interface SelectListAction extends PayloadAction<string, energyxList | undefined> {
+export interface SelectListAction extends PayloadAction<string, EnergyxList | undefined> {
     type: ActionTypes.SELECT_energyx_LIST
 }
 
-export interface LoadListAction extends PayloadAction<string, energyxList> {
+export interface LoadListAction extends PayloadAction<string, EnergyxList> {
     type: ActionTypes.LOAD_energyx_LIST
 }
 
-export interface SaveListAction extends PayloadAction<string, energyxList> {
+export interface SaveListAction extends PayloadAction<string, EnergyxList> {
     type: ActionTypes.SAVE_energyx_LIST
 }
 

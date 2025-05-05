@@ -1,14 +1,14 @@
-export enum energyxItemState {
+export enum EnergyxItemState {
     energyx = "energyx",
     InProgress = "inprogress",
     Done = "done"
 }
 
-export interface energyxItem {
+export interface EnergyxItem {
     id?: string
     listId: string
     name: string
-    state: energyxItemState
+    state: EnergyxItemState
     description?: string
     dueDate?: Date
     completedDate?:Date

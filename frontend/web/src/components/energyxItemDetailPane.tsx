@@ -1,35 +1,35 @@
 import { Text, DatePicker, Stack, TextField, PrimaryButton, DefaultButton, Dropdown, IDropdownOption, FontIcon } from '@fluentui/react';
 import { useEffect, useState, FC, ReactElement, MouseEvent, FormEvent } from 'react';
-import { energyxItem, energyxItemState } from '../models';
+import { EnergyxItem, EnergyxItemState } from '../models';
 import { stackGaps, stackItemMargin, stackItemPadding, titleStackStyles } from '../ux/styles';
 
-interface energyxItemDetailPaneProps {
-    item?: energyxItem;
-    onEdit: (item: energyxItem) => void
+interface EnergyxItemDetailPaneProps {
+    item?: EnergyxItem;
+    onEdit: (item: EnergyxItem) => void
     onCancel: () => void
 }
 
-export const energyxItemDetailPane: FC<energyxItemDetailPaneProps> = (props: energyxItemDetailPaneProps): ReactElement => {
+export const EnergyxItemDetailPane: FC<EnergyxItemDetailPaneProps> = (props: EnergyxItemDetailPaneProps): ReactElement => {
     const [name, setName] = useState(props.item?.name || '');
     const [description, setDescription] = useState(props.item?.description);
     const [dueDate, setDueDate] = useState(props.item?.dueDate);
-    const [state, setState] = useState(props.item?.state || energyxItemState.energyx);
+    const [state, setState] = useState(props.item?.state || EnergyxItemState.energyx);
 
     useEffect(() => {
         setName(props.item?.name || '');
         setDescription(props.item?.description);
         setDueDate(props.item?.dueDate ? new Date(props.item?.dueDate) : undefined);
-        setState(props.item?.state || energyxItemState.energyx);
+        setState(props.item?.state || EnergyxItemState.energyx);
     }, [props.item]);
 
-    const saveenergyxItem = (evt: MouseEvent<HTMLButtonElement>) => {
+    const saveEnergyxItem = (evt: MouseEvent<HTMLButtonElement>) => {
         evt.preventDefault();
 
         if (!props.item?.id) {
             return;
         }
 
-        const energyxItem: energyxItem = {
+        const energyxItem: EnergyxItem = {
             id: props.item.id,
             listId: props.item.listId,
             name: name,
@@ -47,7 +47,7 @@ export const energyxItemDetailPane: FC<energyxItemDetailPaneProps> = (props: ene
 
     const onStateChange = (_evt: FormEvent<HTMLDivElement>, value?: IDropdownOption) => {
         if (value) {
-            setState(value.key as energyxItemState);
+            setState(value.key as EnergyxItemState);
         }
     }
 
@@ -56,9 +56,9 @@ export const energyxItemDetailPane: FC<energyxItemDetailPaneProps> = (props: ene
     }
 
     const energyxStateOptions: IDropdownOption[] = [
-        { key: energyxItemState.energyx, text: 'To Do' },
-        { key: energyxItemState.InProgress, text: 'In Progress' },
-        { key: energyxItemState.Done, text: 'Done' },
+        { key: EnergyxItemState.energyx, text: 'To Do' },
+        { key: EnergyxItemState.InProgress, text: 'In Progress' },
+        { key: EnergyxItemState.Done, text: 'Done' },
     ];
 
     return (
@@ -77,7 +77,7 @@ export const energyxItemDetailPane: FC<energyxItemDetailPaneProps> = (props: ene
                     </Stack.Item>
                     <Stack.Item tokens={stackItemMargin}>
                         <Stack horizontal tokens={stackGaps}>
-                            <PrimaryButton text="Save" onClick={saveenergyxItem} />
+                            <PrimaryButton text="Save" onClick={saveEnergyxItem} />
                             <DefaultButton text="Cancel" onClick={cancelEdit} />
                         </Stack>
                     </Stack.Item>
@@ -92,4 +92,4 @@ export const energyxItemDetailPane: FC<energyxItemDetailPaneProps> = (props: ene
     );
 }
 
-export default energyxItemDetailPane;
+export default EnergyxItemDetailPane;

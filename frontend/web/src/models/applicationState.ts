@@ -1,17 +1,17 @@
 import { Dispatch } from "react";
-import { energyxActions } from "../actions/common";
-import { energyxItem } from "./energyxItem";
-import { energyxList } from "./energyxList";
+import { EnergyxActions } from "../actions/common";
+import { EnergyxItem } from "./energyxItem";
+import { EnergyxList } from "./energyxList";
 
 export interface AppContext {
     state: ApplicationState
-    dispatch: Dispatch<energyxActions>
+    dispatch: Dispatch<EnergyxActions>
 }
 
 export interface ApplicationState {
-    lists?: energyxList[]
-    selectedList?: energyxList
-    selectedItem?: energyxItem
+    lists?: EnergyxList[]
+    selectedList?: EnergyxList
+    selectedItem?: EnergyxItem
 }
 
 export const getDefaultState = (): ApplicationState => {

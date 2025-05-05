@@ -1,8 +1,8 @@
 import { Reducer } from "react";
-import { ActionTypes, energyxActions } from "../actions/common";
-import { energyxList } from "../models"
+import { ActionTypes, EnergyxActions } from "../actions/common";
+import { EnergyxList } from "../models";
 
-export const selectedListReducer: Reducer<energyxList | undefined, energyxActions> = (state: energyxList | undefined, action: energyxActions) => {
+export const selectedListReducer: Reducer<EnergyxList | undefined, EnergyxActions> = (state: EnergyxList | undefined, action: EnergyxActions) => {
     switch (action.type) {
         case ActionTypes.SELECT_energyx_LIST:
         case ActionTypes.LOAD_energyx_LIST:

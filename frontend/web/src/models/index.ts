@@ -1,2 +1,2 @@
-export * from './enerrgyxItem';
+export * from './energyxItem';
 export * from './energyxList';

@@ -1,7 +1,7 @@
+import { EnergyxList } from '../models';
 import { RestService } from './restService';
-import { energyxList } from '../models';
 
-export class ListService extends RestService<energyxList> {
+export class ListService extends RestService<EnergyxList> {
     public constructor(baseUrl: string, baseRoute: string) {
         super(baseUrl, baseRoute);
     }

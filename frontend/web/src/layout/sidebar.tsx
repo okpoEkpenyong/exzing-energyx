@@ -1,11 +1,11 @@
 import { FC, ReactElement } from 'react';
 // import energyxListMenu from '../components/energyxListMenu';
-import { energyxList } from '../models/energyxList';
+import { EnergyxList } from '../models/energyxList';
 
 interface SidebarProps {
-    selectedList?: energyxList
-    lists?: energyxList[];
-    onListCreate: (list: energyxList) => void
+    selectedList?: EnergyxList
+    lists?: EnergyxList[];
+    onListCreate: (list: EnergyxList) => void
 }
 
 const Sidebar: FC<SidebarProps> = (props: SidebarProps): ReactElement => {
