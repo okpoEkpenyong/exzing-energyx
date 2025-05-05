@@ -6,9 +6,9 @@
 			"type": "python",
 			"request": "launch",
 			"module": "uvicorn",
-            "cwd": "${workspaceFolder}/todo",
+            "cwd": "${workspaceFolder}/energyx",
 			"args": [
-				"todo.app:app",
+				"energyx.app:app",
 				"--reload"
 			],
 		},
@@ -17,7 +17,7 @@
 			"type": "python",
 			"request": "launch",
 			"module": "pytest",
-            "cwd": "${workspaceFolder}/todo",
+            "cwd": "${workspaceFolder}/energyx",
 			"args": [
 				"${workspaceFolder}/tests", 
                 "-vv"

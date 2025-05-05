@@ -1,10 +1,10 @@
 import { useEffect, useContext, useMemo, useState, Fragment } from 'react';
 import { IconButton, IContextualMenuProps, IIconProps, Stack, Text, Shimmer, ShimmerElementType } from '@fluentui/react';
-import TodoItemListPane from '../components/todoItemListPane.tsx';
-import { TodoItem, TodoItemState } from '../models/index.ts';
+// import energyxItemListPane from '../components/energyxItemListPane.tsx';
+import { energyxItem, energyxItemState } from '../models/index.ts';
 import * as itemActions from '../actions/itemActions.ts';
 import * as listActions from '../actions/listActions.ts';
-import { TodoContext } from '../components/todoContext.ts';
+import { energyxContext } from '../components/energyxContext.ts';
 import { AppContext } from '../models/applicationState.ts';
 import { ItemActions } from '../actions/itemActions.ts';
 import { ListActions } from '../actions/listActions.ts';
@@ -15,7 +15,7 @@ import WithApplicationInsights from '../components/telemetryWithAppInsights.tsx'
 
 const HomePage = () => {
     const navigate = useNavigate();
-    const appContext = useContext<AppContext>(TodoContext)
+    const appContext = useContext<AppContext>(energyxContext)
     const { listId, itemId } = useParams();
     const actions = useMemo(() => ({
         lists: bindActionCreators(listActions, appContext.dispatch) as unknown as ListActions,
@@ -65,21 +65,21 @@ const HomePage = () => {
         }
     }, [actions.items, appContext.state.selectedList?.id, appContext.state.selectedList?.items])
 
-    const onItemCreated = async (item: TodoItem) => {
+    const onItemCreated = async (item: energyxItem) => {
         return await actions.items.save(item.listId, item);
     }
 
-    const onItemCompleted = (item: TodoItem) => {
-        item.state = TodoItemState.Done;
+    const onItemCompleted = (item: energyxItem) => {
+        item.state = energyxItemState.Done;
         item.completedDate = new Date();
         actions.items.save(item.listId, item);
     }
 
-    const onItemSelected = (item?: TodoItem) => {
+    const onItemSelected = (item?: energyxItem) => {
         actions.items.select(item);
     }
 
-    const onItemDeleted = (item: TodoItem) => {
+    const onItemDeleted = (item: energyxItem) => {
         if (item.id) {
             actions.items.remove(item.listId, item);
             navigate(`/lists/${item.listId}`);
@@ -143,7 +143,7 @@ const HomePage = () => {
                 </Stack>
             </Stack.Item>
             <Stack.Item tokens={stackItemPadding}>
-                <TodoItemListPane
+                <energyxItemListPane
                     list={appContext.state.selectedList}
                     items={appContext.state.selectedList?.items}
                     selectedItem={appContext.state.selectedItem}

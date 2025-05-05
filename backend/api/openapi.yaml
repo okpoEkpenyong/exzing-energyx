@@ -1,14 +1,14 @@
 openapi: 3.0.0
 info:
-  description: Simple Todo API
+  description: Simple energyx API
   version: 3.0.0
-  title: Simple Todo API
+  title: Simple energyx API
   contact:
     email: azdevteam@microsoft.com
 
 components:
   schemas:
-    TodoItem:
+    energyxItem:
       type: object
       required:
         - listId
@@ -25,14 +25,14 @@ components:
         description:
           type: string
         state:
-          $ref: "#/components/schemas/TodoState"
+          $ref: "#/components/schemas/energyxState"
         dueDate:
           type: string
           format: date-time
         completedDate:
           type: string
           format: date-time
-    TodoList:
+    energyxList:
       type: object
       required:
         - name
@@ -43,11 +43,11 @@ components:
           type: string
         description:
           type: string
-      description: " A list of related Todo items"
-    TodoState:
+      description: " A list of related energyx items"
+    energyxState:
       type: string
       enum:
-        - todo
+        - energyx
         - inprogress
         - done
   parameters:
@@ -55,23 +55,23 @@ components:
       in: path
       required: true
       name: listId
-      description: The Todo list unique identifier
+      description: The energyx list unique identifier
       schema:
         type: string
     itemId:
       in: path
       required: true
       name: itemId
-      description: The Todo item unique identifier
+      description: The energyx item unique identifier
       schema:
         type: string
     state:
       in: path
       required: true
       name: state
-      description: The Todo item state
+      description: The energyx item state
       schema:
-        $ref: "#/components/schemas/TodoState"
+        $ref: "#/components/schemas/energyxState"
     top:
       in: query
       required: false
@@ -90,54 +90,54 @@ components:
         default: 0
 
   requestBodies:
-    TodoList:
-      description: The Todo List
+    energyxList:
+      description: The energyx List
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/TodoList"
-    TodoItem:
-      description: The Todo Item
+            $ref: "#/components/schemas/energyxList"
+    energyxItem:
+      description: The energyx Item
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/TodoItem"
+            $ref: "#/components/schemas/energyxItem"
 
   responses:
-    TodoList:
-      description: A Todo list result
+    energyxList:
+      description: A energyx list result
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/TodoList"
-    TodoListArray:
-      description: An array of Todo lists
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: "#/components/schemas/TodoList"
-    TodoItem:
-      description: A Todo item result
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/TodoItem"
-    TodoItemArray:
-      description: An array of Todo items
+            $ref: "#/components/schemas/energyxList"
+    energyxListArray:
+      description: An array of energyx lists
       content:
         application/json:
           schema:
             type: array
             items:
-              $ref: "#/components/schemas/TodoItem"
+              $ref: "#/components/schemas/energyxList"
+    energyxItem:
+      description: A energyx item result
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/energyxItem"
+    energyxItemArray:
+      description: An array of energyx items
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/energyxItem"
 
 paths:
   /lists:
     get:
       operationId: GetLists
-      summary: Gets an array of Todo lists
+      summary: Gets an array of energyx lists
       tags:
         - Lists
       parameters:
@@ -145,78 +145,78 @@ paths:
         - $ref: "#/components/parameters/skip"
       responses:
         200:
-          $ref: "#/components/responses/TodoListArray"
+          $ref: "#/components/responses/energyxListArray"
     post:
       operationId: CreateList
-      summary: Creates a new Todo list
+      summary: Creates a new energyx list
       tags:
         - Lists
       requestBody:
-        $ref: "#/components/requestBodies/TodoList"
+        $ref: "#/components/requestBodies/energyxList"
       responses:
         201:
-          $ref: "#/components/responses/TodoList"
+          $ref: "#/components/responses/energyxList"
         400:
           description: Invalid request schema
   /lists/{listId}:
     get:
       operationId: GetListById
-      summary: Gets a Todo list by unique identifier
+      summary: Gets a energyx list by unique identifier
       tags:
         - Lists
       parameters:
         - $ref: "#/components/parameters/listId"
       responses:
         200:
-          $ref: "#/components/responses/TodoList"
+          $ref: "#/components/responses/energyxList"
         404:
-          description: Todo list not found
+          description: energyx list not found
     put:
       operationId: UpdateListById
-      summary: Updates a Todo list by unique identifier
+      summary: Updates a energyx list by unique identifier
       tags:
         - Lists
       requestBody:
-        $ref: "#/components/requestBodies/TodoList"
+        $ref: "#/components/requestBodies/energyxList"
       parameters:
         - $ref: "#/components/parameters/listId"
       responses:
         200:
-          $ref: "#/components/responses/TodoList"
+          $ref: "#/components/responses/energyxList"
         404:
-          description: Todo list not found
+          description: energyx list not found
         400:
-          description: Todo list is invalid
+          description: energyx list is invalid
     delete:
       operationId: DeleteListById
-      summary: Deletes a Todo list by unique identifier
+      summary: Deletes a energyx list by unique identifier
       tags:
         - Lists
       parameters:
         - $ref: "#/components/parameters/listId"
       responses:
         204:
-          description: Todo list deleted successfully
+          description: energyx list deleted successfully
         404:
-          description: Todo list not found
+          description: energyx list not found
   /lists/{listId}/items:
     post:
       operationId: CreateItem
-      summary: Creates a new Todo item within a list
+      summary: Creates a new energyx item within a list
       tags:
         - Items
       requestBody:
-        $ref: "#/components/requestBodies/TodoItem"
+        $ref: "#/components/requestBodies/energyxItem"
       parameters:
         - $ref: "#/components/parameters/listId"
       responses:
         201:
-          $ref: "#/components/responses/TodoItem"
+          $ref: "#/components/responses/energyxItem"
         404:
-          description: Todo list not found
+          description: energyx list not found
     get:
       operationId: GetItemsByListId
-      summary: Gets Todo items within the specified list
+      summary: Gets energyx items within the specified list
       tags:
         - Items
       parameters:
@@ -225,13 +225,13 @@ paths:
         - $ref: "#/components/parameters/skip"
       responses:
         200:
-          $ref: "#/components/responses/TodoItemArray"
+          $ref: "#/components/responses/energyxItemArray"
         404:
-          description: Todo list not found
+          description: energyx list not found
   /lists/{listId}/items/{itemId}:
     get:
       operationId: GetItemById
-      summary: Gets a Todo item by unique identifier
+      summary: Gets a energyx item by unique identifier
       tags:
         - Items
       parameters:
@@ -239,29 +239,29 @@ paths:
         - $ref: "#/components/parameters/itemId"
       responses:
         200:
-          $ref: "#/components/responses/TodoItem"
+          $ref: "#/components/responses/energyxItem"
         404:
-          description: Todo list or item not found
+          description: energyx list or item not found
     put:
       operationId: UpdateItemById
-      summary: Updates a Todo item by unique identifier
+      summary: Updates a energyx item by unique identifier
       tags:
         - Items
       requestBody:
-        $ref: "#/components/requestBodies/TodoItem"
+        $ref: "#/components/requestBodies/energyxItem"
       parameters:
         - $ref: "#/components/parameters/listId"
         - $ref: "#/components/parameters/itemId"
       responses:
         200:
-          $ref: "#/components/responses/TodoItem"
+          $ref: "#/components/responses/energyxItem"
         400:
-          description: Todo item is invalid
+          description: energyx item is invalid
         404:
-          description: Todo list or item not found
+          description: energyx list or item not found
     delete:
       operationId: DeleteItemById
-      summary: Deletes a Todo item by unique identifier
+      summary: Deletes a energyx item by unique identifier
       tags:
         - Items
       parameters:
@@ -269,13 +269,13 @@ paths:
         - $ref: "#/components/parameters/itemId"
       responses:
         204:
-          description: Todo item deleted successfully
+          description: energyx item deleted successfully
         404:
-          description: Todo list or item not found
+          description: energyx list or item not found
   /lists/{listId}/items/state/{state}:
     get:
       operationId: GetItemsByListIdAndState
-      summary: Gets a list of Todo items of a specific state
+      summary: Gets a list of energyx items of a specific state
       tags:
         - Items
       parameters:
@@ -285,28 +285,28 @@ paths:
         - $ref: "#/components/parameters/skip"
       responses:
         200:
-          $ref: "#/components/responses/TodoItemArray"
+          $ref: "#/components/responses/energyxItemArray"
         404:
-          description: Todo list or item not found
+          description: energyx list or item not found
     put:
       operationId: UpdateItemsStateByListId
       summary: Changes the state of the specified list items
       tags:
         - Items
       requestBody:
-        description: unique identifiers of the Todo items to update
+        description: unique identifiers of the energyx items to update
         content:
           application/json:
             schema:
               type: array
               items:
-                description: The Todo item unique identifier
+                description: The energyx item unique identifier
                 type: string
       parameters:
         - $ref: "#/components/parameters/listId"
         - $ref: "#/components/parameters/state"
       responses:
         204:
-          description: Todo items updated
+          description: energyx items updated
         400:
           description: Update request is invalid

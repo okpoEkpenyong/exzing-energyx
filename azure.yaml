@@ -1,8 +1,8 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
 
-name: todo-python-mongo-aca
+name: exzing-energyx
 metadata:
-  template: todo-python-mongo-aca@0.0.1-beta
+  template: exzing-energyx@0.1.0
 workflows:
   up: 
     steps:
@@ -39,4 +39,3 @@ hooks:
     posix:
       shell: sh
       run: 'rm ./frontend/web/.env.local'
-

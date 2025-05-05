@@ -1,9 +1,9 @@
-import { TodoItem } from "./todoItem";
+import { energyxItem } from "./energyxItem";
 
-export interface TodoList {
+export interface energyxList {
     id?: string
     name: string
-    items?: TodoItem[]
+    items?: energyxItem[]
     description?: string
     createdDate?: Date
     updatedDate?: Date

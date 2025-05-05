@@ -1,29 +1,29 @@
 import { CommandBar, DetailsList, DetailsListLayoutMode, IStackStyles, Selection, Label, Spinner, SpinnerSize, Stack, IIconProps, SearchBox, Text, IGroup, IColumn, MarqueeSelection, FontIcon, IObjectWithKey, CheckboxVisibility, IDetailsGroupRenderProps, getTheme } from '@fluentui/react';
 import { ReactElement, useEffect, useState, FormEvent, FC } from 'react';
 import { useNavigate } from 'react-router';
-import { TodoItem, TodoItemState, TodoList } from '../models';
+import { energyxItem, energyxItemState, energyxList } from '../models';
 import { stackItemPadding } from '../ux/styles';
 
-interface TodoItemListPaneProps {
-    list?: TodoList
-    items?: TodoItem[]
-    selectedItem?: TodoItem;
+interface energyxItemListPaneProps {
+    list?: energyxList
+    items?: energyxItem[]
+    selectedItem?: energyxItem;
     disabled: boolean
-    onCreated: (item: TodoItem) => void
-    onDelete: (item: TodoItem) => void
-    onComplete: (item: TodoItem) => void
-    onSelect: (item?: TodoItem) => void
+    onCreated: (item: energyxItem) => void
+    onDelete: (item: energyxItem) => void
+    onComplete: (item: energyxItem) => void
+    onSelect: (item?: energyxItem) => void
 }
 
-interface TodoDisplayItem extends IObjectWithKey {
+interface energyxDisplayItem extends IObjectWithKey {
     id?: string
     listId: string
     name: string
-    state: TodoItemState
+    state: energyxItemState
     description?: string
     dueDate: Date | string
     completedDate: Date | string
-    data: TodoItem
+    data: energyxItem
     createdDate?: Date
     updatedDate?: Date
 }
@@ -36,7 +36,7 @@ const addIconProps: IIconProps = {
     }
 };
 
-const createListItems = (items: TodoItem[]): TodoDisplayItem[] => {
+const createListItems = (items: energyxItem[]): energyxDisplayItem[] => {
     return items.map(item => ({
         ...item,
         key: item.id,
@@ -52,18 +52,18 @@ const stackStyles: IStackStyles = {
     }
 }
 
-const TodoItemListPane: FC<TodoItemListPaneProps> = (props: TodoItemListPaneProps): ReactElement => {
+const energyxItemListPane: FC<energyxItemListPaneProps> = (props: energyxItemListPaneProps): ReactElement => {
     const theme = getTheme();
     const navigate = useNavigate();
     const [newItemName, setNewItemName] = useState('');
     const [items, setItems] = useState(createListItems(props.items || []));
-    const [selectedItems, setSelectedItems] = useState<TodoItem[]>([]);
+    const [selectedItems, setSelectedItems] = useState<energyxItem[]>([]);
     const [isDoneCategoryCollapsed, setIsDoneCategoryCollapsed] = useState(true);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const selection = new Selection({
         onSelectionChanged: () => {
-            const selectedItems = selection.getSelection().map(item => (item as TodoDisplayItem).data);
+            const selectedItems = selection.getSelection().map(item => (item as energyxDisplayItem).data);
             setSelectedItems(selectedItems);
         }
     });
@@ -92,7 +92,7 @@ const TodoItemListPane: FC<TodoItemListPaneProps> = (props: TodoItemListPaneProp
             selection.setKeySelected(props.selectedItem.id, true, true);
         }
 
-        const doneItems = selectedItems.filter(i => i.state === TodoItemState.Done);
+        const doneItems = selectedItems.filter(i => i.state === energyxItemState.Done);
         if (doneItems.length > 0) {
             setIsDoneCategoryCollapsed(false);
         }
@@ -101,22 +101,22 @@ const TodoItemListPane: FC<TodoItemListPaneProps> = (props: TodoItemListPaneProp
 
     const groups: IGroup[] = [
         {
-            key: TodoItemState.Todo,
-            name: 'Todo',
-            count: items.filter(i => i.state === TodoItemState.Todo).length,
-            startIndex: items.findIndex(i => i.state === TodoItemState.Todo),
+            key: energyxItemState.energyx,
+            name: 'energyx',
+            count: items.filter(i => i.state === energyxItemState.energyx).length,
+            startIndex: items.findIndex(i => i.state === energyxItemState.energyx),
         },
         {
-            key: TodoItemState.InProgress,
+            key: energyxItemState.InProgress,
             name: 'In Progress',
-            count: items.filter(i => i.state === TodoItemState.InProgress).length,
-            startIndex: items.findIndex(i => i.state === TodoItemState.InProgress)
+            count: items.filter(i => i.state === energyxItemState.InProgress).length,
+            startIndex: items.findIndex(i => i.state === energyxItemState.InProgress)
         },
         {
-            key: TodoItemState.Done,
+            key: energyxItemState.Done,
             name: 'Done',
-            count: items.filter(i => i.state === TodoItemState.Done).length,
-            startIndex: items.findIndex(i => i.state === TodoItemState.Done),
+            count: items.filter(i => i.state === energyxItemState.Done).length,
+            startIndex: items.findIndex(i => i.state === energyxItemState.Done),
             isCollapsed: isDoneCategoryCollapsed
         },
     ]
@@ -125,10 +125,10 @@ const TodoItemListPane: FC<TodoItemListPaneProps> = (props: TodoItemListPaneProp
         evt.preventDefault();
 
         if (newItemName && props.onCreated) {
-            const item: TodoItem = {
+            const item: energyxItem = {
                 name: newItemName,
                 listId: props.list?.id || '',
-                state: TodoItemState.Todo,
+                state: energyxItemState.energyx,
             }
             props.onCreated(item);
             setNewItemName('');
@@ -139,7 +139,7 @@ const TodoItemListPane: FC<TodoItemListPaneProps> = (props: TodoItemListPaneProp
         setNewItemName(value || '');
     }
 
-    const selectItem = (item: TodoDisplayItem) => {
+    const selectItem = (item: energyxDisplayItem) => {
         navigate(`/lists/${item.data.listId}/items/${item.data.id}`);
     }
 
@@ -167,8 +167,8 @@ const TodoItemListPane: FC<TodoItemListPaneProps> = (props: TodoItemListPaneProp
         }
     }
 
-    const renderItemColumn = (item: TodoDisplayItem, _index?: number, column?: IColumn) => {
-        const fieldContent = item[column?.fieldName as keyof TodoDisplayItem] as string;
+    const renderItemColumn = (item: energyxDisplayItem, _index?: number, column?: IColumn) => {
+        const fieldContent = item[column?.fieldName as keyof energyxDisplayItem] as string;
 
         switch (column?.key) {
             case "name":
@@ -214,7 +214,7 @@ const TodoItemListPane: FC<TodoItemListPaneProps> = (props: TodoItemListPaneProp
                                         onClick: () => { deleteItems() }
                                     }
                                 ]}
-                                ariaLabel="Todo actions" />
+                                ariaLabel="energyx actions" />
                         </Stack.Item>
                     </Stack>
                 </form>
@@ -255,4 +255,4 @@ const TodoItemListPane: FC<TodoItemListPaneProps> = (props: TodoItemListPaneProp
     );
 };
 
-export default TodoItemListPane;
+export default energyxItemListPane;

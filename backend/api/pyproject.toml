@@ -1,10 +1,10 @@
 [tool.poetry]
-name = "todo"
+name = "energyx"
 version = "0.1.0"
-description = "Simple Todo API"
+description = "Simple energyx API"
 license = "MIT"
 packages = [
-    { include = "todo" },
+    { include = "energyx" },
 ]
 
 [tool.poetry.dependencies]

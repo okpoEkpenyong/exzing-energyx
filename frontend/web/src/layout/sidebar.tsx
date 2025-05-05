@@ -1,17 +1,17 @@
 import { FC, ReactElement } from 'react';
-import TodoListMenu from '../components/todoListMenu';
-import { TodoList } from '../models/todoList';
+// import energyxListMenu from '../components/energyxListMenu';
+import { energyxList } from '../models/energyxList';
 
 interface SidebarProps {
-    selectedList?: TodoList
-    lists?: TodoList[];
-    onListCreate: (list: TodoList) => void
+    selectedList?: energyxList
+    lists?: energyxList[];
+    onListCreate: (list: energyxList) => void
 }
 
 const Sidebar: FC<SidebarProps> = (props: SidebarProps): ReactElement => {
     return (
         <div>
-            <TodoListMenu
+            <energyxListMenu
                 selectedList={props.selectedList}
                 lists={props.lists}
                 onCreate={props.onListCreate} />

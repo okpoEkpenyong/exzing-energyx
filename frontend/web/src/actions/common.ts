@@ -2,19 +2,19 @@ import * as itemActions from './itemActions';
 import * as listActions from './listActions';
 
 export enum ActionTypes {
-    LOAD_TODO_LISTS = "LOAD_TODO_LISTS",
-    LOAD_TODO_LIST = "LOAD_TODO_LIST",
-    SELECT_TODO_LIST = "SELECT_TODO_LIST",
-    SAVE_TODO_LIST = "SAVE_TODO_LIST",
-    DELETE_TODO_LIST = "DELETE_TODO_LIST",
-    LOAD_TODO_ITEMS = "LOAD_TODO_ITEMS",
-    LOAD_TODO_ITEM = "LOAD_TODO_ITEM",
-    SELECT_TODO_ITEM = "SELECT_TODO_ITEM",
-    SAVE_TODO_ITEM = "SAVE_TODO_ITEM",
-    DELETE_TODO_ITEM = "DELETE_TODO_ITEM"
+    LOAD_energyx_LISTS = "LOAD_energyx_LISTS",
+    LOAD_energyx_LIST = "LOAD_energyx_LIST",
+    SELECT_energyx_LIST = "SELECT_energyx_LIST",
+    SAVE_energyx_LIST = "SAVE_energyx_LIST",
+    DELETE_energyx_LIST = "DELETE_energyx_LIST",
+    LOAD_energyx_ITEMS = "LOAD_energyx_ITEMS",
+    LOAD_energyx_ITEM = "LOAD_energyx_ITEM",
+    SELECT_energyx_ITEM = "SELECT_energyx_ITEM",
+    SAVE_energyx_ITEM = "SAVE_energyx_ITEM",
+    DELETE_energyx_ITEM = "DELETE_energyx_ITEM"
 }
 
-export type TodoActions =
+export type energyxActions =
     itemActions.ListItemsAction |
     itemActions.SelectItemAction |
     itemActions.LoadItemAction |

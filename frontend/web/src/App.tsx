@@ -5,7 +5,7 @@ import './App.css';
 import { DarkTheme } from './ux/theme';
 import { AppContext, ApplicationState, getDefaultState } from './models/applicationState';
 import appReducer from './reducers';
-import { TodoContext } from './components/todoContext';
+import { energyxContext } from './components/energyxContext';
 import { initializeIcons } from '@fluentui/react/lib/Icons';
 import { ThemeProvider } from '@fluentui/react';
 import Telemetry from './components/telemetry';
@@ -19,13 +19,13 @@ const App: FC = () => {
 
   return (
     <ThemeProvider applyTo="body" theme={DarkTheme}>
-      <TodoContext.Provider value={initialContext}>
+      <energyxContext.Provider value={initialContext}>
         <BrowserRouter>
           <Telemetry>
             <Layout />
           </Telemetry>
         </BrowserRouter>
-      </TodoContext.Provider>
+      </energyxContext.Provider>
     </ThemeProvider>
   );
 };

@@ -27,7 +27,7 @@ class Settings(BaseSettings):
                 )
 
     AZURE_COSMOS_CONNECTION_STRING: str = ""
-    AZURE_COSMOS_DATABASE_NAME: str = "Todo"
+    AZURE_COSMOS_DATABASE_NAME: str = "energyx"
     AZURE_KEY_VAULT_ENDPOINT: Optional[str] = None
     APPLICATIONINSIGHTS_CONNECTION_STRING: Optional[str] = None
     APPLICATIONINSIGHTS_ROLENAME: Optional[str] = "API"
@@ -37,41 +37,41 @@ class Settings(BaseSettings):
         env_file_encoding = "utf-8"
 
 
-class TodoList(Document):
+class energyxList(Document):
     name: str
     description: Optional[str] = None
     createdDate: Optional[datetime] = None
     updatedDate: Optional[datetime] = None
 
 
-class CreateUpdateTodoList(BaseModel):
+class CreateUpdateenergyxList(BaseModel):
     name: str
     description: Optional[str] = None
 
 
-class TodoState(Enum):
-    TODO = "todo"
+class energyxState(Enum):
+    energyx = "energyx"
     INPROGRESS = "inprogress"
     DONE = "done"
 
 
-class TodoItem(Document):
+class energyxItem(Document):
     listId: PydanticObjectId
     name: str
     description: Optional[str] = None
-    state: Optional[TodoState] = None
+    state: Optional[energyxState] = None
     dueDate: Optional[datetime] = None
     completedDate: Optional[datetime] = None
     createdDate: Optional[datetime] = None
     updatedDate: Optional[datetime] = None
 
 
-class CreateUpdateTodoItem(BaseModel):
+class CreateUpdateenergyxItem(BaseModel):
     name: str
     description: Optional[str] = None
-    state: Optional[TodoState] = None
+    state: Optional[energyxState] = None
     dueDate: Optional[datetime] = None
     completedDate: Optional[datetime] = None
 
 
-__beanie_models__ = [TodoList, TodoItem]
+__beanie_models__ = [energyxList, energyxItem]

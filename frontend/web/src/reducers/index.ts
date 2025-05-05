@@ -1,11 +1,11 @@
 import { Reducer } from "react";
-import { TodoActions } from "../actions/common";
+import { energyxActions } from "../actions/common";
 import { listsReducer } from "./listsReducer";
 import { selectedItemReducer } from "./selectedItemReducer";
 import { selectedListReducer } from "./selectedListReducer";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const combineReducers = (slices: {[key: string]: Reducer<any, TodoActions>}) => (prevState: any, action: TodoActions) =>
+const combineReducers = (slices: {[key: string]: Reducer<any, energyxActions>}) => (prevState: any, action: energyxActions) =>
     Object.keys(slices).reduce(
         (nextState, nextProp) => ({
             ...nextState,

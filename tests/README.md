@@ -1,6 +1,6 @@
-# ToDo Application Tests
+# energyx Application Tests
 
-The included [Playwright](https://playwright.dev/) smoke test will hit the ToDo app web endpoint, create, and delete an item.
+The included [Playwright](https://playwright.dev/) smoke test will hit the energyx app web endpoint, create, and delete an item.
 
 ## Run Tests
 

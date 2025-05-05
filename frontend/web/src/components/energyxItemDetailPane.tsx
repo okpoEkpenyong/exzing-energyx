@@ -1,35 +1,35 @@
 import { Text, DatePicker, Stack, TextField, PrimaryButton, DefaultButton, Dropdown, IDropdownOption, FontIcon } from '@fluentui/react';
 import { useEffect, useState, FC, ReactElement, MouseEvent, FormEvent } from 'react';
-import { TodoItem, TodoItemState } from '../models';
+import { energyxItem, energyxItemState } from '../models';
 import { stackGaps, stackItemMargin, stackItemPadding, titleStackStyles } from '../ux/styles';
 
-interface TodoItemDetailPaneProps {
-    item?: TodoItem;
-    onEdit: (item: TodoItem) => void
+interface energyxItemDetailPaneProps {
+    item?: energyxItem;
+    onEdit: (item: energyxItem) => void
     onCancel: () => void
 }
 
-export const TodoItemDetailPane: FC<TodoItemDetailPaneProps> = (props: TodoItemDetailPaneProps): ReactElement => {
+export const energyxItemDetailPane: FC<energyxItemDetailPaneProps> = (props: energyxItemDetailPaneProps): ReactElement => {
     const [name, setName] = useState(props.item?.name || '');
     const [description, setDescription] = useState(props.item?.description);
     const [dueDate, setDueDate] = useState(props.item?.dueDate);
-    const [state, setState] = useState(props.item?.state || TodoItemState.Todo);
+    const [state, setState] = useState(props.item?.state || energyxItemState.energyx);
 
     useEffect(() => {
         setName(props.item?.name || '');
         setDescription(props.item?.description);
         setDueDate(props.item?.dueDate ? new Date(props.item?.dueDate) : undefined);
-        setState(props.item?.state || TodoItemState.Todo);
+        setState(props.item?.state || energyxItemState.energyx);
     }, [props.item]);
 
-    const saveTodoItem = (evt: MouseEvent<HTMLButtonElement>) => {
+    const saveenergyxItem = (evt: MouseEvent<HTMLButtonElement>) => {
         evt.preventDefault();
 
         if (!props.item?.id) {
             return;
         }
 
-        const todoItem: TodoItem = {
+        const energyxItem: energyxItem = {
             id: props.item.id,
             listId: props.item.listId,
             name: name,
@@ -38,7 +38,7 @@ export const TodoItemDetailPane: FC<TodoItemDetailPaneProps> = (props: TodoItemD
             state: state,
         };
 
-        props.onEdit(todoItem);
+        props.onEdit(energyxItem);
     };
 
     const cancelEdit = () => {
@@ -47,7 +47,7 @@ export const TodoItemDetailPane: FC<TodoItemDetailPaneProps> = (props: TodoItemD
 
     const onStateChange = (_evt: FormEvent<HTMLDivElement>, value?: IDropdownOption) => {
         if (value) {
-            setState(value.key as TodoItemState);
+            setState(value.key as energyxItemState);
         }
     }
 
@@ -55,10 +55,10 @@ export const TodoItemDetailPane: FC<TodoItemDetailPaneProps> = (props: TodoItemD
         setDueDate(date || undefined);
     }
 
-    const todoStateOptions: IDropdownOption[] = [
-        { key: TodoItemState.Todo, text: 'To Do' },
-        { key: TodoItemState.InProgress, text: 'In Progress' },
-        { key: TodoItemState.Done, text: 'Done' },
+    const energyxStateOptions: IDropdownOption[] = [
+        { key: energyxItemState.energyx, text: 'To Do' },
+        { key: energyxItemState.InProgress, text: 'In Progress' },
+        { key: energyxItemState.Done, text: 'Done' },
     ];
 
     return (
@@ -72,12 +72,12 @@ export const TodoItemDetailPane: FC<TodoItemDetailPaneProps> = (props: TodoItemD
                     <Stack.Item tokens={stackItemMargin}>
                         <TextField label="Name" placeholder="Item name" required value={name} onChange={(_e, value) => setName(value || '')} />
                         <TextField label="Description" placeholder="Item description" multiline size={20} value={description || ''} onChange={(_e, value) => setDescription(value)} />
-                        <Dropdown label="State" options={todoStateOptions} required selectedKey={state} onChange={onStateChange} />
+                        <Dropdown label="State" options={energyxStateOptions} required selectedKey={state} onChange={onStateChange} />
                         <DatePicker label="Due Date" placeholder="Due date" value={dueDate} onSelectDate={onDueDateChange} />
                     </Stack.Item>
                     <Stack.Item tokens={stackItemMargin}>
                         <Stack horizontal tokens={stackGaps}>
-                            <PrimaryButton text="Save" onClick={saveTodoItem} />
+                            <PrimaryButton text="Save" onClick={saveenergyxItem} />
                             <DefaultButton text="Cancel" onClick={cancelEdit} />
                         </Stack>
                     </Stack.Item>
@@ -92,4 +92,4 @@ export const TodoItemDetailPane: FC<TodoItemDetailPaneProps> = (props: TodoItemD
     );
 }
 
-export default TodoItemDetailPane;
+export default energyxItemDetailPane;

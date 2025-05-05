@@ -1,17 +1,17 @@
 import { Dispatch } from "react";
-import { TodoActions } from "../actions/common";
-import { TodoItem } from "./todoItem";
-import { TodoList } from "./todoList";
+import { energyxActions } from "../actions/common";
+import { energyxItem } from "./energyxItem";
+import { energyxList } from "./energyxList";
 
 export interface AppContext {
     state: ApplicationState
-    dispatch: Dispatch<TodoActions>
+    dispatch: Dispatch<energyxActions>
 }
 
 export interface ApplicationState {
-    lists?: TodoList[]
-    selectedList?: TodoList
-    selectedItem?: TodoItem
+    lists?: energyxList[]
+    selectedList?: energyxList
+    selectedItem?: energyxItem
 }
 
 export const getDefaultState = (): ApplicationState => {
