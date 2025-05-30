@@ -1,3 +1,5 @@
+// exzing-energyx/frontend/web/src/ux/theme.ts
+
 import { createTheme } from '@fluentui/react';
 
 export const DarkTheme = createTheme({

@@ -3,6 +3,13 @@ import { FC, ReactElement } from 'react';
 
 const theme = getTheme();
 
+
+interface HeaderProps {
+  isMobile: boolean;
+  onToggleSidebar: () => void;
+  onToggleDetailPane: () => void;
+}
+
 const logoStyles: IStackStyles = {
     root: {
         width: '300px',
@@ -34,12 +41,22 @@ const iconProps: IIconProps = {
     }
 }
 
-const Header: FC = (): ReactElement => {
+const Header:  FC<HeaderProps> = ({ isMobile, onToggleSidebar }): ReactElement => {
+    // const Header: FC<HeaderProps> = ({ isMobile, onToggleSidebar }) => {
     return (
+        
         <Stack horizontal>
+            {isMobile && (
+                <IconButton
+                iconProps={{ iconName: 'GlobalNavButton' }} // hamburger icon
+                ariaLabel="Toggle sidebar"
+                onClick={onToggleSidebar}
+                styles={{ root: { marginRight: 8 } }}
+                />
+            )}
             <Stack horizontal styles={logoStyles}>
                 <FontIcon aria-label="Check" iconName="SkypeCircleCheck" className={logoIconClass} />
-                <Text variant="xLarge">energyx</Text>
+                <Text variant="xLarge">Exzing EnergyX</Text>
             </Stack>
             <Stack.Item grow={1}>
                 <div></div>

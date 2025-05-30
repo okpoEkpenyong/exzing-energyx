@@ -1,6 +1,6 @@
 import { IconButton, IContextualMenuProps, IIconProps, Shimmer, ShimmerElementType, Stack, Text } from '@fluentui/react';
 import { Fragment, useContext, useEffect, useMemo, useState } from 'react';
-// import energyxItemListPane from '../components/energyxItemListPane.tsx';
+import EnergyxItemListPane from '../components/energyxItemListPane.tsx';
 import { useNavigate, useParams } from 'react-router-dom';
 import { bindActionCreators } from '../actions/actionCreators.ts';
 import * as itemActions from '../actions/itemActions.ts';
@@ -143,7 +143,7 @@ const HomePage = () => {
                 </Stack>
             </Stack.Item>
             <Stack.Item tokens={stackItemPadding}>
-                <energyxItemListPane
+                <EnergyxItemListPane
                     list={appContext.state.selectedList}
                     items={appContext.state.selectedList?.items}
                     selectedItem={appContext.state.selectedItem}

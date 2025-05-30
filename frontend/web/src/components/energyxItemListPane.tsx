@@ -52,7 +52,7 @@ const stackStyles: IStackStyles = {
     }
 }
 
-const energyxItemListPane: FC<EnergyxItemListPaneProps> = (props: EnergyxItemListPaneProps): ReactElement => {
+const EnergyxItemListPane: FC<EnergyxItemListPaneProps> = (props: EnergyxItemListPaneProps): ReactElement => {
     const theme = getTheme();
     const navigate = useNavigate();
     const [newItemName, setNewItemName] = useState('');
@@ -255,4 +255,4 @@ const energyxItemListPane: FC<EnergyxItemListPaneProps> = (props: EnergyxItemLis
     );
 };
 
-export default energyxItemListPane;
+export default EnergyxItemListPane;

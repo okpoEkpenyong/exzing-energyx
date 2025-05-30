@@ -1,3 +1,5 @@
+// exzing-energyx/frontend/web/src/ux/styles.ts
+
 import { getTheme, IStackItemTokens, IStackStyles, IStackTokens } from '@fluentui/react'
 const theme = getTheme();
 
@@ -55,3 +57,12 @@ export const stackItemPadding: IStackItemTokens = {
 export const stackItemMargin: IStackItemTokens = {
     margin: 10
 }
+
+export const dashboardPanelStyles: IStackStyles = {
+  root: {
+    background: theme.palette.neutralLighter,
+    padding: 20,
+    borderRadius: 6,
+    boxShadow: theme.effects.elevation4,
+  },
+};

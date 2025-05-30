@@ -1,5 +1,8 @@
+// exzing-energyx/frontend/web/src/layout/sidebar.tsx
+
 import { FC, ReactElement } from 'react';
-// import energyxListMenu from '../components/energyxListMenu';
+import EnergyxListMenu  from '../components/energyxListMenu';
+// import { IIconProps } from '@fluentui/react/lib/Icon';
 import { EnergyxList } from '../models/energyxList';
 
 interface SidebarProps {
@@ -11,7 +14,7 @@ interface SidebarProps {
 const Sidebar: FC<SidebarProps> = (props: SidebarProps): ReactElement => {
     return (
         <div>
-            <energyxListMenu
+            <EnergyxListMenu
                 selectedList={props.selectedList}
                 lists={props.lists}
                 onCreate={props.onListCreate} />

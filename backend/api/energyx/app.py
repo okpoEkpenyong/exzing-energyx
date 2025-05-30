@@ -1,4 +1,7 @@
-import motor
+# from . import routes  # NOQAimport os
+import os
+from pathlib import Path
+import motor.motor_asyncio
 from azure.monitor.opentelemetry.exporter import AzureMonitorTraceExporter
 from beanie import init_beanie
 from fastapi import FastAPI
@@ -7,8 +10,7 @@ from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
 from opentelemetry.sdk.resources import SERVICE_NAME, Resource
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
-import os
-from pathlib import Path
+
 
 # Use API_ALLOW_ORIGINS env var with comma separated urls like
 # `http://localhost:300, http://otherurl:100`
@@ -42,9 +44,9 @@ from .models import Settings, __beanie_models__
 
 settings = Settings()
 app = FastAPI(
-    description="Simple energyx API",
+    description="Simple EnergyX API",
     version="2.0.0",
-    title="Simple energyx API",
+    title="Simple EnergyX API",
     docs_url="/",
 )
 app.add_middleware(
@@ -59,15 +61,14 @@ if settings.APPLICATIONINSIGHTS_CONNECTION_STRING:
     exporter = AzureMonitorTraceExporter.from_connection_string(
         settings.APPLICATIONINSIGHTS_CONNECTION_STRING
     )
+    role_name = settings.APPLICATIONINSIGHTS_ROLENAME or ""
     tracerProvider = TracerProvider(
-        resource=Resource({SERVICE_NAME: settings.APPLICATIONINSIGHTS_ROLENAME})
+        resource=Resource({SERVICE_NAME: role_name})
     )
     tracerProvider.add_span_processor(BatchSpanProcessor(exporter))
 
     FastAPIInstrumentor.instrument_app(app, tracer_provider=tracerProvider)
 
-
-from . import routes  # NOQA
 
 @app.on_event("startup")
 async def startup_event():

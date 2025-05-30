@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 import { EnergyxList } from '../models/energyxList';
 import { stackItemPadding } from '../ux/styles';
 
-interface energyxListMenuProps {
+interface EnergyxListMenuProps {
     selectedList?: EnergyxList
     lists?: EnergyxList[]
     onCreate: (list: EnergyxList) => void
@@ -14,7 +14,7 @@ const iconProps: IIconProps = {
     iconName: 'AddToShoppingList'
 }
 
-const energyxListMenu: FC<energyxListMenuProps> = (props: energyxListMenuProps): ReactElement => {
+const EnergyxListMenu: FC<EnergyxListMenuProps> = (props: EnergyxListMenuProps): ReactElement => {
     const navigate = useNavigate();
     const [newListName, setNewListName] = useState('');
 
@@ -82,4 +82,4 @@ const energyxListMenu: FC<energyxListMenuProps> = (props: energyxListMenuProps):
     );
 };
 
-export default energyxListMenu;
+export default EnergyxListMenu;
