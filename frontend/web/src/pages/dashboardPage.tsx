@@ -3,11 +3,11 @@
 import { Stack, Text, IconButton, IIconProps, IContextualMenuProps, Shimmer, ShimmerElementType } from '@fluentui/react';
 import { Fragment, useEffect, useState } from 'react';
 import WithApplicationInsights from '../components/telemetryWithAppInsights.tsx';
-// import { EnergyxContext } from '../components/energyxContext.ts';
-// import { AppContext } from '../models/applicationState.ts';
 import { stackGaps, stackPadding, titleStackStyles } from '../ux/styles.ts';
-import CarbonMetricsPanel from '../components/carbonMetricsPanel.tsx';  // You’ll create this
-import VesselStatusPanel from '../components/vesselStatusPanel.tsx';    // You’ll create this
+import CarbonMetricsPanel from '../components/carbonMetricsPanel.tsx'; 
+import VesselStatusPanel from '../components/vesselStatusPanel.tsx';    
+// import {Image} from '@fluentui/react';
+
 
 const DashboardPage = () => {
     const [isReady, setIsReady] = useState(false);
@@ -54,6 +54,13 @@ const DashboardPage = () => {
                                 <Text block variant="xLarge">Carbon Intelligence Dashboard</Text>
                                 <Text variant="small">Real-time overview of emissions, vessel activity, and sustainability indicators</Text>
                             </Fragment>
+                            {/* <Image
+                                src="/assets/vessel-gold.png"
+                                alt="Exzing Logo"
+                                width={200}
+                                height="auto"
+                                imageFit="contain"
+                            /> */}
                         </Shimmer>
                     </Stack.Item>
                     <Stack.Item>

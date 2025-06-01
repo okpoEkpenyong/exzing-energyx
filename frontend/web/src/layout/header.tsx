@@ -1,7 +1,7 @@
 // frontend\web\src\layout\header.tsx
 import { FontIcon, getTheme, IconButton, IIconProps, IStackStyles, mergeStyles, Persona, PersonaSize, Stack, Text } from '@fluentui/react';
 import { FC, ReactElement } from 'react';
-import {exzingHeaderTheme} from "../ux/theme.ts"
+// import {exzingHeaderTheme} from "../ux/theme.ts"
 
 const theme = getTheme();
 
@@ -15,8 +15,9 @@ interface HeaderProps {
 const logoStyles: IStackStyles = {
     root: {
         width: '300px',
-        background: exzingHeaderTheme.palette.themeExzing,
+        // background: exzingHeaderTheme.palette.themeExzing,
         // background: theme.palette.themePrimary,
+        background: '#bf9b30',
         alignItems: 'center',
         padding: '0 20px'
     }
