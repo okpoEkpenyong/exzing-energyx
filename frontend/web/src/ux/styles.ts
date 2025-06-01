@@ -12,7 +12,8 @@ export const rootStackStyles: IStackStyles = {
 export const headerStackStyles: IStackStyles = {
     root: {
         height: 48,
-        background: theme.palette.themeDarker
+        // background: theme.palette.themeDarker
+        backgroundColor: '#a67c00', // dark navy base
     }
 }
 

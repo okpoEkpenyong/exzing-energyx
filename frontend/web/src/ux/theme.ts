@@ -1,6 +1,6 @@
 // exzing-energyx/frontend/web/src/ux/theme.ts
 
-import { createTheme } from '@fluentui/react';
+import { createTheme, loadTheme, ITheme } from '@fluentui/react';
 
 export const DarkTheme = createTheme({
     palette: {
@@ -28,3 +28,16 @@ export const DarkTheme = createTheme({
         white: '#292929',
     }
 });
+
+export const exzingHeaderTheme: ITheme = {
+    palette: {
+    themeExzing: '#bf9b30',
+    themePrimary: '#a67c00'
+    },
+
+    semanticColours: {
+        // 
+    }
+}
+
+

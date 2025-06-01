@@ -1,5 +1,7 @@
+// frontend\web\src\layout\header.tsx
 import { FontIcon, getTheme, IconButton, IIconProps, IStackStyles, mergeStyles, Persona, PersonaSize, Stack, Text } from '@fluentui/react';
 import { FC, ReactElement } from 'react';
+import {exzingHeaderTheme} from "../ux/theme.ts"
 
 const theme = getTheme();
 
@@ -13,7 +15,8 @@ interface HeaderProps {
 const logoStyles: IStackStyles = {
     root: {
         width: '300px',
-        background: theme.palette.themePrimary,
+        background: exzingHeaderTheme.palette.themeExzing,
+        // background: theme.palette.themePrimary,
         alignItems: 'center',
         padding: '0 20px'
     }
@@ -65,7 +68,7 @@ const Header:  FC<HeaderProps> = ({ isMobile, onToggleSidebar }): ReactElement =
                 <Stack horizontal styles={toolStackClass} grow={1}>
                     <IconButton aria-label="Add" iconProps={{ iconName: "Settings", ...iconProps }} />
                     <IconButton aria-label="Add" iconProps={{ iconName: "Help", ...iconProps }} />
-                    <Persona size={PersonaSize.size24} text="Sample User" />
+                    <Persona size={PersonaSize.size24} text="Ekpes" />
                     {/* <Toggle label="Dark Mode" inlineLabel styles={{ root: { marginBottom: 0 } }} onChange={changeTheme} /> */}
                 </Stack>
             </Stack.Item>
