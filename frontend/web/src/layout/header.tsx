@@ -77,3 +77,7 @@ const Header:  FC<HeaderProps> = ({ isMobile, onToggleSidebar }): ReactElement =
 }
 
 export default Header;
+
+
+// winget install --id github.cli
+//  gh auth login
