@@ -1,6 +1,6 @@
 import { Separator, Stack, Text, Shimmer, ProgressIndicator } from '@fluentui/react';
 import React from 'react';
-import { dashboardPanelStyles, stackGaps } from '../ux/styles';
+import { stackGaps } from '../ux/styles';
 import { VesselStatus } from '../services/mockDashboardData';
 
 interface VesselStatusPanelProps {
@@ -10,7 +10,7 @@ interface VesselStatusPanelProps {
 
 const VesselStatusPanel: React.FC<VesselStatusPanelProps> = ({ loading, data }) => {
     return (
-        <Stack tokens={{ childrenGap: 10 }} padding={20}>
+        <Stack tokens={{ childrenGap: 10, padding: 20 }}>
             <Text variant="xLargePlus">Vessel Status</Text>
             <Separator />
             <Shimmer isDataLoaded={!loading}>

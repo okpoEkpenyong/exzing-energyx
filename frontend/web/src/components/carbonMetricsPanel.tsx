@@ -1,6 +1,6 @@
 import { Separator, Stack, Text, Shimmer, ProgressIndicator } from '@fluentui/react';
 import React from 'react';
-import { dashboardPanelStyles, stackGaps } from '../ux/styles';
+import { stackGaps } from '../ux/styles';
 import { CarbonMetrics } from '../services/mockDashboardData';
 
 
