@@ -10,6 +10,9 @@ import {
     fetchCarbonMetrics, fetchVesselStatus,
     CarbonMetrics, VesselStatus
   } from '../services/mockDashboardData.ts';
+  import CarbonTrendsChart from '../components/carbonTrendsChart.tsx';
+  import VesselUtilizationChart from '../components/vesselUtilizationChart.tsx';
+  
   
 
 const DashboardPage = () => {
@@ -78,9 +81,16 @@ const DashboardPage = () => {
           <Stack.Item tokens={stackPadding}>
             <CarbonMetricsPanel loading={!isReady} data={carbonData} />
           </Stack.Item>
+
+          <Stack.Item tokens={stackPadding}>
+            <CarbonTrendsChart loading={!isReady} />
+          </Stack.Item>
     
           <Stack.Item tokens={stackPadding}>
             <VesselStatusPanel loading={!isReady} data={vesselData} />
+            <Stack.Item tokens={stackPadding}>
+            <VesselUtilizationChart loading={!isReady} />
+          </Stack.Item>
           </Stack.Item>
         </Stack>
       );
