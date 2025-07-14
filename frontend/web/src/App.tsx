@@ -10,6 +10,7 @@ import { initializeIcons } from '@fluentui/react/lib/Icons';
 import { ThemeProvider } from '@fluentui/react';
 import Telemetry from './components/telemetry';
 
+
 initializeIcons(undefined, { disableWarnings: true });
 
 const App: FC = () => {

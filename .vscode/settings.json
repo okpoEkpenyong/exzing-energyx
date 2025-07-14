@@ -1,5 +1,18 @@
 {
+    "files.autoSave": "afterDelay",
+    "editor.minimap.enabled": false,
+    "workbench.editor.enablePreview": true,
+    "editor.renderWhitespace": "none",
+    "explorer.autoReveal": false,
+    "extensions.autoUpdate": false,
+    "update.mode": "manual",
     "cSpell.words": [
         "energyx"
-    ]
-}
+    ],
+    "typescript.tsserver.log": "off",
+    "typescript.tsserver.maxTsServerMemory": 128,
+    "js/ts.implicitProjectConfig.checkJs": true,
+    "typescript.tsserver.useSyntaxServer": "auto",
+    "typescript.validate.enable": true
+  }
+  

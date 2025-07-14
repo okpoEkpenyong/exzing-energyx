@@ -68,11 +68,11 @@ const Layout: FC = (): ReactElement => {
             <Stack horizontal={!isMobile} wrap={isMobile} grow={1}> {/* Responsive */}
                {( !isMobile || showSidebar ) && (
                     <Stack.Item styles={sidebarStackStyles}>
-                        <Sidebar
+                        {/* <Sidebar
                             selectedList={appContext.state.selectedList}
                             lists={appContext.state.lists}
                             onListCreate={onListCreated}
-                        />
+                        /> */}
                     </Stack.Item>
                 )}
 
@@ -85,7 +85,7 @@ const Layout: FC = (): ReactElement => {
                     </Routes>
                 </Stack.Item>
 
-               {( !isMobile || showDetailPane ) && (
+               {/* {( !isMobile || showDetailPane ) && (
                     <Stack.Item styles={sidebarStackStyles}>
                         <EnergyxItemDetailPane
                             item={appContext.state.selectedItem}
@@ -93,7 +93,7 @@ const Layout: FC = (): ReactElement => {
                             onCancel={onItemEditCancel}
                         />
                     </Stack.Item>
-                )}
+                )} */}
             </Stack>
         </Stack>
     );

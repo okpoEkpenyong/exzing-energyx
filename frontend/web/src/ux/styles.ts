@@ -38,8 +38,13 @@ export const sidebarStackStyles: IStackStyles = {
 
 export const titleStackStyles: IStackStyles = {
     root: {
-        alignItems: 'center',
+        // alignItems: 'center',
+        // background: theme.palette.neutralPrimaryAlt,
+        alignItems: 'flex-start',
         background: theme.palette.neutralPrimaryAlt,
+        padding: 10,
+        flexWrap: 'wrap',
+        gap: 20,
     }
 }
 

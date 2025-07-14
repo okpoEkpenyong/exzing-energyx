@@ -10,10 +10,11 @@ import {
     fetchCarbonMetrics, fetchVesselStatus,
     CarbonMetrics, VesselStatus
   } from '../services/mockDashboardData.ts';
-  import CarbonTrendsChart from '../components/carbonTrendsChart.tsx';
-  import VesselUtilizationChart from '../components/vesselUtilizationChart.tsx';
-  
-  
+import CarbonTrendsChart from '../components/carbonTrendsChart.tsx';
+import VesselUtilizationChart from '../components/vesselUtilizationChart.tsx';
+import SummaryMetricsPanel from '../components/summaryMetricsPanel.tsx';
+import VesselMapPanel from '../components/vesselMapPanel.tsx';
+
 
 const DashboardPage = () => {
     const [isReady, setIsReady] = useState(false);
@@ -50,7 +51,7 @@ const DashboardPage = () => {
             }
         ]
     };
-
+    
     return (
         <Stack tokens={stackGaps} styles={{ root: { padding: 20 } }}>
           <Text variant="xxLarge">Maritime Carbon Dashboard</Text>
@@ -63,21 +64,31 @@ const DashboardPage = () => {
                     <Text block variant="xLarge">Carbon Intelligence Dashboards</Text>
                     <Text variant="small">We offer real-time overview of emissions, vessel activity, and sustainability indicators</Text>
                     <Image
-                      src="/assets/vessel-gold.png"
-                      alt="Exzing Logo"
-                      width={320}
-                      height="auto"
-                      imageFit={ImageFit.contain}
-                    />
+                        src="/assets/vessel-gold.png"
+                        alt="Exzing Logo"
+                        styles={{
+                          root: {
+                            maxWidth: '100%',
+                            height: 'auto',
+                            marginTop: 10,
+                            borderRadius: 4,
+                          },
+                        }}
+                        imageFit={ImageFit.contain}
+                      />
                   </Fragment>
                 </Shimmer>
               </Stack.Item>
               <Stack.Item>
-                <IconButton menuProps={menuProps} iconProps={iconProps} title="Dashboard Actions" ariaLabel="Dashboard Actions" />
+                {/* <IconButton menuProps={menuProps} iconProps={iconProps} title="Dashboard Actions" ariaLabel="Dashboard Actions" /> */}
               </Stack.Item>
             </Stack>
           </Stack.Item>
-    
+
+          <Stack.Item tokens={stackPadding}>
+           <SummaryMetricsPanel />
+          </Stack.Item>
+
           <Stack.Item tokens={stackPadding}>
             <CarbonMetricsPanel loading={!isReady} data={carbonData} />
           </Stack.Item>

@@ -1,5 +1,8 @@
 {
     "recommendations": [
-        "ms-azuretools.azure-dev"
+      "esbenp.prettier-vscode",
+      "dbaeumer.vscode-eslint",
+       "ms-azuretools.azure-dev"
     ]
-}
+  }
+  
