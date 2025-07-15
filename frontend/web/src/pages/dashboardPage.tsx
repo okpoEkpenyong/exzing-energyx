@@ -1,6 +1,6 @@
 // src/pages/dashboardPage.tsx
 
-import { Image, Stack, Text, IconButton, IIconProps, IContextualMenuProps, Shimmer, ShimmerElementType, ImageFit } from '@fluentui/react';
+import { Image, Stack, Text, Shimmer, ShimmerElementType, ImageFit } from '@fluentui/react';
 import { Fragment, useEffect, useState } from 'react';
 import WithApplicationInsights from '../components/telemetryWithAppInsights.tsx';
 import { stackGaps, stackPadding, titleStackStyles } from '../ux/styles.ts';
@@ -13,7 +13,7 @@ import {
 import CarbonTrendsChart from '../components/carbonTrendsChart.tsx';
 import VesselUtilizationChart from '../components/vesselUtilizationChart.tsx';
 import SummaryMetricsPanel from '../components/summaryMetricsPanel.tsx';
-import VesselMapPanel from '../components/vesselMapPanel.tsx';
+// import VesselMapPanel from '../components/vesselMapPanel.tsx';
 
 
 const DashboardPage = () => {
@@ -36,21 +36,21 @@ const DashboardPage = () => {
         fetchDashboardData();
       }, []);
 
-    const iconProps: IIconProps = {
-        iconName: 'Settings',
-        styles: { root: { fontSize: 16 } }
-    };
+    // const iconProps: IIconProps = {
+    //     iconName: 'Settings',
+    //     styles: { root: { fontSize: 16 } }
+    // };
 
-    const menuProps: IContextualMenuProps = {
-        items: [
-            {
-                key: 'refresh',
-                text: 'Refresh Dashboard',
-                iconProps: { iconName: 'Refresh' },
-                onClick: () => setIsReady(false) // Replace with real refresh
-            }
-        ]
-    };
+    // const menuProps: IContextualMenuProps = {
+    //     items: [
+    //         {
+    //             key: 'refresh',
+    //             text: 'Refresh Dashboard',
+    //             iconProps: { iconName: 'Refresh' },
+    //             onClick: () => setIsReady(false) // Replace with real refresh
+    //         }
+    //     ]
+    // };
     
     return (
         <Stack tokens={stackGaps} styles={{ root: { padding: 20 } }}>

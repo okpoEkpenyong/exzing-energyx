@@ -2,28 +2,28 @@
 
 import { Stack } from '@fluentui/react';
 import { FC, ReactElement, useContext, useEffect, useMemo, useState } from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import * as itemActions from '../actions/itemActions';
 import { ItemActions } from '../actions/itemActions';
 import * as listActions from '../actions/listActions';
 import { ListActions } from '../actions/listActions';
 import { EnergyxContext } from '../components/energyxContext';
-import { EnergyxItem, EnergyxList } from '../models';
+// import { EnergyxItem, EnergyxList } from '../models';
 import { AppContext } from '../models/applicationState';
 // import HomePage from '../pages/homePage';
 import { headerStackStyles, mainStackStyles, rootStackStyles, sidebarStackStyles } from '../ux/styles';
 import Header from './header';
-import Sidebar from './sidebar';
-import EnergyxItemDetailPane from '../components/energyxItemDetailPane';
+// import Sidebar from './sidebar';
+// import EnergyxItemDetailPane from '../components/energyxItemDetailPane';
 import { bindActionCreators } from '../actions/actionCreators';
 import DashboardPage from '../pages/dashboardPage';
 import useIsMobile from '../hooks/useIsMobile';  // <-- NEW
 
 const Layout: FC = (): ReactElement => {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const isMobile = useIsMobile();  
     const [showSidebar, setShowSidebar] = useState(false);
-    const [showDetailPane, setShowDetailPane] = useState(false);
+    // const [showDetailPane, setShowDetailPane] = useState(false);
 
     const appContext = useContext<AppContext>(EnergyxContext)
     const actions = useMemo(() => ({
@@ -38,23 +38,23 @@ const Layout: FC = (): ReactElement => {
         }
     }, [actions.lists, appContext.state.lists]);
 
-    const onListCreated = async (list: EnergyxList) => {
-        const newList = await actions.lists.save(list);
-        navigate(`/lists/${newList.id}`);
-    }
+    // const onListCreated = async (list: EnergyxList) => {
+    //     const newList = await actions.lists.save(list);
+    //     navigate(`/lists/${newList.id}`);
+    // }
 
-    const onItemEdited = (item: EnergyxItem) => {
-        actions.items.save(item.listId, item);
-        actions.items.select(undefined);
-        navigate(`/lists/${item.listId}`);
-    }
+    // const onItemEdited = (item: EnergyxItem) => {
+    //     actions.items.save(item.listId, item);
+    //     actions.items.select(undefined);
+    //     navigate(`/lists/${item.listId}`);
+    // }
 
-    const onItemEditCancel = () => {
-        if (appContext.state.selectedList) {
-            actions.items.select(undefined);
-            navigate(`/lists/${appContext.state.selectedList.id}`);
-        }
-    }
+    // const onItemEditCancel = () => {
+    //     if (appContext.state.selectedList) {
+    //         actions.items.select(undefined);
+    //         navigate(`/lists/${appContext.state.selectedList.id}`);
+    //     }
+    // }
 
     return (
         <Stack styles={rootStackStyles}>
@@ -62,7 +62,8 @@ const Layout: FC = (): ReactElement => {
                 <Header
                   isMobile={isMobile}
                   onToggleSidebar={() => setShowSidebar(prev => !prev)}
-                  onToggleDetailPane={() => setShowDetailPane(prev => !prev)}
+                //   onToggleDetailPane={() => setShowDetailPane(prev => !prev)}
+                  onToggleDetailPane={() =>("Toggle detail pane functionality not implemented yet")}
                 />
             </Stack.Item>
             <Stack horizontal={!isMobile} wrap={isMobile} grow={1}> {/* Responsive */}
