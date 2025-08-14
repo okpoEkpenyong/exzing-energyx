@@ -12,11 +12,14 @@ services:
   web:
     project: ./frontend/web
     language: js
-    host: containerapp
+    host: appservice
+    # host: containerapp
+    
   api:
     project: ./backend/api
     language: python
-    host: containerapp
+    host: appservice
+    # host: containerapp
 # using predeploy hook for web until
 # https://github.com/Azure/azure-dev/issues/3546 is fixed
 hooks:

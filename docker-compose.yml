@@ -1,0 +1,13 @@
+# docker-compose.yml
+version: "3.8"
+services:
+  api:
+    build: ./backend/api
+    ports:
+      - "5000:5000"
+  web:
+    build: ./frontend/web
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_BASE_URL: http://api:5000

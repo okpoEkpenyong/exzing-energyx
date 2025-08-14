@@ -1,3 +1,6 @@
+# backend\api\routers\devices.py
+
+
 from fastapi import APIRouter
 from datetime import datetime
 import random
@@ -10,5 +13,5 @@ def simulate_input():
         "device_id": "vessel-001",
         "fuel_type": "diesel",
         "fuel_amount": round(random.uniform(500, 2000), 2),
-        "timestamp": datetime.utcnow()
+        "timestamp": datetime.utcnow(),
     }

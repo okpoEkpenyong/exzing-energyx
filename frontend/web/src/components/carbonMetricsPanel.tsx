@@ -1,3 +1,5 @@
+// frontend\web\src\components\carbonMetricsPanel.tsx
+
 import { Separator, Stack, Text, Shimmer, ProgressIndicator } from '@fluentui/react';
 import React from 'react';
 import { stackGaps } from '../ux/styles';

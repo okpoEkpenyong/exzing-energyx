@@ -1,3 +1,5 @@
+// frontend\web\src\pages\homePage.tsx
+
 import { IconButton, IContextualMenuProps, IIconProps, Shimmer, ShimmerElementType, Stack, Text } from '@fluentui/react';
 import { Fragment, useContext, useEffect, useMemo, useState } from 'react';
 import EnergyxItemListPane from '../components/energyxItemListPane.tsx';

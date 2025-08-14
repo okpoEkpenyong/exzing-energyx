@@ -5,6 +5,7 @@ import { Fragment, useEffect, useState } from 'react';
 import WithApplicationInsights from '../components/telemetryWithAppInsights.tsx';
 import { stackGaps, stackPadding, titleStackStyles } from '../ux/styles.ts';
 import CarbonMetricsPanel from '../components/carbonMetricsPanel.tsx'; 
+import DashboardPanel from '../components/dashboardPanel.tsx';
 import VesselStatusPanel from '../components/vesselStatusPanel.tsx';  
 import {
     fetchCarbonMetrics, fetchVesselStatus,
@@ -13,45 +14,35 @@ import {
 import CarbonTrendsChart from '../components/carbonTrendsChart.tsx';
 import VesselUtilizationChart from '../components/vesselUtilizationChart.tsx';
 import SummaryMetricsPanel from '../components/summaryMetricsPanel.tsx';
-// import VesselMapPanel from '../components/vesselMapPanel.tsx';
+import EmissionForm from '../components/emissionForm.tsx';
+import EmissionsList from '../components/emissionList.tsx';
+import { fetchDashboardMetrics, DashboardMetrics } from '../services/metricsServices.ts';
 
 
 const DashboardPage = () => {
     const [isReady, setIsReady] = useState(false);
-    const [carbonData, setCarbonData] = useState<CarbonMetrics | null>(null);
-    const [vesselData, setVesselData] = useState<VesselStatus | null>(null);
+
+    const [dashboardData, setDashboardData] = useState<DashboardMetrics | null>(null);
 
     useEffect(() => {
         const fetchDashboardData = async () => {
           setIsReady(false);
-          const [carbon, vessel] = await Promise.all([
-            fetchCarbonMetrics(),
-            fetchVesselStatus()
-          ]);
-          setCarbonData(carbon);
-          setVesselData(vessel);
+  
+          const dashboard = await fetchDashboardMetrics();
+
+          setDashboardData(dashboard);
           setIsReady(true);
+          
         };
     
         fetchDashboardData();
+
       }, []);
 
-    // const iconProps: IIconProps = {
-    //     iconName: 'Settings',
-    //     styles: { root: { fontSize: 16 } }
-    // };
-
-    // const menuProps: IContextualMenuProps = {
-    //     items: [
-    //         {
-    //             key: 'refresh',
-    //             text: 'Refresh Dashboard',
-    //             iconProps: { iconName: 'Refresh' },
-    //             onClick: () => setIsReady(false) // Replace with real refresh
-    //         }
-    //     ]
-    // };
+      console.log("fetched dashboardData:", dashboardData);
     
+
+
     return (
         <Stack tokens={stackGaps} styles={{ root: { padding: 20 } }}>
           <Text variant="xxLarge">Maritime Carbon Dashboard</Text>
@@ -80,29 +71,48 @@ const DashboardPage = () => {
                 </Shimmer>
               </Stack.Item>
               <Stack.Item>
-                {/* <IconButton menuProps={menuProps} iconProps={iconProps} title="Dashboard Actions" ariaLabel="Dashboard Actions" /> */}
               </Stack.Item>
             </Stack>
           </Stack.Item>
-
+          <Text variant="xLarge">Dashboard Metrics</Text>
           <Stack.Item tokens={stackPadding}>
-           <SummaryMetricsPanel />
+           <SummaryMetricsPanel loading={!isReady} data={dashboardData} />
           </Stack.Item>
 
           <Stack.Item tokens={stackPadding}>
-            <CarbonMetricsPanel loading={!isReady} data={carbonData} />
-          </Stack.Item>
-
-          <Stack.Item tokens={stackPadding}>
-            <CarbonTrendsChart loading={!isReady} />
+            <CarbonTrendsChart loading={!isReady} 
+            data={dashboardData ? { labels: dashboardData.labels, values: dashboardData.weeklyTrend } : undefined}
+            />
           </Stack.Item>
     
-          <Stack.Item tokens={stackPadding}>
-            <VesselStatusPanel loading={!isReady} data={vesselData} />
             <Stack.Item tokens={stackPadding}>
-            <VesselUtilizationChart loading={!isReady} />
+              <VesselUtilizationChart loading={!isReady} 
+              data={dashboardData ? { labels: dashboardData.labels, values: dashboardData.utilizationSeries } : undefined}
+              />
+            </Stack.Item>
+ 
+            <Stack 
+            horizontal
+            wrap
+            tokens={{ childrenGap: 20 }}
+            styles={{
+              root: {
+                width: '100%',
+                '@media (max-width: 768px)': {
+                  flexDirection: 'column',
+                },
+              },
+            }}
+          >
+          <Stack.Item grow styles={{ root: { minWidth: 300 } }}>
+            <EmissionForm />
           </Stack.Item>
+
+          <Stack.Item grow styles={{ root: { minWidth: 300 } }}>
+            <EmissionsList />
           </Stack.Item>
+        </Stack>
+
         </Stack>
       );
 
