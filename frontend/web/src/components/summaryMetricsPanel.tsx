@@ -1,6 +1,6 @@
 // frontend\web\src\components\summaryMetricsPanel.tsx
 
-import { ProgressIndicator, Separator, Shimmer, Stack, Text } from '@fluentui/react';
+import { Stack, Text } from '@fluentui/react';
 import { FontIcon } from '@fluentui/react/lib/Icon';
 import { getTheme, IStackStyles } from '@fluentui/react';
 import { DashboardMetrics } from '../services/metricsServices';

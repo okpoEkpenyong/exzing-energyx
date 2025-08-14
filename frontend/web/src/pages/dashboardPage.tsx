@@ -4,15 +4,7 @@ import { Image, Stack, Text, Shimmer, ShimmerElementType, ImageFit } from '@flue
 import { Fragment, useEffect, useState } from 'react';
 import WithApplicationInsights from '../components/telemetryWithAppInsights.tsx';
 import { stackGaps, stackPadding, titleStackStyles } from '../ux/styles.ts';
-import CarbonMetricsPanel from '../components/carbonMetricsPanel.tsx'; 
-import DashboardPanel from '../components/dashboardPanel.tsx';
-import VesselStatusPanel from '../components/vesselStatusPanel.tsx';  
-import {
-    fetchCarbonMetrics, fetchVesselStatus,
-    CarbonMetrics, VesselStatus
-  } from '../services/mockDashboardData.ts';
 import CarbonTrendsChart from '../components/carbonTrendsChart.tsx';
-import VesselUtilizationChart from '../components/vesselUtilizationChart.tsx';
 import SummaryMetricsPanel from '../components/summaryMetricsPanel.tsx';
 import EmissionForm from '../components/emissionForm.tsx';
 import EmissionsList from '../components/emissionList.tsx';
@@ -21,7 +13,6 @@ import { fetchDashboardMetrics, DashboardMetrics } from '../services/metricsServ
 
 const DashboardPage = () => {
     const [isReady, setIsReady] = useState(false);
-
     const [dashboardData, setDashboardData] = useState<DashboardMetrics | null>(null);
 
     useEffect(() => {
@@ -85,11 +76,11 @@ const DashboardPage = () => {
             />
           </Stack.Item>
     
-            <Stack.Item tokens={stackPadding}>
+            {/* <Stack.Item tokens={stackPadding}>
               <VesselUtilizationChart loading={!isReady} 
               data={dashboardData ? { labels: dashboardData.labels, values: dashboardData.utilizationSeries } : undefined}
               />
-            </Stack.Item>
+            </Stack.Item> */}
  
             <Stack 
             horizontal
