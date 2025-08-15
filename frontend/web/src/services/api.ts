@@ -1,5 +1,7 @@
 // frontend/web/src/services/api.ts
 const API_BASE = (import.meta.env.VITE_API_BASE_URL as string) ?? "http://localhost:5000";
+// const API_BASE = process.env.VITE_API_BASE_URL;
+// (import.meta.env.VITE_API_BASE_URL as string
 
 export type Emission = {
   id?: number;
