@@ -1,3 +1,4 @@
+# backend/api/main.py
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from backend.api.routers import emissions, credits, devices, health, items
@@ -21,7 +22,7 @@ def originList():
     origins = [
         "https://portal.azure.com",
         "https://ms.portal.azure.com",
-        "https://exzing-energyx.onrender.com/",
+        "https://exzing-energyx.onrender.com",
         "https://energyx.exzing.com",
         "https://www.exzing.com",
     ]
