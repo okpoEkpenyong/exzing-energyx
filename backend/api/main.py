@@ -11,13 +11,16 @@ app = FastAPI(title="Exzing EnergyX Carbon Intelligence Platform", version="1.0"
 origins = [
     "http://localhost:5173",
     "localhost:5173",
-    "https://exzing-energyx.onrender.com/"
+    "https://exzing-energyx.onrender.com/",
+    "https://energyx.exzing.com",
+
 ]
 
 # CORS Setup
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    # allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

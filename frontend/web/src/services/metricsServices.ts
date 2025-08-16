@@ -9,7 +9,22 @@ export type DashboardMetrics = {
     utilizationRate: number;
   };
   
-  const API_BASE = (import.meta.env.VITE_API_BASE_URL as string) ?? "http://localhost:5000";
+  console.log("All env URL:", import.meta.env);
+
+  const API_BASE = import.meta.env.VITE_API_BASE_URL ?? "https://exzing-energyx.onrender.com";
+
+  // const API_BASE = (import.meta.env.VITE_API_BASE_URL as string);
+  // const API_BASE = import.meta.env.VITE_API_BASE_URL;
+  // const API_BASE = "https://exzing-energyx.onrender.com/";
+  // console.log('API URL:', API_BASE);
+  // console.log("Env URL:", `${import.meta.env.VITE_API_BASE_URL}`);
+
+  // export async function getMetrics() {
+  //   const url = `${import.meta.env.VITE_API_BASE_URL}/metrics/dashboard`;
+  //   const res = await fetch(url);
+  //   return res.json();
+  // }
+  
   
   export async function fetchDashboardMetrics(): Promise<DashboardMetrics | null> {
     try {
