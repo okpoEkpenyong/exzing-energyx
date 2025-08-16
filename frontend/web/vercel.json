@@ -3,7 +3,7 @@
   "rewrites": [
     {
       "source": "/",
-      "destination": "https://exzing-energyx.onrender.com/api/"
+      "destination": "https://exzing-energyx.onrender.com/"
     },
     {
       "source": "/(.*)",
