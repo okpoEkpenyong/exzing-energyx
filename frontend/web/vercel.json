@@ -1,17 +1,14 @@
 {
   "version": 2,
-  "builds": [
-      {
-          "src": "./main.py", 
-          "use": "@vercel/python"
-      }
-  ],
   "rewrites": [
-      { "source": "/(.*)", "destination": "src/index.tsx" }
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
   ],
   "headers": [
     {
-     "source": "/(.*)",
+      "source": "/(.*)",
       "headers": [
         { "key": "Access-Control-Allow-Origin", "value": "https://energyx.exzing.com" },
         { "key": "Access-Control-Allow-Methods", "value": "GET, POST, OPTIONS" },
