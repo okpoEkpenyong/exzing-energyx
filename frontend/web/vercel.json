@@ -1,19 +1,23 @@
 {
-    "rewrites": [
+  "version": 2,
+  "builds": [
       {
-        "source": "/api/:path*",
-        "destination": "https://exzing-energyx.onrender.com/api/:path*"
+          "src": "./main.py", 
+          "use": "@vercel/python"
       }
-    ],
-    "headers": [
-      {
-        "source": "/assets/(.*)",
-        "headers": [
-          { "key": "Cache-Control", "value": "public, max-age=3600, must-revalidate" },
-          { "key": "Access-Control-Allow-Origin", "value": "*" },
-          { "key": "Access-Control-Allow-Methods", "value": "GET,OPTIONS" }
-        ]
-      }
-    ]
-  }
-  
+  ],
+  "rewrites": [
+      { "source": "/(.*)", "destination": "src/index.tsx" }
+  ],
+  "headers": [
+    {
+     "source": "/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "https://energyx.exzing.com" },
+        { "key": "Access-Control-Allow-Methods", "value": "GET, POST, OPTIONS" },
+        { "key": "Access-Control-Allow-Headers", "value": "Content-Type, Authorization" },
+        { "key": "Access-Control-Allow-Credentials", "value": "true" }
+      ]
+    }
+  ]
+}

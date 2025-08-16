@@ -33,7 +33,7 @@ def originList():
     
     if allowOrigins is not None:
         for origin in allowOrigins.split(","):
-            print("Allowing requests from", origin, ". To change or disable, go to ", Path(__file__))
+            print("Allowing requests from", origin)
             origins.append(origin)
         
     return origins
