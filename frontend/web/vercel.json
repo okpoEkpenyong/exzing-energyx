@@ -2,8 +2,8 @@
   "version": 2,
   "rewrites": [
     {
-      "source": "/:path*",
-      "destination": "https://exzing-energyx.onrender.com/api/:path*"
+      "source": "/",
+      "destination": "https://exzing-energyx.onrender.com/api/"
     },
     {
       "source": "/(.*)",
