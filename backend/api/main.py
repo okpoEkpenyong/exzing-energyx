@@ -26,7 +26,8 @@ def originList():
         "https://energyx.exzing.com",
         "https://www.exzing.com",
         "https://exzing-energyx.vercel.app",
-        "https://vercel.com"
+        "https://vercel.com",
+        "https://domain.com",
     ]
 
 
