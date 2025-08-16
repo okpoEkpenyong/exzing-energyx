@@ -2,7 +2,7 @@
   "version": 2,
   "rewrites": [
     {
-      "source": "/api/:path*",
+      "source": "/:path*",
       "destination": "https://exzing-energyx.onrender.com/api/:path*"
     },
     {
@@ -12,7 +12,7 @@
   ],
   "headers": [
     {
-      "source": "/api/(.*)",
+      "source": "/(.*)",
       "headers": [
         { "key": "Access-Control-Allow-Origin", "value": "https://energyx.exzing.com" },
         { "key": "Access-Control-Allow-Methods", "value": "GET, POST, OPTIONS" },
