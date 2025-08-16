@@ -25,7 +25,17 @@ def originList():
         "https://exzing-energyx.onrender.com",
         "https://energyx.exzing.com",
         "https://www.exzing.com",
+        "https://exzing-energyx.vercel.app",
+        "https://vercel.com"
     ]
+
+# exzing-energyx.onrender.com
+# Origin
+# https://energyx.exzing.com
+# Priority
+# u=4
+# Referer
+# https://energyx.exzing.com/
     
     if allowOrigins is not None:
         for origin in allowOrigins.split(","):
