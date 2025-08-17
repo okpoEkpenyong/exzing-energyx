@@ -1,15 +1,24 @@
 // frontend\web\src\layout\header.tsx
-import { FontIcon, getTheme, IconButton, IIconProps, IStackStyles, mergeStyles, Persona, PersonaSize, Stack, Text } from '@fluentui/react';
 import { FC, ReactElement } from 'react';
-// import {exzingHeaderTheme} from "../ux/theme.ts"
+import { Link } from "react-router-dom";
+import {
+  FontIcon,
+  getTheme,
+  IconButton,
+//   IIconProps,
+  IStackStyles,
+  mergeStyles,
+  Stack,
+  Text,
+} from "@fluentui/react";
 
 const theme = getTheme();
 
 
 interface HeaderProps {
   isMobile: boolean;
-  onToggleSidebar: () => void;
-  onToggleDetailPane: () => void;
+//   onToggleSidebar: () => void;
+//   onToggleDetailPane: () => void;
 }
 
 const logoStyles: IStackStyles = {
@@ -36,17 +45,34 @@ const toolStackClass: IStackStyles = {
     }
 }
 
-const iconProps: IIconProps = {
-    styles: {
-        root: {
-            fontSize: 16,
-            color: theme.palette.white
-        }
-    }
-}
+// const iconProps: IIconProps = {
+//     styles: {
+//         root: {
+//             fontSize: 16,
+//             color: theme.palette.white
+//         }
+//     }
+// }
 
-const Header:  FC<HeaderProps> = ({ isMobile, onToggleSidebar }): ReactElement => {
-    // const Header: FC<HeaderProps> = ({ isMobile, onToggleSidebar }) => {
+const navLinkStyle: React.CSSProperties = {
+    color: theme.palette.neutralPrimary,
+    // background: '#bf9b30',
+    // color: '#ffff',
+    textDecoration: "none",
+    padding: "8px 12px",
+    // borderRadius: 6,
+  };
+  
+  const activeLinkStyle: React.CSSProperties = {
+    ...navLinkStyle,
+    background: theme.palette.themeLight,
+    color: '#bf9b30',
+    fontWeight: 600,
+  };
+
+
+const Header:  FC<HeaderProps> = ({ isMobile }): ReactElement => {
+
     return (
         
         <Stack horizontal>
@@ -54,7 +80,7 @@ const Header:  FC<HeaderProps> = ({ isMobile, onToggleSidebar }): ReactElement =
                 <IconButton
                 iconProps={{ iconName: 'GlobalNavButton' }} // hamburger icon
                 ariaLabel="Toggle sidebar"
-                onClick={onToggleSidebar}
+                // onClick={onToggleSidebar}
                 styles={{ root: { marginRight: 8 } }}
                 />
             )}
@@ -62,15 +88,17 @@ const Header:  FC<HeaderProps> = ({ isMobile, onToggleSidebar }): ReactElement =
                 <FontIcon aria-label="Check" iconName="SkypeCircleCheck" className={logoIconClass} />
                 <Text variant="xLarge">Exzing EnergyX</Text>
             </Stack>
-            <Stack.Item grow={1}>
-                <div></div>
-            </Stack.Item>
             <Stack.Item>
                 <Stack horizontal styles={toolStackClass} grow={1}>
-                    <IconButton aria-label="Add" iconProps={{ iconName: "Settings", ...iconProps }} />
-                    <IconButton aria-label="Add" iconProps={{ iconName: "Help", ...iconProps }} />
-                    <Persona size={PersonaSize.size24} text="Ekpes" />
-                    {/* <Toggle label="Dark Mode" inlineLabel styles={{ root: { marginBottom: 0 } }} onChange={changeTheme} /> */}
+                    <Link to="/dashboard" style={location.pathname.startsWith("/dashboard") ? activeLinkStyle : navLinkStyle}>
+                        Dashboard
+                    </Link>
+                    <Link to="/documentation" style={location.pathname.startsWith("/dashboard") ? activeLinkStyle : navLinkStyle}>
+                        Documentation
+                    </Link>
+                    <Link to="/register" style={ activeLinkStyle} >
+                        Register
+                    </Link>
                 </Stack>
             </Stack.Item>
         </Stack>
@@ -78,7 +106,3 @@ const Header:  FC<HeaderProps> = ({ isMobile, onToggleSidebar }): ReactElement =
 }
 
 export default Header;
-
-
-// winget install --id github.cli
-//  gh auth login

@@ -12,6 +12,7 @@ export type DashboardMetrics = {
   console.log("All env URL:", import.meta.env);
 
   const API_BASE = import.meta.env.VITE_API_BASE_URL ?? "https://exzing-energyx.onrender.com";
+  // const API_BASE = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:5000";
 
   // const API_BASE = (import.meta.env.VITE_API_BASE_URL as string);
   // const API_BASE = import.meta.env.VITE_API_BASE_URL;
