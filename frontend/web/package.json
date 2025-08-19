@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest"
   },
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
@@ -15,6 +16,7 @@
     "@microsoft/applicationinsights-react-js": "^17.0.3",
     "@microsoft/applicationinsights-web": "^3.0.7",
     "@types/leaflet": "^1.9.18",
+    "@vitejs/plugin-react": "^5.0.1",
     "axios": "^1.8.2",
     "chart.js": "^4.5.0",
     "dotenv": "^16.3.1",
@@ -27,6 +29,7 @@
     "web-vitals": "^3.5.1"
   },
   "devDependencies": {
+    "@types/node": "^24.3.0",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@typescript-eslint/eslint-plugin": "^6.14.0",
@@ -36,6 +39,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
     "typescript": "^5.2.2",
-    "vite": "^6.2.6"
+    "vite": "^6.2.6",
+    "vitest": "^3.2.4"
   }
 }

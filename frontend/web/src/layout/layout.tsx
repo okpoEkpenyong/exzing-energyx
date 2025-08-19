@@ -15,6 +15,11 @@ import DashboardPage from "../pages/dashboardPage";
 import useIsMobile from "../hooks/useIsMobile";
 import ReportsPage from "../pages/reportsPage";
 import DocumentationPage from "../pages/documentationPage";
+import LoginPage from "../pages/loginPage";
+import VoyageLog from "../pages/voyageLog";
+import AddVessel from "../pages/addVessel";
+import CreditsDashboard from "../pages/creditsDashboard";
+import VesselSnapshot from "../pages/vesselSnapshot";
 
 const Layout: FC = (): ReactElement => {
   const isMobile = useIsMobile();
@@ -46,6 +51,12 @@ const Layout: FC = (): ReactElement => {
           <Routes>
             <Route path="/" element={<DashboardPage />} />
             <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/voyage" element={<VoyageLog />} />
+            <Route path="/vessels/add" element={<AddVessel />} />
+            <Route path="/vessels" element={<VesselSnapshot />} />
+            <Route path="/reports" element={<ReportsPage />} />
+            <Route path="/credits" element={<CreditsDashboard />} />
             <Route path="/reports" element={<ReportsPage />} />
             <Route path="/documentation" element={<DocumentationPage />} />
             <Route path="*" element={<DashboardPage />} />

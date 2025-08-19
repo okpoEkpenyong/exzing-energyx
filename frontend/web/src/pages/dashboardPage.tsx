@@ -6,9 +6,12 @@ import WithApplicationInsights from '../components/telemetryWithAppInsights.tsx'
 import { stackGaps, stackPadding, titleStackStyles } from '../ux/styles.ts';
 import CarbonTrendsChart from '../components/carbonTrendsChart.tsx';
 import SummaryMetricsPanel from '../components/summaryMetricsPanel.tsx';
-import EmissionForm from '../components/emissionForm.tsx';
-import EmissionsList from '../components/emissionList.tsx';
+// import EmissionForm from '../components/emissionForm.tsx';
+// import EmissionsList from '../components/emissionList.tsx';
 import { fetchDashboardMetrics, DashboardMetrics } from '../services/metricsServices.ts';
+import CreditsDashboard from './creditsDashboard.tsx';
+import VesselSnapshot from './vesselSnapshot.tsx';
+// import VoyageLog from './voyageLog.tsx';
 
 
 const DashboardPage = () => {
@@ -83,29 +86,37 @@ const DashboardPage = () => {
             </Stack.Item> */}
  
             <Stack 
-            horizontal
-            wrap
-            tokens={{ childrenGap: 20 }}
-            styles={{
-              root: {
-                width: '100%',
-                '@media (max-width: 768px)': {
-                  flexDirection: 'column',
+              horizontal
+              wrap
+              tokens={{ childrenGap: 20 }}
+              styles={{
+                root: {
+                  width: '100%',
+                  '@media (max-width: 768px)': {
+                    flexDirection: 'column',
+                  },
                 },
-              },
-            }}
+              }}
           >
-          <Stack.Item grow styles={{ root: { minWidth: 300 } }}>
+          {/* <Stack.Item grow styles={{ root: { minWidth: 300 } }}>
             <EmissionForm />
           </Stack.Item>
 
           <Stack.Item grow styles={{ root: { minWidth: 300 } }}>
             <EmissionsList />
+          </Stack.Item> */}
+          <Stack.Item grow styles={{ root: { minWidth: 300 } }}>
+            <CreditsDashboard />
+            <VesselSnapshot />
+            {/* <VoyageLog /> */}
           </Stack.Item>
-        </Stack>
-
+            </Stack>
         </Stack>
       );
+
+        //  { to: "/voyage", label: "Voyage Log" },
+        //   { to: "/vessels", label: "Vessels" },
+        //   { to: "/credits", label: "Credits" },
 
 };
 

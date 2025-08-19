@@ -1,13 +1,12 @@
 // frontend/web/src/layout/header.tsx
-import React, { FC, ReactElement, useState } from "react";
+import React, { FC, ReactElement, useState, useContext } from "react";
+
 import { Link, useLocation } from "react-router-dom";
 import {
   Stack,
   Text,
   IconButton,
   FontIcon,
-  Persona,
-  PersonaSize,
   Panel,
   PanelType,
   IStackStyles,
@@ -15,6 +14,7 @@ import {
   mergeStyles,
   IIconProps
 } from "@fluentui/react";
+import { ThemeToggleContext } from "../contexts/themeContext";
 
 const theme = getTheme();
 
@@ -39,20 +39,38 @@ const logoIconClass = mergeStyles({
   paddingRight: 10
 });
 
-const navLinkStyle: React.CSSProperties = {
+// const navLinkStyle: React.CSSProperties = {
+//   color: theme.palette.neutralPrimary,
+//   textDecoration: "none",
+//   padding: "6px 10px",
+//   borderRadius: 6,
+//   display: "inline-block"
+// };
+
+// const navLinkActiveStyle: React.CSSProperties = {
+//   ...navLinkStyle,
+//   background: theme.palette.themeLight,
+//   color: theme.palette.themeDarker,
+//   fontWeight: 600
+// };
+
+
+const navLinkBase = (theme: ReturnType<typeof getTheme>): React.CSSProperties => ({
   color: theme.palette.neutralPrimary,
   textDecoration: "none",
-  padding: "6px 10px",
+  padding: "8px 12px",
   borderRadius: 6,
-  display: "inline-block"
-};
+  display: "inline-block",
+  transition: "background 0.12s ease",
+});
 
-const navLinkActiveStyle: React.CSSProperties = {
-  ...navLinkStyle,
-  background: theme.palette.themeLight,
-  color: theme.palette.themeDarker,
-  fontWeight: 600
-};
+const activeNavLink = (theme: ReturnType<typeof getTheme>): React.CSSProperties => ({
+  ...navLinkBase(theme),
+  background: theme.palette.themePrimary,
+  color: theme.palette.white,
+  fontWeight: 600,
+});
+
 
 const headerRightStyles: IStackStyles = {
   root: {
@@ -72,16 +90,24 @@ const iconProps: IIconProps = {
 
 const Header: FC<HeaderProps> = ({ isMobile }): ReactElement => {
   const location = useLocation();
+  const { isDark, toggle } = useContext(ThemeToggleContext);
+  const theme = getTheme();
   const [panelOpen, setPanelOpen] = useState(false);
 
   const links = [
     { to: "/dashboard", label: "Dashboard" },
-    { to: "/reports", label: "Reports" },
-    { to: "/documentation", label: "Documentation" }
+    // { to: "/reports", label: "Reports" },
+    { to: "/documentation", label: "Documentation" },
+    { to: "/voyage", label: "Voyage Log" },
+    // { to: "/vessels", label: "Vessels" },
+    // { to: "/credits", label: "Credits" },
+    { to: "/login", label: "Login" },
   ];
 
   const openPanel = () => setPanelOpen(true);
   const closePanel = () => setPanelOpen(false);
+  
+  const panelBackground = isDark ? theme.palette.neutralDark : theme.palette.white;
 
   return (
     <>
@@ -95,15 +121,14 @@ const Header: FC<HeaderProps> = ({ isMobile }): ReactElement => {
         {/* Inline nav (desktop) */}
         {!isMobile && (
           <Stack horizontal verticalAlign="center" tokens={{ childrenGap: 8 }} styles={{ root: { marginLeft: 12 } }}>
-            {links.map(link => (
-              <Link
-                key={link.to}
-                to={link.to}
-                style={location.pathname.startsWith(link.to) ? navLinkActiveStyle : navLinkStyle}
-              >
-                {link.label}
-              </Link>
-            ))}
+            {links.map((l) => {
+              const isActive = location.pathname.startsWith(l.to) || (l.to === "/dashboard" && location.pathname === "/");
+              return (
+                <Link key={l.to} to={l.to} style={isActive ? activeNavLink(theme) : navLinkBase(theme)}>
+                  {l.label}
+                </Link>
+              );
+            })}
           </Stack>
         )}
 
@@ -116,9 +141,10 @@ const Header: FC<HeaderProps> = ({ isMobile }): ReactElement => {
         <Stack horizontal verticalAlign="center" tokens={{ childrenGap: 8 }} styles={headerRightStyles}>
           {!isMobile ? (
             <>
-              <IconButton ariaLabel="Settings" iconProps={{ iconName: "Settings", ...iconProps }} />
+              <IconButton ariaLabel="Toggle theme" iconProps={{ iconName: isDark ? "Sunny" : "ClearNight", ...iconProps }} onClick={() => toggle()} />
               <IconButton ariaLabel="Help" iconProps={{ iconName: "Help", ...iconProps }} />
-              <Persona size={PersonaSize.size32} text="Ekpes" />
+              {/* <Persona size={PersonaSize.size32} text="Ekpes" />  */}
+              
             </>
           ) : (
             <>
@@ -138,35 +164,46 @@ const Header: FC<HeaderProps> = ({ isMobile }): ReactElement => {
         isOpen={panelOpen}
         onDismiss={closePanel}
         type={PanelType.smallFixedFar}
-        isLightDismiss={true}
+        isLightDismiss
         closeButtonAriaLabel="Close"
         headerText="Menu"
+        styles={{
+          root: { background: panelBackground },
+          content: { background: panelBackground },
+          navigation: { background: panelBackground },
+        }}
       >
         <Stack tokens={{ childrenGap: 12 }} styles={{ root: { padding: 8 } }}>
-          {/* Nav links */}
-          <Stack tokens={{ childrenGap: 8 }}>
-            {links.map(link => (
-              <Link
-                key={link.to}
-                to={link.to}
-                onClick={closePanel}
-                style={location.pathname.startsWith(link.to) ? navLinkActiveStyle : navLinkStyle}
-              >
-                {link.label}
-              </Link>
-            ))}
+          {/* Links */}
+          <Stack tokens={{ childrenGap: 6 }}>
+            {links.map((l) => {
+              const isActive = location.pathname.startsWith(l.to) || (l.to === "/dashboard" && location.pathname === "/");
+              return (
+                <Link
+                  key={l.to}
+                  to={l.to}
+                  onClick={closePanel}
+                  style={isActive ? activeNavLink(theme) : { ...navLinkBase(theme), color: isDark ? theme.palette.white : theme.palette.neutralPrimary }}
+                >
+                  {l.label}
+                </Link>
+              );
+            })}
           </Stack>
 
           <Stack horizontal tokens={{ childrenGap: 8 }} verticalAlign="center" styles={{ root: { marginTop: 8 } }}>
-            <IconButton ariaLabel="Settings" iconProps={{ iconName: "Settings", ...iconProps }} />
+            <IconButton ariaLabel="Toggle theme" iconProps={{ iconName: isDark ? "Sunny" : "ClearNight", ...iconProps }} onClick={() => { toggle(); }} />
             <IconButton ariaLabel="Help" iconProps={{ iconName: "Help", ...iconProps }} />
-            <Persona size={PersonaSize.size40} text="Ekpes" />
+            {/* <Persona size={PersonaSize.size40} text="Ekpes" /> */}
           </Stack>
 
-          {/* Optional small quick actions */}
-          <Stack tokens={{ childrenGap: 6 }} styles={{ root: { marginTop: 14 } }}>
-            <Link to="/reports" onClick={closePanel} style={navLinkStyle}>Generate Report</Link>
-            <Link to="/documentation" onClick={closePanel} style={navLinkStyle}>Documentation</Link>
+          <Stack tokens={{ childrenGap: 6 }} styles={{ root: { marginTop: 12 } }}>
+            {/* <Link to="/reports" onClick={closePanel} style={{ ...navLinkBase(theme), color: isDark ? theme.palette.white : theme.palette.neutralPrimary }}>
+              Generate Report
+            </Link> */}
+            <Link to="/documentation" onClick={closePanel} style={{ ...navLinkBase(theme), color: isDark ? theme.palette.white : theme.palette.neutralPrimary }}>
+              Documentation
+            </Link>
           </Stack>
         </Stack>
       </Panel>

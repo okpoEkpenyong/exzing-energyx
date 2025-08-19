@@ -29,6 +29,11 @@ export const DarkTheme = createTheme({
     }
 });
 
+
+// export const LightTheme = createTheme({
+//     palette:{ softLight:"#3facff"}
+// })
+
 // export const exzingHeaderTheme: ITheme = {
 //     palette: {
 //     themeExzing: '#bf9b30',
