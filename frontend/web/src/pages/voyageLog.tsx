@@ -18,7 +18,9 @@ type VesselOption = { key: string; text: string };
 
 const VALID_FUEL = ["diesel", "petrol", "lng", "cng", "electric", "hybrid"];
 
-const API_BASE = (import.meta.env.VITE_API_BASE_URL as string) ?? "http://localhost:5000";
+
+ const API_BASE = (import.meta.env.VITE_API_BASE_URL as string) ?? "https://exzing-energyx.onrender.com";
+
 
 const parseCsvText = (text: string) => {
   const lines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
@@ -146,7 +148,7 @@ const VoyageLog: React.FC = () => {
 
       {message && <MessageBar messageBarType={MessageBarType.info}>{message}</MessageBar>}
 
-      <Stack horizontal tokens={{ childrenGap: 12 }} wrap>
+      <Stack horizontal tokens={{ childrenGap: 12 }} wrap styles={{ root: { minWidth: 320, padding: 16, border: "1px solid #bf9b30", borderRadius: 6 } }}>
         <Stack styles={{ root: { minWidth: 320 } }} tokens={{ childrenGap: 8 }}>
           <Dropdown
             label="Select Vessel"

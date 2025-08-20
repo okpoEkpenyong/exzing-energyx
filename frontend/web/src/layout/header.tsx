@@ -20,8 +20,6 @@ const theme = getTheme();
 
 interface HeaderProps {
   isMobile: boolean;
-//   onToggleSidebar: () => void;
-//   onToggleDetailPane?: () => void;
 }
 
 const logoStyles: IStackStyles = {
@@ -38,21 +36,6 @@ const logoIconClass = mergeStyles({
   fontSize: 20,
   paddingRight: 10
 });
-
-// const navLinkStyle: React.CSSProperties = {
-//   color: theme.palette.neutralPrimary,
-//   textDecoration: "none",
-//   padding: "6px 10px",
-//   borderRadius: 6,
-//   display: "inline-block"
-// };
-
-// const navLinkActiveStyle: React.CSSProperties = {
-//   ...navLinkStyle,
-//   background: theme.palette.themeLight,
-//   color: theme.palette.themeDarker,
-//   fontWeight: 600
-// };
 
 
 const navLinkBase = (theme: ReturnType<typeof getTheme>): React.CSSProperties => ({
@@ -111,7 +94,7 @@ const Header: FC<HeaderProps> = ({ isMobile }): ReactElement => {
 
   return (
     <>
-      <Stack horizontal verticalAlign="center" styles={{ root: { background: "#fff", borderBottom: "1px solid #eee" } }}>
+      <Stack horizontal verticalAlign="center" styles={{ root: { background: "#fff", border: "1px solid #bf9b30" } }}>
         {/* Brand */}
         <Stack horizontal styles={logoStyles} verticalAlign="center">
           <FontIcon aria-label="Logo" iconName="SkypeCircleCheck" className={logoIconClass} />
@@ -197,14 +180,14 @@ const Header: FC<HeaderProps> = ({ isMobile }): ReactElement => {
             {/* <Persona size={PersonaSize.size40} text="Ekpes" /> */}
           </Stack>
 
-          <Stack tokens={{ childrenGap: 6 }} styles={{ root: { marginTop: 12 } }}>
-            {/* <Link to="/reports" onClick={closePanel} style={{ ...navLinkBase(theme), color: isDark ? theme.palette.white : theme.palette.neutralPrimary }}>
+          {/* <Stack tokens={{ childrenGap: 6 }} styles={{ root: { marginTop: 12 } }}>
+            <Link to="/reports" onClick={closePanel} style={{ ...navLinkBase(theme), color: isDark ? theme.palette.white : theme.palette.neutralPrimary }}>
               Generate Report
-            </Link> */}
+            </Link>
             <Link to="/documentation" onClick={closePanel} style={{ ...navLinkBase(theme), color: isDark ? theme.palette.white : theme.palette.neutralPrimary }}>
               Documentation
             </Link>
-          </Stack>
+          </Stack> */}
         </Stack>
       </Panel>
     </>

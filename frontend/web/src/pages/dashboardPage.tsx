@@ -4,14 +4,10 @@ import { Image, Stack, Text, Shimmer, ShimmerElementType, ImageFit } from '@flue
 import { Fragment, useEffect, useState } from 'react';
 import WithApplicationInsights from '../components/telemetryWithAppInsights.tsx';
 import { stackGaps, stackPadding, titleStackStyles } from '../ux/styles.ts';
-import CarbonTrendsChart from '../components/carbonTrendsChart.tsx';
 import SummaryMetricsPanel from '../components/summaryMetricsPanel.tsx';
-// import EmissionForm from '../components/emissionForm.tsx';
-// import EmissionsList from '../components/emissionList.tsx';
 import { fetchDashboardMetrics, DashboardMetrics } from '../services/metricsServices.ts';
 import CreditsDashboard from './creditsDashboard.tsx';
 import VesselSnapshot from './vesselSnapshot.tsx';
-// import VoyageLog from './voyageLog.tsx';
 
 
 const DashboardPage = () => {
@@ -40,16 +36,17 @@ const DashboardPage = () => {
     return (
         <Stack tokens={stackGaps} styles={{ root: { padding: 20 } }}>
           <Text variant="xxLarge">Maritime Carbon Dashboard</Text>
+          <Text block variant="xLarge">Carbon Intelligence Dashboards</Text>
+          <Text variant="small">We offer real-time overview of emissions, vessel activity, and sustainability indicators</Text>
           <Stack.Item>
             <Stack horizontal styles={titleStackStyles} tokens={stackPadding}>
               <Stack.Item grow={1}>
                 <Shimmer width={300} isDataLoaded={isReady}
                   shimmerElements={[{ type: ShimmerElementType.line, height: 20 }]}>
                   <Fragment>
-                    <Text block variant="xLarge">Carbon Intelligence Dashboards</Text>
-                    <Text variant="small">We offer real-time overview of emissions, vessel activity, and sustainability indicators</Text>
                     <Image
-                        src="/assets/vessel-gold.png"
+                        src="/assets/exzingx-ship.png"
+                        // src="/assets/vessel-gold.png"
                         alt="Exzing Logo"
                         styles={{
                           root: {
@@ -72,18 +69,6 @@ const DashboardPage = () => {
           <Stack.Item tokens={stackPadding}>
            <SummaryMetricsPanel loading={!isReady} data={dashboardData} />
           </Stack.Item>
-
-          <Stack.Item tokens={stackPadding}>
-            <CarbonTrendsChart loading={!isReady} 
-            data={dashboardData ? { labels: dashboardData.labels, values: dashboardData.weeklyTrend } : undefined}
-            />
-          </Stack.Item>
-    
-            {/* <Stack.Item tokens={stackPadding}>
-              <VesselUtilizationChart loading={!isReady} 
-              data={dashboardData ? { labels: dashboardData.labels, values: dashboardData.utilizationSeries } : undefined}
-              />
-            </Stack.Item> */}
  
             <Stack 
               horizontal
@@ -98,25 +83,14 @@ const DashboardPage = () => {
                 },
               }}
           >
-          {/* <Stack.Item grow styles={{ root: { minWidth: 300 } }}>
-            <EmissionForm />
-          </Stack.Item>
-
-          <Stack.Item grow styles={{ root: { minWidth: 300 } }}>
-            <EmissionsList />
-          </Stack.Item> */}
           <Stack.Item grow styles={{ root: { minWidth: 300 } }}>
             <CreditsDashboard />
             <VesselSnapshot />
-            {/* <VoyageLog /> */}
           </Stack.Item>
             </Stack>
         </Stack>
       );
 
-        //  { to: "/voyage", label: "Voyage Log" },
-        //   { to: "/vessels", label: "Vessels" },
-        //   { to: "/credits", label: "Credits" },
 
 };
 

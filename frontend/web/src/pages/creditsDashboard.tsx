@@ -92,7 +92,7 @@ const CreditsDashboard: React.FC = () => {
   }, []);
 
   const onExportToETS = async () => {
-    // placeholder — wire to real endpoint later
+    // placeholder — to be wired to real endpoint later
     alert("Export to ETS requested — backend integration required.");
   };
 
@@ -100,6 +100,11 @@ const CreditsDashboard: React.FC = () => {
     // placeholder — open partner flow
     alert("Offset flow (partner integration) — not implemented yet.");
   };
+
+  const customButtonStyle = {
+    root: {backgroundColor:'#bf9b30'},
+    rootHovered: {backgroundColor:'#5B6D2D'}
+  }
 
   const totalBalance = creditsRows.reduce((s, r) => s + (r.tonnes || 0), 0);
   const totalCO2 = metrics?.totalCO2 ?? 0;
@@ -115,8 +120,8 @@ const CreditsDashboard: React.FC = () => {
           {error} — If you have a dedicated credits API, make sure it is reachable by the frontend.
         </MessageBar>
       )}
-
-      <Stack horizontal tokens={{ childrenGap: 24 }} styles={{ root: { alignItems: "flex-start" } }}>
+            {/* styles={{ root: { minWidth: 320, padding: 16, border: "1px solid #bf9b30", borderRadius: 6 } }} */}
+      <Stack horizontal tokens={{ childrenGap: 24 }} styles={{ root: { alignItems: "flex-start", border: "1px solid #bf9b30", borderRadius: 6 } }}>
         <Stack styles={{ root: { width: 320 } }} tokens={{ childrenGap: 8 }}>
           <Text variant="large">Current Balance</Text>
           <Text variant="xLarge">{totalBalance.toLocaleString(undefined, { maximumFractionDigits: 3 })} tCO₂ credits</Text>
@@ -133,11 +138,11 @@ const CreditsDashboard: React.FC = () => {
           </Text>
 
           <div style={{ marginTop: 12 }}>
-            <ProgressIndicator label="Credit coverage vs emissions" percentComplete={creditCoverage} />
+            <ProgressIndicator label="Credit coverage vs emissions" percentComplete={creditCoverage}  styles={{progressBar:{backgroundColor:'#bf9b30'}}} />
           </div>
 
           <Stack horizontal tokens={{ childrenGap: 8 }} styles={{ root: { marginTop: 12 } }}>
-            <PrimaryButton text="Export to ETS" onClick={onExportToETS} />
+            <PrimaryButton text="Export to ETS" onClick={onExportToETS} styles={customButtonStyle}/>
             <DefaultButton text="Offset with Partner" onClick={onOffsetWithPartner} />
           </Stack>
         </Stack>

@@ -1,10 +1,9 @@
 // frontend/web/src/services/api.ts
 
-// const API_BASE = import.meta.env.VITE_API_BASE_URL ?? "https://exzing-energyx.onrender.com";
+const API_BASE = import.meta.env.VITE_API_BASE_URL ?? "https://exzing-energyx.onrender.com";
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:5000";
 
-export type Emission = {
+export interface Emission {
   id?: number;
   device_id: string;
   fuel_type: string;
@@ -13,6 +12,53 @@ export type Emission = {
   timestamp?: string;
   notes?: string;
 };
+
+export interface EmissionLog {
+  id?: number;
+  device_id: string;
+  fuel_type?: string;
+  fuel_amount?: number;
+  co2_emitted?: number; // in kg
+  timestamp?: string;
+  notes?: string;
+};
+
+export interface EmissionsResponse {
+  total: number;
+  page: number;
+  per_page: number;
+  items: EmissionLog[];
+}
+
+export async function getHealth() {
+  const res = await fetch(`${API_BASE}/health`);
+  if (!res.ok) throw new Error("Failed to fetch health status");
+  return res.json();
+}
+
+export async function getEmissions(): Promise<EmissionLog | null> {
+  const res = await fetch(`${API_BASE}/emissions/`);
+  if (!res.ok) throw new Error("Failed to fetch emissions");
+  return res.json();
+}
+
+// export async function logEmission(data) {
+//   const res = await fetch(`${API_BASE}/emissions/`, {
+//     method: "POST",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify(data),
+//   });
+//   if (!res.ok) throw new Error("Failed to log emission");
+//   return res.json();
+// }
+
+export async function generateCredit(emissionId: number) {
+  const res = await fetch(`${API_BASE}/credits/${emissionId}`, {
+    method: "POST",
+  });
+  if (!res.ok) throw new Error("Failed to generate credit");
+  return res.json();
+}
 
 export async function createEmission(payload: Partial<Emission>) {
   const res = await fetch(`${API_BASE}/emissions/`, {
@@ -30,12 +76,6 @@ export async function listEmissions(page = 1, per_page = 50, fuel_type?: string)
   const res = await fetch(`${API_BASE}/emissions/?${params.toString()}`);
   if (!res.ok) throw new Error("Failed to list emissions");
   return res.json(); // { total, page, per_page, items: Emission[] }
-}
-
-export async function generateCredit(emissionId: number) {
-  const res = await fetch(`${API_BASE}/credits/${emissionId}`, { method: "POST" });
-  if (!res.ok) throw new Error("Failed to generate credit");
-  return res.json();
 }
 
 export async function getDashboardMetrics() {

@@ -1,7 +1,7 @@
 // frontend/web/src/services/authService.ts
 
-// const API_BASE = import.meta.env.VITE_API_BASE_URL ?? "https://exzing-energyx.onrender.com";
-const API_BASE = (import.meta.env.VITE_API_BASE_URL as string) ?? "http://localhost:5000";
+const API_BASE = import.meta.env.VITE_API_BASE_URL ?? "https://exzing-energyx.onrender.com";
+// const API_BASE = (import.meta.env.VITE_API_BASE_URL as string) ?? "http://localhost:5000";
 const TOKEN_KEY = "energyx_token";
 
 export type LoginResult = { token: string; expiresIn?: number };

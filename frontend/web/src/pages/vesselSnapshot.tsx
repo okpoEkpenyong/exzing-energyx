@@ -16,16 +16,20 @@ import {
   Legend,
 } from "chart.js";
 
+import { getEmissions, EmissionLog } from "../services/api";
+
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, BarElement, Tooltip, Legend);
 
-type EmissionLog = {
-  id?: number;
-  device_id: string;
-  fuel_type?: string;
-  fuel_amount?: number;
-  co2_emitted?: number; // in kg
-  timestamp?: string;
-};
+// type EmissionLog = {
+//   id?: number;
+//   device_id: string;
+//   fuel_type?: string;
+//   fuel_amount?: number;
+//   co2_emitted?: number; // in kg
+//   timestamp?: string;
+//   notes?: string;
+// };
+
 
 const columns: IColumn[] = [
   { key: "c1", name: "Vessel", fieldName: "vessel", minWidth: 120, maxWidth: 200, isResizable: true },
@@ -35,13 +39,13 @@ const columns: IColumn[] = [
 
 const VesselSnapshot: React.FC = () => {
   const [metrics, setMetrics] = useState<DashboardMetrics | null>(null);
+  // const [emissions, setEmissions] = useState<EmissionLog | null >(null);
   const [emissions, setEmissions] = useState<EmissionLog[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   // API base — use Vite env; fallback is only for local dev
-  const API_BASE = (import.meta.env.VITE_API_BASE_URL as string) ?? "http://localhost:5000";
-  // const API_BASE = (import.meta.env.VITE_API_BASE_URL as string) ?? "https://exzing-energyx.onrender.com";
+  const API_BASE = (import.meta.env.VITE_API_BASE_URL as string) ?? "https://exzing-energyx.onrender.com";
 
   useEffect(() => {
     let mounted = true;
@@ -50,16 +54,9 @@ const VesselSnapshot: React.FC = () => {
       setError(null);
       try {
         const d = await fetchDashboardMetrics();
+        console.log({metrics_res: d})
         if (!mounted) return;
         setMetrics(d ?? null);
-
-        // fetch raw emissions to compute per-vessel totals
-        const r = await fetch(`${API_BASE}/emissions`);
-        if (!r.ok) throw new Error(`Emissions fetch failed ${r.status}`);
-        const arr = (await r.json()) as EmissionLog[];
-        if (!mounted) return;
-        // ensure timestamps are strings
-        setEmissions(Array.isArray(arr) ? arr : []);
       } catch (err: any) {
         console.error("VesselSnapshot load error:", err);
         if (mounted) setError(String(err?.message ?? err));
@@ -73,10 +70,42 @@ const VesselSnapshot: React.FC = () => {
     };
   }, [API_BASE]);
 
+ 
+
+  useEffect(() => {
+    let mounted = true;
+    const loadEmissions = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        // const res: EmissionsResponse = await getEmissions();
+        const res = await getEmissions() as any;
+        // const res = await getEmissions(); // <-- returns paginated object
+        console.log({ emission_res: res });
+        if (!mounted) return;
+        // ✅ Extract items before setting state
+        setEmissions(res.items ?? []); 
+      } catch (err: any) {
+        console.error("Emissions load error:", err);
+        if (mounted) setError(String(err?.message ?? err));
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    };
+    loadEmissions();
+    return () => {
+      mounted = false;
+    };
+  }, [API_BASE]);
+  
+
+  console.log({emissions})
+  console.log({metrics})
+
   // compute per-vessel totals (tonnes)
   const perVessel = useMemo(() => {
     const map = new Map<string, number>(); // device_id => tonnes
-    for (const e of emissions) {
+    for (const e of emissions) {  
       const id = e.device_id ?? "unknown";
       const co2kg = Number(e.co2_emitted ?? 0);
       const prev = map.get(id) ?? 0;
@@ -87,6 +116,7 @@ const VesselSnapshot: React.FC = () => {
     arr.sort((a, b) => b.co2t - a.co2t);
     return arr;
   }, [emissions]);
+
 
   const averagePerVessel = useMemo(() => {
     if (!perVessel.length) return 0;
@@ -122,10 +152,10 @@ const VesselSnapshot: React.FC = () => {
     return {
       labels,
       datasets: [
-        {
+        {  
           label: "Total CO₂ (t)",
           data: values,
-          borderColor: "#0392ff",
+          borderColor: "#bf9b30",
           backgroundColor: "rgba(3,146,255,0.15)",
           tension: 0.3,
           fill: true,
@@ -146,7 +176,7 @@ const VesselSnapshot: React.FC = () => {
         {
           label: "Vessel CO₂ (t)",
           data: vesselValues,
-          backgroundColor: "#ffd700",
+          backgroundColor: "#bf9b30",
         },
         {
           label: "Fleet baseline (avg) (t)",
@@ -167,7 +197,7 @@ const VesselSnapshot: React.FC = () => {
   return (
     <Stack tokens={{ childrenGap: 16 }} styles={{ root: { padding: 20, maxWidth: 1200, margin: "0 auto" } }}>
       <Text variant="xxLarge">Vessel Snapshot</Text>
-      <Separator />
+      {/* <Separator /> */}
 
       {error && (
         <MessageBar messageBarType={MessageBarType.error}>
@@ -177,14 +207,14 @@ const VesselSnapshot: React.FC = () => {
 
       <Stack horizontal tokens={{ childrenGap: 20 }} wrap>
         {/* Summary Card */}
-        <Stack styles={{ root: { minWidth: 320, padding: 16, border: "1px solid #eee", borderRadius: 6 } }} tokens={{ childrenGap: 8 }}>
-          <Text variant="large">Vessel Snapshot</Text>
+        <Stack styles={{ root: { minWidth: 320, padding: 16, border: "1px solid #bf9b30", borderRadius: 6 } }} tokens={{ childrenGap: 8 }}>
+          {/* <Text variant="large">Vessel Snapshot</Text> */}
           <Text>Total Emissions: <strong>{(metrics?.totalCO2 ?? perVessel.reduce((s, p) => s + p.co2t, 0)).toLocaleString(undefined, { maximumFractionDigits: 3 })} tCO₂</strong></Text>
           <Text>CII Rating: <strong style={{ color: ciiRating.color }}>{ciiRating.rating}</strong></Text>
           <Text>Credits Earned: <strong>{metrics?.percentOffset ? ((metrics.percentOffset * (metrics.totalCO2 ?? 0))).toFixed(3) : "—"} tCO₂ (indicative)</strong></Text>
 
           <div style={{ marginTop: 12 }}>
-            <ProgressIndicator label="Fleet Utilization" percentComplete={metrics?.utilizationRate ?? 0} />
+            <ProgressIndicator label="Fleet Utilization" percentComplete={metrics?.utilizationRate ?? 0} styles={{progressBar:{backgroundColor:'#bf9b30'}}} />
           </div>
 
           <Separator />
@@ -194,7 +224,7 @@ const VesselSnapshot: React.FC = () => {
 
         {/* Charts column */}
         <Stack grow styles={{ root: { minWidth: 0 } }} tokens={{ childrenGap: 12 }}>
-          <Stack styles={{ root: { padding: 12, border: "1px solid #eee", borderRadius: 6 } }}>
+          <Stack styles={{ root: { padding: 12, border: "1px solid #bf9b30", borderRadius: 6 } }}>
             <Text variant="large">Emissions Trend (last 7 days)</Text>
             {loading ? (
               <Text>Loading chart...</Text>
@@ -205,7 +235,7 @@ const VesselSnapshot: React.FC = () => {
             )}
           </Stack>
 
-          <Stack styles={{ root: { padding: 12, border: "1px solid #eee", borderRadius: 6 } }}>
+          <Stack styles={{ root: { padding: 12, border: "1px solid #bf9b30", borderRadius: 6 } }}>
             <Text variant="large">Top vessels vs baseline</Text>
             {perVessel.length === 0 ? (
               <Text>No vessel data yet</Text>
@@ -241,7 +271,11 @@ const VesselSnapshot: React.FC = () => {
 
       <Stack>
         <Text variant="large">Vessel Details</Text>
-        <DetailsList items={vesselRows} columns={columns} selectionMode={0} setKey="vesselsList" />
+        <DetailsList 
+          items={vesselRows} 
+          columns={columns} selectionMode={0} setKey="vesselsList"
+          styles={{ root: { padding: 12, border: "1px solid #bf9b30", borderRadius: 6 } }}
+        />
       </Stack>
     </Stack>
   );

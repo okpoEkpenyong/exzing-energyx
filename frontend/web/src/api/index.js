@@ -1,8 +1,15 @@
 
-// const API_BASE = import.meta.env.VITE_API_BASE_URL ?? "https://exzing-energyx.onrender.com";
+const API_BASE = import.meta.env.VITE_API_BASE_URL ?? "https://exzing-energyx.onrender.com";
 
- const API_BASE = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:5000";
-
+export type EmissionLog = {
+  id?: number;
+  device_id: string;
+  fuel_type?: string;
+  fuel_amount?: number;
+  co2_emitted?: number; // in kg
+  timestamp?: string;
+  notes?: string;
+};
 
 export async function getHealth() {
   const res = await fetch(`${API_BASE}/health`);
@@ -10,7 +17,7 @@ export async function getHealth() {
   return res.json();
 }
 
-export async function getEmissions() {
+export async function getEmissions(): Promise<EmissionLog | null> {
   const res = await fetch(`${API_BASE}/emissions/`);
   if (!res.ok) throw new Error("Failed to fetch emissions");
   return res.json();
