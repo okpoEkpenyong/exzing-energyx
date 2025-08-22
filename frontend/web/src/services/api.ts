@@ -1,6 +1,7 @@
 // frontend/web/src/services/api.ts
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL ?? "https://exzing-energyx.onrender.com";
+// const API_BASE = import.meta.env.VITE_API_BASE_URL ?? "https://exzing-energyx.onrender.com";
+const API_BASE = "http://localhost:5000";
 
 
 export interface Emission {

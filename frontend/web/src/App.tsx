@@ -4,14 +4,13 @@ import { useReducer, FC } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Layout from './layout/layout';
 import './App.css';
-// import { DarkTheme } from './ux/theme';
 import { AppContext, ApplicationState, getDefaultState } from './models/applicationState';
 import appReducer from './reducers';
 import { EnergyxContext } from './components/energyxContext';
 import { initializeIcons } from '@fluentui/react/lib/Icons';
-// import { ThemeProvider } from '@fluentui/react';
 import Telemetry from './components/telemetry';
 import { ThemeProviderWrapper } from './contexts/themeContext';
+import React from 'react';
 
 
 initializeIcons(undefined, { disableWarnings: true });
@@ -23,7 +22,6 @@ const App: FC = () => {
 
   return (
     <ThemeProviderWrapper>
-    {/* <ThemeProvider applyTo="body" theme={DarkTheme}> */}
       <EnergyxContext.Provider value={initialContext}>
         <BrowserRouter>
           <Telemetry>
@@ -31,7 +29,6 @@ const App: FC = () => {
           </Telemetry>
         </BrowserRouter>
       </EnergyxContext.Provider>
-    {/* </ThemeProvider>  */}
     </ThemeProviderWrapper>
   );
 };

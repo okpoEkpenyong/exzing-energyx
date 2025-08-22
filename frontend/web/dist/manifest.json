@@ -1,0 +1,16 @@
+
+{
+  "short_name": "Exzing-EnergyX",
+  "name": "Exzing EnergyX",
+  "icons": [
+    {
+      "src": "exzing_logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#0392ff",
+  "background_color": "#fcfcfc"
+}

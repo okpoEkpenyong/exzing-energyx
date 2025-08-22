@@ -49,7 +49,8 @@ const navLinkBase = (theme: ReturnType<typeof getTheme>): React.CSSProperties =>
 
 const activeNavLink = (theme: ReturnType<typeof getTheme>): React.CSSProperties => ({
   ...navLinkBase(theme),
-  background: theme.palette.themePrimary,
+  // background: theme.palette.themePrimary,
+  background:  "#bf9b30",
   color: theme.palette.white,
   fontWeight: 600,
 });
@@ -78,6 +79,7 @@ const Header: FC<HeaderProps> = ({ isMobile }): ReactElement => {
   const [panelOpen, setPanelOpen] = useState(false);
 
   const links = [
+    { to: "/", label: "Home" },
     { to: "/dashboard", label: "Dashboard" },
     // { to: "/reports", label: "Reports" },
     { to: "/documentation", label: "Documentation" },
@@ -160,7 +162,7 @@ const Header: FC<HeaderProps> = ({ isMobile }): ReactElement => {
           {/* Links */}
           <Stack tokens={{ childrenGap: 6 }}>
             {links.map((l) => {
-              const isActive = location.pathname.startsWith(l.to) || (l.to === "/dashboard" && location.pathname === "/");
+              const isActive = location.pathname.startsWith(l.to) || (l.to === "/home" && location.pathname === "/");
               return (
                 <Link
                   key={l.to}

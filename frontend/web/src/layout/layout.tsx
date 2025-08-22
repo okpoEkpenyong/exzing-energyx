@@ -1,4 +1,5 @@
 // frontend/web/src/layout/layout.tsx
+import React from "react";
 import { Stack } from "@fluentui/react";
 import { FC, ReactElement, useContext, useEffect, useMemo} from "react";
 import { Route, Routes } from "react-router-dom";
@@ -20,6 +21,7 @@ import VoyageLog from "../pages/voyageLog";
 import AddVessel from "../pages/addVessel";
 import CreditsDashboard from "../pages/creditsDashboard";
 import VesselSnapshot from "../pages/vesselSnapshot";
+import LandingPage from "../pages/landingPage";
 
 const Layout: FC = (): ReactElement => {
   const isMobile = useIsMobile();
@@ -49,7 +51,7 @@ const Layout: FC = (): ReactElement => {
       <Stack horizontal={!isMobile} wrap={isMobile} grow={1}>
         <Stack.Item grow={1} styles={mainStackStyles}>
           <Routes>
-            <Route path="/" element={<DashboardPage />} />
+            <Route path="/" element={<LandingPage />} />
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/voyage" element={<VoyageLog />} />
@@ -59,7 +61,7 @@ const Layout: FC = (): ReactElement => {
             <Route path="/credits" element={<CreditsDashboard />} />
             <Route path="/reports" element={<ReportsPage />} />
             <Route path="/documentation" element={<DocumentationPage />} />
-            <Route path="*" element={<DashboardPage />} />
+            <Route path="*" element={<LandingPage />} />
           </Routes>
         </Stack.Item>
       </Stack>

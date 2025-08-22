@@ -13,6 +13,7 @@ import {
   MessageBarType,
 } from "@fluentui/react";
 import { fetchDashboardMetrics, DashboardMetrics } from "../services/metricsServices";
+import { customButtonStyle } from "../utility/customColors";
 
 const columns: IColumn[] = [
   { key: "col1", name: "Credit ID", fieldName: "id", minWidth: 60, maxWidth: 100, isResizable: true },
@@ -101,10 +102,10 @@ const CreditsDashboard: React.FC = () => {
     alert("Offset flow (partner integration) — not implemented yet.");
   };
 
-  const customButtonStyle = {
-    root: {backgroundColor:'#bf9b30'},
-    rootHovered: {backgroundColor:'#5B6D2D'}
-  }
+  // const customButtonStyle = {
+  //   root: {backgroundColor:'#bf9b30'},
+  //   rootHovered: {backgroundColor:'#5B6D2D'}
+  // }
 
   const totalBalance = creditsRows.reduce((s, r) => s + (r.tonnes || 0), 0);
   const totalCO2 = metrics?.totalCO2 ?? 0;

@@ -20,15 +20,6 @@ import { getEmissions, EmissionLog } from "../services/api";
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, BarElement, Tooltip, Legend);
 
-// type EmissionLog = {
-//   id?: number;
-//   device_id: string;
-//   fuel_type?: string;
-//   fuel_amount?: number;
-//   co2_emitted?: number; // in kg
-//   timestamp?: string;
-//   notes?: string;
-// };
 
 
 const columns: IColumn[] = [
@@ -45,7 +36,8 @@ const VesselSnapshot: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   // API base — use Vite env; fallback is only for local dev
-  const API_BASE = (import.meta.env.VITE_API_BASE_URL as string) ?? "https://exzing-energyx.onrender.com";
+  // const API_BASE = (import.meta.env.VITE_API_BASE_URL as string) ?? "https://exzing-energyx.onrender.com";
+  const API_BASE = "http://localhost:5000";
 
   useEffect(() => {
     let mounted = true;

@@ -13,13 +13,15 @@ import {
   MessageBarType,
 } from "@fluentui/react";
 import { authHeaders } from "../services/authService";
+import { customButtonStyle } from "../utility/customColors";
 
 type VesselOption = { key: string; text: string };
 
 const VALID_FUEL = ["diesel", "petrol", "lng", "cng", "electric", "hybrid"];
 
 
- const API_BASE = (import.meta.env.VITE_API_BASE_URL as string) ?? "https://exzing-energyx.onrender.com";
+//  const API_BASE = (import.meta.env.VITE_API_BASE_URL as string) ?? "https://exzing-energyx.onrender.com";
+const API_BASE = "http://localhost:5000";
 
 
 const parseCsvText = (text: string) => {
@@ -149,7 +151,7 @@ const VoyageLog: React.FC = () => {
       {message && <MessageBar messageBarType={MessageBarType.info}>{message}</MessageBar>}
 
       <Stack horizontal tokens={{ childrenGap: 12 }} wrap styles={{ root: { minWidth: 320, padding: 16, border: "1px solid #bf9b30", borderRadius: 6 } }}>
-        <Stack styles={{ root: { minWidth: 320 } }} tokens={{ childrenGap: 8 }}>
+        <Stack styles={{ root: { minWidth: 320, padding: 16, border: "1px solid #bf9b30", borderRadius: 6 } }} tokens={{ childrenGap: 8 }}>
           <Dropdown
             label="Select Vessel"
             selectedKey={selectedVessel}
@@ -166,6 +168,7 @@ const VoyageLog: React.FC = () => {
               const clean = (v ?? "").toString().trim();
               setDistance(clean === "" ? undefined : Number(clean));
             }}
+            
           />
 
           <TextField
@@ -185,7 +188,7 @@ const VoyageLog: React.FC = () => {
           />
           <TextField label="Date" type="date" value={date} onChange={(_, v) => setDate(v ?? "")} />
           <Stack horizontal tokens={{ childrenGap: 8 }} styles={{ root: { marginTop: 8 } }}>
-            <PrimaryButton text="Submit & Calculate Emissions" onClick={onSubmit} disabled={loading} />
+            <PrimaryButton text="Submit & Calculate Emissions" styles={customButtonStyle} onClick={onSubmit} disabled={loading} />
             <DefaultButton text="Clear" onClick={() => { setRoute(""); setDistance(undefined); setFuel(undefined); }} />
           </Stack>
         </Stack>
@@ -194,8 +197,8 @@ const VoyageLog: React.FC = () => {
           <Text variant="large">CSV Upload / Sensor</Text>
           <input type="file" accept=".csv,text/csv" onChange={onCsvSelected} />
           {csvPreviewMsg && <Text variant="small">{csvPreviewMsg} ({csvRowsCount} rows)</Text>}
-          <Stack horizontal tokens={{ childrenGap: 8 }} styles={{ root: { marginTop: 8 } }}>
-            <PrimaryButton text="Upload CSV" onClick={onUploadCsv} disabled={loading || csvRowsCount===0} />
+          <Stack horizontal tokens={{ childrenGap: 8 }} styles={{ root: { marginTop: 10, }}}>
+            <PrimaryButton text="Upload CSV" styles={customButtonStyle} onClick={onUploadCsv} disabled={loading || csvRowsCount===0} />
             <DefaultButton text="Connect Sensor" onClick={() => alert("Sensor integration coming in Phase 2")} />
           </Stack>
 

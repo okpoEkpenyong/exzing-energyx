@@ -1,5 +1,6 @@
 // src/pages/dashboardPage.tsx
 
+import React from 'react';
 import { Image, Stack, Text, Shimmer, ShimmerElementType, ImageFit } from '@fluentui/react';
 import { Fragment, useEffect, useState } from 'react';
 import WithApplicationInsights from '../components/telemetryWithAppInsights.tsx';
@@ -8,7 +9,6 @@ import SummaryMetricsPanel from '../components/summaryMetricsPanel.tsx';
 import { fetchDashboardMetrics, DashboardMetrics } from '../services/metricsServices.ts';
 import CreditsDashboard from './creditsDashboard.tsx';
 import VesselSnapshot from './vesselSnapshot.tsx';
-
 
 const DashboardPage = () => {
     const [isReady, setIsReady] = useState(false);
@@ -30,9 +30,7 @@ const DashboardPage = () => {
       }, []);
 
       console.log("fetched dashboardData:", dashboardData);
-    
-
-
+  
     return (
         <Stack tokens={stackGaps} styles={{ root: { padding: 20 } }}>
           <Text variant="xxLarge">Maritime Carbon Dashboard</Text>
@@ -45,7 +43,7 @@ const DashboardPage = () => {
                   shimmerElements={[{ type: ShimmerElementType.line, height: 20 }]}>
                   <Fragment>
                     <Image
-                        src="/assets/exzingx-ship.png"
+                        src="./web/public/assets/exzingx-ship.png"
                         // src="/assets/vessel-gold.png"
                         alt="Exzing Logo"
                         styles={{
@@ -90,8 +88,6 @@ const DashboardPage = () => {
             </Stack>
         </Stack>
       );
-
-
 };
 
 const DashboardWithTelemetry = WithApplicationInsights(DashboardPage, 'DashboardPage');
