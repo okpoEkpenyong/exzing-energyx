@@ -16,9 +16,9 @@ import { useNavigate } from "react-router-dom";
 import BackgroundCanvas from "../components/backgroundCanvas";
 import ConceptIllustration from "../components/images/conceptIllustration";
 import HeroIllustration from "../components/images/heroIllustration";
-import FeatureCard from "../components/FeatureCard";
+import FeatureCard from "../components/featureCard";
 import { customButtonStyle } from "../utility/customColors";
-import { Cloud, Layers } from "lucide-react";
+import { Layers } from "lucide-react";
 
 
 
