@@ -44,3 +44,13 @@ class CarbonCredit(Base):
     issued_at = Column(DateTime, default=datetime.utcnow)
 
     emission = relationship("EmissionLog", back_populates="credits")
+
+class Vessel(Base):
+    __tablename__ = "vessels"
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, nullable=False)
+    imo = Column(String, unique=True, nullable=True)
+    fuel_type = Column(String)
+    dwt = Column(Float, nullable=True)
+    engine_kw = Column(Float, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)

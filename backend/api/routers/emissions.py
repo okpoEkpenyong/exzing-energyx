@@ -9,6 +9,7 @@ from backend.api.db_models import models
 from backend.api.deps import get_db
 from typing import List
 
+
 router = APIRouter()
 
 CO2_FACTORS = {

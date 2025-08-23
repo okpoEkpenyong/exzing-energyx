@@ -1,0 +1,231 @@
+/* landingPage.css - responsive layout for landing page */
+
+/* root container */
+.landing-root {
+    width: 100%;
+    padding: 36px 16px;
+  }
+  
+  .landing-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  /* HERO GRID */
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 480px;
+    gap: 24px;
+    align-items: start;
+  }
+  
+  .hero-left {
+    /* left column text */
+  }
+  
+  .brand-title {
+    font-size: 34px;
+    font-weight: 700;
+    color: var(--brand-color, #fff);
+  }
+  
+  .brand-subtitle {
+    font-size: 18px;
+    margin-top: 6px;
+    color: var(--subtitle-color, #ffd166);
+  }
+  
+  .hero-description {
+    margin-top: 12px;
+    color: rgba(255,255,255,0.92);
+    max-width: 68ch;
+  }
+  
+  .hero-ctas {
+    margin-top: 14px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  /* illustrations */
+  .hero-right {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .illustration-box {
+    width: 100%;
+    max-width: 360px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* MEASURE/VERIFY/REDUCE */
+  .mvr-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    align-items: start;
+  }
+  
+  .mvr-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  
+  .mvr-icon {
+    font-size: 28px;
+    color: #bf9b30;
+  }
+  
+  .mvr-title {
+    font-weight: 700;
+    font-size: 18px;
+  }
+  
+  .mvr-desc {
+    opacity: 0.9;
+    font-size: 13px;
+  }
+  
+  /* feature cards grid */
+  .feature-section {
+    margin-top: 6px;
+  }
+  
+  .section-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+  }
+  
+  /* How it works */
+  .how-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  
+  .how-item {
+    padding: 8px;
+  }
+  
+  .how-step {
+    font-weight: 700;
+    font-size: 16px;
+  }
+  
+  .how-desc {
+    margin-top: 6px;
+    color: rgba(255,255,255,0.9);
+  }
+  
+  /* Pilot form */
+  .pilot-form {
+    max-width: 680px;
+    padding: 8px 0;
+  }
+  
+  .pilot-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 8px;
+  }
+  
+  .pilot-actions {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+  }
+  
+  /* footer */
+  .footer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .footer-links {
+    display: flex;
+    gap: 12px;
+  }
+  
+  .footer-link {
+    color: inherit;
+    text-decoration: none;
+  }
+  
+  /* --- Responsive breakpoints --- */
+  
+  /* tablet */
+  @media (max-width: 992px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+    }
+    .mvr-row {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .pilot-fields {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  /* mobile */
+  @media (max-width: 680px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .mvr-row {
+      grid-template-columns: 1fr;
+    }
+    .mvr-item {
+      flex-direction: row; /* icon left, content right - remains readable */
+      gap: 10px;
+    }
+    .brand-title {
+      font-size: 26px;
+    }
+    .brand-subtitle {
+      font-size: 14px;
+    }
+    .hero-description {
+      font-size: 14px;
+    }
+    .feature-grid {
+      grid-template-columns: 1fr;
+    }
+    .how-grid {
+      grid-template-columns: 1fr;
+    }
+    .pilot-fields {
+      grid-template-columns: 1fr;
+    }
+    .illustration-box {
+      max-width: 320px;
+    }
+    .mvr-title {
+      font-size: 16px;
+    }
+  }
+  
+  /* small phones */
+  @media (max-width: 420px) {
+    .brand-title { font-size: 22px; }
+    .brand-subtitle { font-size: 13px; }
+    .mvr-icon { font-size: 24px; }
+    .pilot-actions { flex-direction: column; align-items: stretch; }
+  }
+  

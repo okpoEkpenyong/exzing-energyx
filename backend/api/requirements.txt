@@ -12,3 +12,4 @@ azure-monitor-opentelemetry-exporter == 1.0.0b19
 pydantic
 sqlalchemy
 python-dotenv
+authlib

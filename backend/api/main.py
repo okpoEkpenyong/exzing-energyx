@@ -1,11 +1,11 @@
 # backend/api/main.py
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from backend.api.routers import emissions, credits, devices, health, items
 from backend.api.database import create_db_and_tables
 from backend.api.routers import metrics
 import os
 
+from backend.api.routers import emissions, credits, devices, health, items, auth, vessels
 
 
 app = FastAPI(title="Exzing EnergyX Carbon Intelligence Platform", version="1.0")
@@ -20,14 +20,11 @@ def originList():
         return ["*"]
     
     origins = [
-        "https://portal.azure.com",
-        "https://ms.portal.azure.com",
+        # "https://portal.azure.com",
+        # "https://ms.portal.azure.com",
         "https://exzing-energyx.onrender.com",
         "https://energyx.exzing.com",
-        "https://www.exzing.com",
-        "https://exzing-energyx.vercel.app",
-        "https://vercel.com",
-        "https://domain.com",
+        "http://localhost:5173",
     ]
 
 
@@ -52,9 +49,11 @@ app.add_middleware(
 app.include_router(emissions.router, prefix="/emissions", tags=["Emissions"])
 app.include_router(credits.router, prefix="/credits", tags=["Carbon Credits"])
 app.include_router(devices.router, prefix="/devices", tags=["Devices"])
-app.include_router(health.router)
+app.include_router(health.router,prefix="/health", tags=["Health"])
 app.include_router(items.router, prefix="/items", tags=["Items"])
 app.include_router(metrics.router, prefix="/metrics", tags=["Metrics"])
+app.include_router(auth.router, prefix="/auth", tags=["Auth"])
+app.include_router(vessels.router,prefix="/vessels", tags=["Vessels"])
 
 
 @app.on_event("startup")
