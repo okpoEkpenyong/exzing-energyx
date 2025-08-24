@@ -59,7 +59,9 @@ const activeNavLink = (theme: ReturnType<typeof getTheme>): React.CSSProperties 
 const headerRightStyles: IStackStyles = {
   root: {
     alignItems: "center",
-    padding: "0 12px"
+    padding: "0 12px",
+    color: "#bf9b30"
+    
   }
 };
 
@@ -81,11 +83,8 @@ const Header: FC<HeaderProps> = ({ isMobile }): ReactElement => {
   const links = [
     { to: "/", label: "Home" },
     { to: "/dashboard", label: "Dashboard" },
-    // { to: "/reports", label: "Reports" },
     { to: "/documentation", label: "Documentation" },
     { to: "/voyage", label: "Voyage Log" },
-    // { to: "/vessels", label: "Vessels" },
-    // { to: "/credits", label: "Credits" },
     { to: "/login", label: "Login" },
   ];
 

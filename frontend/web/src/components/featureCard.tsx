@@ -18,12 +18,11 @@ const FeatureCard: React.FC<Props> = ({ title, body, icon, onClick }) => {
           minWidth: 260,
           maxWidth: 360,
           padding: 16,
-          borderRadius: 8,
-          // borderWidth: 20,
-          // borderColor: "#bf9b30",
+          border: "1px solid #bf9b30",   // <-- border shorthand -> visible
+          // boxShadow: "0 6px 18px rgba(2,6,23,0.12)",
+          boxShadow: `0 6px 18px rgba(2,6,23,0.12), 0 0 0 3px rgba(191,155,48,0.08)`,
+          transition: "transform 160ms ease, box-shadow 160ms ease",
           // cursor: onClick ? "pointer" : "default",
-          boxShadow: "0 6px 18px rgba(2,6,23,0.25)",
-          transition: "transform 160ms ease",
         },
       }}
     >

@@ -20,8 +20,8 @@ type VesselOption = { key: string; text: string };
 const VALID_FUEL = ["diesel", "petrol", "lng", "cng", "electric", "hybrid"];
 
 
-//  const API_BASE = (import.meta.env.VITE_API_BASE_URL as string) ?? "https://exzing-energyx.onrender.com";
-const API_BASE = "http://localhost:5000";
+ const API_BASE = (import.meta.env.VITE_API_BASE_URL as string) ?? "https://exzing-energyx.onrender.com";
+// const API_BASE = "http://localhost:5000";
 
 
 const parseCsvText = (text: string) => {

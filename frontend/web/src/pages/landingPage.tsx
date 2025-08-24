@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import {
-  Stack,
+  // Stack,
   PrimaryButton,
-  DefaultButton,
+  // DefaultButton,
   Text,
-  TextField,
+  // TextField,
   MessageBar,
   MessageBarType,
   Separator,
   FontIcon,
   getTheme,
-  IconButton,
+  // IconButton,
 } from "@fluentui/react";
 import { useNavigate } from "react-router-dom";
 import BackgroundCanvas from "../components/backgroundCanvas";
@@ -19,8 +19,13 @@ import HeroIllustration from "../components/images/heroIllustration";
 import FeatureCard from "../components/featureCard";
 import { Layers } from "lucide-react";
 import "../styles/landingPage.css"; // <-- add this CSS file (below)
+import { defaultButtonStyle, customButtonStyle } from "../utility/customColors";
 
-const API_BASE = "http://localhost:5000";
+import GoldTextField from "../components/goldTextField";
+
+
+// const API_BASE = "http://localhost:5000";
+ const API_BASE = (import.meta.env.VITE_API_BASE_URL as string) ?? "https://exzing-energyx.onrender.com";
 const theme = getTheme();
 
 const LandingPage: React.FC = () => {
@@ -30,6 +35,8 @@ const LandingPage: React.FC = () => {
   const [org, setOrg] = useState("");
   const [msg, setMsg] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+// style={{ fontSize: 28, color:"#bf9b30" }}
 
   const onRequestPilot = async () => {
     setMsg(null);
@@ -78,7 +85,7 @@ const LandingPage: React.FC = () => {
           <div className="hero-grid">
             <div className="hero-left">
               <Text >
-                Standards-first carbon intelligence for individals and sectors like maritime, oil&Gas, 
+                Standards-first carbon intelligence for individals and sectors like maritime, Oil&Gas, 
                 verification bodies, and industrial partners. Fast onboarding,
                 audit-ready data, and pilot workflows.
               </Text>
@@ -125,15 +132,14 @@ const LandingPage: React.FC = () => {
             </div>
           </div>
 
+            <div className="hero-ctas">
+            <PrimaryButton styles={customButtonStyle} text="Request Pilot" onClick={() => goTo("pilot-form")} />
+            <PrimaryButton styles={defaultButtonStyle} text="Documentation" onClick={() => navigate("/documentation")} />
+          </div>
+          </div>
+
           <Separator />
           <Separator />
-
-          <div className="hero-ctas">
-                <PrimaryButton text="Request Pilot" onClick={() => goTo("pilot-form")} />
-                <DefaultButton text="Documentation" onClick={() => navigate("/documentation")} />
-              </div>
-            </div>
-
 
           {/* What we offer - responsive card grid */}
           <section id="offer" className="feature-section">
@@ -160,7 +166,7 @@ const LandingPage: React.FC = () => {
               <FeatureCard
                 title="CO₂ Sequestration"
                 body="AI Models for optimal prediction of CO₂ injection parameters."
-                icon={<Layers size={22} className="lucide-icon" />}
+                icon={<Layers size={22} className="feature-icon" />}
                 onClick={() => goTo("how")}
               />
             </div>
@@ -173,20 +179,23 @@ const LandingPage: React.FC = () => {
           <div id="pilot-form" className="pilot-form">
             <Text className="section-title">Request a Pilot</Text>
             {msg && <MessageBar messageBarType={MessageBarType.info}>{msg}</MessageBar>}
+            {/* <div className="pilot-fields" >
+              <TextField className="ms-TextField" label="Full name" value={name} onChange={(_, v) => setName(v ?? "")} />
+              <TextField className="ms-TextField" label="Email" value={email} onChange={(_, v) => setEmail(v ?? "")} />
+              <TextField className="ms-TextField" label="Organization" value={org} onChange={(_, v) => setOrg(v ?? "")} />
+            </div> */}
             <div className="pilot-fields">
-              <TextField label="Full name" value={name} onChange={(_, v) => setName(v ?? "")} />
-              <TextField label="Email" value={email} onChange={(_, v) => setEmail(v ?? "")} />
-              <TextField label="Organization" value={org} onChange={(_, v) => setOrg(v ?? "")} />
+              <GoldTextField label="Full name" value={name} onChange={(_, v) => setName(v ?? "")} />
+              <GoldTextField label="Email" value={email} onChange={(_, v) => setEmail(v ?? "")} />
+              <GoldTextField label="Organization" value={org} onChange={(_, v) => setOrg(v ?? "")} />
             </div>
 
             <div className="pilot-actions">
-              <PrimaryButton text={loading ? "Submitting..." : "Request"} onClick={onRequestPilot} disabled={loading} />
-              <DefaultButton text="Contact" onClick={() => (window.location.href = "mailto:info@exzing.com?subject=Pilot%20Enquiry")} />
+              <PrimaryButton styles={customButtonStyle} text={loading ? "Submitting..." : "Request"} onClick={onRequestPilot} disabled={loading} />
+              <PrimaryButton styles={defaultButtonStyle} text="Contact" onClick={() => (window.location.href = "mailto:info@exzing.com?subject=Pilot%20Enquiry")} />
             </div>
           </div>
-
           <Separator />
-
           <div className="footer-row">
             <Text variant="small">© {new Date().getFullYear()} Exzing-EnergyX</Text>
           </div>

@@ -10,10 +10,9 @@ export type DashboardMetrics = {
   };
   
 
-  // const API_BASE = import.meta.env.VITE_API_BASE_URL ?? "https://exzing-energyx.onrender.com";
-  const API_BASE = "http://localhost:5000";
+  const API_BASE = import.meta.env.VITE_API_BASE_URL ?? "https://exzing-energyx.onrender.com";
+  // const API_BASE = "http://localhost:5000";
 
-  console.log({envs: import.meta.env.VITE_API_BASE_URL});
 
 
   export async function fetchDashboardMetrics(): Promise<DashboardMetrics | null> {
