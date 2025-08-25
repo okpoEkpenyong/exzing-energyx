@@ -69,7 +69,7 @@ const iconProps: IIconProps = {
   styles: {
     root: {
       fontSize: 16,
-      color: theme.palette.neutralPrimary
+      color: "#bf9b30"
     }
   }
 };
@@ -106,9 +106,9 @@ const Header: FC<HeaderProps> = ({ isMobile }): ReactElement => {
         {!isMobile && (
           <Stack horizontal verticalAlign="center" tokens={{ childrenGap: 8 }} styles={{ root: { marginLeft: 12 } }}>
             {links.map((l) => {
-              const isActive = location.pathname.startsWith(l.to) || (l.to === "/dashboard" && location.pathname === "/");
+              const isActive = location.pathname.startsWith(l.to);
               return (
-                <Link key={l.to} to={l.to} style={isActive ? activeNavLink(theme) : navLinkBase(theme)}>
+                <Link key={l.to} to={l.to} style={navLinkBase(theme)}>
                   {l.label}
                 </Link>
               );
@@ -161,13 +161,14 @@ const Header: FC<HeaderProps> = ({ isMobile }): ReactElement => {
           {/* Links */}
           <Stack tokens={{ childrenGap: 6 }}>
             {links.map((l) => {
-              const isActive = location.pathname.startsWith(l.to) || (l.to === "/home" && location.pathname === "/");
+              const isActive = location.pathname.startsWith(l.to);
+              //  const isActive = location.pathname.startsWith(l.to) || (l.to === "/dashboard" && location.pathname === "/");
               return (
                 <Link
                   key={l.to}
                   to={l.to}
                   onClick={closePanel}
-                  style={isActive ? activeNavLink(theme) : { ...navLinkBase(theme), color: isDark ? theme.palette.white : theme.palette.neutralPrimary }}
+                  style={activeNavLink(theme) }
                 >
                   {l.label}
                 </Link>
@@ -178,17 +179,7 @@ const Header: FC<HeaderProps> = ({ isMobile }): ReactElement => {
           <Stack horizontal tokens={{ childrenGap: 8 }} verticalAlign="center" styles={{ root: { marginTop: 8 } }}>
             <IconButton ariaLabel="Toggle theme" iconProps={{ iconName: isDark ? "Sunny" : "ClearNight", ...iconProps }} onClick={() => { toggle(); }} />
             <IconButton ariaLabel="Help" iconProps={{ iconName: "Help", ...iconProps }} />
-            {/* <Persona size={PersonaSize.size40} text="Ekpes" /> */}
           </Stack>
-
-          {/* <Stack tokens={{ childrenGap: 6 }} styles={{ root: { marginTop: 12 } }}>
-            <Link to="/reports" onClick={closePanel} style={{ ...navLinkBase(theme), color: isDark ? theme.palette.white : theme.palette.neutralPrimary }}>
-              Generate Report
-            </Link>
-            <Link to="/documentation" onClick={closePanel} style={{ ...navLinkBase(theme), color: isDark ? theme.palette.white : theme.palette.neutralPrimary }}>
-              Documentation
-            </Link>
-          </Stack> */}
         </Stack>
       </Panel>
     </>

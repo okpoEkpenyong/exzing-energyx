@@ -41,7 +41,7 @@ export const titleStackStyles: IStackStyles = {
         // alignItems: 'center',
         // background: theme.palette.neutralPrimaryAlt,
         alignItems: 'flex-start',
-        background: theme.palette.neutralPrimaryAlt,
+        // background: theme.palette.neutralPrimaryAlt,
         padding: 10,
         flexWrap: 'wrap',
         gap: 20,

@@ -44,7 +44,6 @@ const DashboardPage = () => {
                   <Fragment>
                     <Image
                         src="./web/public/assets/exzingx-ship.png"
-                        // src="/assets/vessel-gold.png"
                         alt="Exzing Logo"
                         styles={{
                           root: {
@@ -67,7 +66,6 @@ const DashboardPage = () => {
           <Stack.Item tokens={stackPadding}>
            <SummaryMetricsPanel loading={!isReady} data={dashboardData} />
           </Stack.Item>
- 
             <Stack 
               horizontal
               wrap
@@ -85,7 +83,7 @@ const DashboardPage = () => {
             <CreditsDashboard />
             <VesselSnapshot />
           </Stack.Item>
-            </Stack>
+          </Stack>
         </Stack>
       );
 };
