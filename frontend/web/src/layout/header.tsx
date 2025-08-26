@@ -147,7 +147,7 @@ const Header: FC<HeaderProps> = ({ isMobile }): ReactElement => {
       <Panel
         isOpen={panelOpen}
         onDismiss={closePanel}
-        type={PanelType.smallFixedFar}
+        type={PanelType.smallFixedNear}
         isLightDismiss
         closeButtonAriaLabel="Close"
         headerText="Menu"

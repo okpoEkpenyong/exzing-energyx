@@ -84,11 +84,14 @@ const LandingPage: React.FC = () => {
  return (
 
    <Stack tokens={{ childrenGap: 8 }} styles={{ root: { marginBottom: 10,padding: 10, maxWidth: 1100, margin: "0 auto" } }}>
-      <Text> Standards-first carbon intelligence for individals and sectors like maritime, Oil&Gas,
+      <Text> Standards-first carbon intelligence for individals and sectors like maritime, oil&gas,
         verification bodies, and industrial partners. Fast onboarding,
         audit-ready data, and pilot workflows. We don’t just sell carbon credits.
         We sell trustworthy climate action by hard-wiring transparency, verification,
-        and accountability into every step. Where others issue offsets, we issue evidence
+        and accountability into every step. Where others issue offsets, we issue evidence.
+        We make every credit and emission record verifiable, auditable, and risk-rated so buyers and verifiers 
+        can trust the credits. To do so, we combine automated monitoring (satellite, IoT, telemetry),
+        robust third-party verification, public provenance, and an internal rating system that surfaces credit quality.
       </Text>
       <Separator />
       <Separator />

@@ -10,6 +10,7 @@ export type LoginResult = { token: string; expiresIn?: number };
  * Attempts to log in against backend /auth/login.
  * If backend is missing/unreachable it falls back to a local mock token (useful for dev).
  */
+
 export async function login(username: string, password: string): Promise<LoginResult> {
   try {
     const res = await fetch(`${API_BASE}/auth/login`, {

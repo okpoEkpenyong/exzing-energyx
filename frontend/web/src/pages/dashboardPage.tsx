@@ -9,6 +9,9 @@ import SummaryMetricsPanel from '../components/summaryMetricsPanel.tsx';
 import { fetchDashboardMetrics, DashboardMetrics } from '../services/metricsServices.ts';
 import CreditsDashboard from './creditsDashboard.tsx';
 import VesselSnapshot from './vesselSnapshot.tsx';
+import SatelliteStub from './satelliteStub.jsx';
+import CreditDetail from './creditDetail.jsx';
+import AuditorDashboard from './auditorDashboard.jsx';
 
 const DashboardPage = () => {
     const [isReady, setIsReady] = useState(false);
@@ -29,7 +32,7 @@ const DashboardPage = () => {
 
       }, []);
 
-      console.log("fetched dashboardData:", dashboardData);
+   
   
     return (
         <Stack tokens={stackGaps} styles={{ root: { padding: 20 } }}>
@@ -82,6 +85,9 @@ const DashboardPage = () => {
           <Stack.Item grow styles={{ root: { minWidth: 300 } }}>
             <CreditsDashboard />
             <VesselSnapshot />
+            <AuditorDashboard />
+            <SatelliteStub />
+            <CreditDetail />
           </Stack.Item>
           </Stack>
         </Stack>

@@ -22,6 +22,9 @@ import AddVessel from "../pages/addVessel";
 import CreditsDashboard from "../pages/creditsDashboard";
 import VesselSnapshot from "../pages/vesselSnapshot";
 import LandingPage from "../pages/landingPage";
+import SatelliteStub from "../pages/satelliteStub";
+import AuditorDashboard from "../pages/auditorDashboard";
+import CreditDetail from "../pages/creditDetail";
 
 const Layout: FC = (): ReactElement => {
   const isMobile = useIsMobile();
@@ -61,6 +64,10 @@ const Layout: FC = (): ReactElement => {
             <Route path="/credits" element={<CreditsDashboard />} />
             <Route path="/reports" element={<ReportsPage />} />
             <Route path="/documentation" element={<DocumentationPage />} />
+            <Route path="/credits/:id" element={<CreditDetail />} />
+            <Route path="/auditor" element={<AuditorDashboard />} />
+            <Route path="/satellite-stub" element={<SatelliteStub />} />
+
             <Route path="*" element={<LandingPage />} />
           </Routes>
         </Stack.Item>

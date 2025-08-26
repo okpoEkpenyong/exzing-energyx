@@ -1,19 +1,29 @@
 // frontend/web/src/pages/documentationPage.tsx
 import React from "react";
-import { Stack, Text, Separator, DefaultButton, Link, DetailsList, IColumn } from "@fluentui/react";
+import {
+  Stack,
+  Text,
+  Separator,
+  DefaultButton,
+  Link,
+  DetailsList,
+  IColumn,
+  PrimaryButton,
+  TooltipHost,
+} from "@fluentui/react";
 
 const emissionFactors = [
-  // These values are example placeholders. Replace with chosen authoritative source values and cite.
-  { fuel: "diesel (MDO/MGO)", factor_kgCO2_per_ton: 3140 }, // example: ~3.14 kg CO2 per kg => 3140 per ton
+  // Replace with authoritative source values and cite in the whitepaper
+  { fuel: "diesel (MDO/MGO)", factor_kgCO2_per_ton: 3140 },
   { fuel: "HFO", factor_kgCO2_per_ton: 3330 },
   { fuel: "LNG", factor_kgCO2_per_ton: 2750 },
   { fuel: "CNG", factor_kgCO2_per_ton: 2700 },
-  { fuel: "Biofuel (varies)", factor_kgCO2_per_ton: 0 }, // note: lifecycle accounting required
+  { fuel: "Biofuel (varies)", factor_kgCO2_per_ton: 0 },
 ];
 
 const columns: IColumn[] = [
-  { key: "c1", name: "Fuel", fieldName: "fuel", minWidth: 150 },
-  { key: "c2", name: "Emission factor (kg CO₂ / tonne fuel)", fieldName: "factor_kgCO2_per_ton", minWidth: 200 },
+  { key: "c1", name: "Fuel", fieldName: "fuel", minWidth: 180 },
+  { key: "c2", name: "Emission factor (kg CO₂ / tonne fuel)", fieldName: "factor_kgCO2_per_ton", minWidth: 220 },
 ];
 
 const csvTemplate = `device_id,fuel_type,fuel_amount,timestamp,voyage_id
@@ -21,67 +31,90 @@ vessel-001,diesel,1200,2025-08-12T08:00:00Z,voyage-20250812-001
 vessel-002,lng,800,2025-08-11T14:00:00Z,voyage-20250811-002
 `;
 
-const Section: React.FC<{ title: string; children?: React.ReactNode }> = ({ title, children }) => (
-  <Stack tokens={{ childrenGap: 8 }} styles={{ root: { marginBottom: 10 } }}>
-    <Text variant="xLarge">{title}</Text>
-    <Separator />
+const Section: React.FC<{ title?: string; children?: React.ReactNode }> = ({ title, children }) => (
+  <Stack tokens={{ childrenGap: 8 }} styles={{ root: { marginBottom: 18 } }}>
+    {title ? (
+      <>
+        <Text variant="xLarge">{title}</Text>
+        <Separator />
+      </>
+    ) : null}
     <div>{children}</div>
   </Stack>
 );
 
 const DocumentationPage: React.FC = () => {
+  const copyCsv = async () => {
+    try {
+      await navigator.clipboard.writeText(csvTemplate);
+      alert("CSV template copied to clipboard");
+    } catch (e) {
+      alert("Unable to copy. Select and copy manually.");
+    }
+  };
+
+  const openWhitepaper = () => {
+    // Assumes docs/whitepaper.md is served at /docs/whitepaper.md by your static host (Vercel/Netlify).
+    window.open("/docs/whitepaper.md", "_blank");
+  };
+
   return (
-    <Stack tokens={{ childrenGap: 14 }} styles={{ root: { padding: 10, maxWidth: 1100, margin: "0 auto" } }}>
-      <Stack horizontal verticalAlign="center" horizontalAlign="space-between">
-        <h1 className="text-3xl font-bold mb-6 text-center">Methodology & Roadmap</h1>
-        <Text variant="small">Standards: IPCC • IMO • GHG Protocol • ISO 14064</Text>
+    <Stack tokens={{ childrenGap: 18 }} styles={{ root: { padding: 20, maxWidth: 1100, margin: "0 auto" } }}>
+      <Stack horizontal horizontalAlign="space-between" verticalAlign="center">
+        <div>
+          <Text variant="xxLarge">Methodology, API & Roadmap</Text>
+          <Text variant="small">Standards: IPCC • IMO • GHG Protocol • ISO 14064</Text>
+        </div>
+
+        <Stack horizontal tokens={{ childrenGap: 8 }}>
+          <TooltipHost content="Download a developer-friendly whitepaper (markdown)">
+            <PrimaryButton text="Download Whitepaper" onClick={openWhitepaper} />
+          </TooltipHost>
+          {/* <DefaultButton text="Contact info@exzing.com" onClick={() => (window.location.href = "mailto:info@exzing.com")} /> */}
+        </Stack>
       </Stack>
 
-      <Section title={""}>
-      <h2 className="text-2xl font-semibold mb-2">🌍 Vision</h2>
+      <Section>
+        <Text variant="large">🌍 Vision</Text>
         <Text>
-           Exzing-EnergyX is a platform designed to help organizations and fleet operators
-            track, manage, and reduce their carbon emissions. Backed by Miscrosoft for Startsups, we provide verified
-            emission calculations, compliance metrics, and transparent reporting to
-            support sustainable operations in line with international standards. 
-            This page documents the formulas, data formats, assumptions and references.
+          Exzing-EnergyX is a standards-first carbon intelligence platform for maritime operators, verifiers and regulators.
+          We compute, record and present emissions with provenance, verification metadata and a deterministic rating so purchasers and auditors can
+          trust credits. This page documents formulas, data formats, API examples and the roadmap.
         </Text>
       </Section>
 
-      <Section title={""}>
-      <h2 className="text-2xl font-semibold mb-2">How It Works</h2>
-        <Stack tokens={{ childrenGap: 8 }}>
-        <p>
-            Emissions are calculated based on internationally recognized standards
-            including{" "}
-            <strong>IPCC Guidelines</strong>,{" "}
-            <strong>IMO (International Maritime Organization)</strong>, and{" "}
-            <strong>GHG Protocol</strong>.
-          </p>
-          <Text variant="large">Example calculation</Text>
+      <Section title="How it works — quick">
         <Text>
-          If a vessel reports <code>fuel_amount = 1,200</code> tonnes diesel and emission factor = <code>3140 kg CO₂ / tonne</code>:
+          Ingest data (manual, CSV or telemetry) → normalize to standard units → compute CO₂ using referenced emission factors → store with evidence
+          & provenance → optionally run automated remote sensing checks → create audit tasks and issue provisional credits → compute a rating and surface the
+          credit in the public registry.
         </Text>
-        <Text><strong>CO₂ = 1,200 × 3,140 = 3,768,000 kg = 3,768 tCO₂</strong></Text>
+
+        <Text variant="large">Example calculation</Text>
+        <Text>
+          If a vessel reports <code>fuel_amount = 1,200</code> tonnes diesel and emission factor = <code>3,140 kg CO₂ / tonne</code>:
+        </Text>
+        <Text>
+          <strong>CO₂ = 1,200 × 3,140 = 3,768,000 kg = 3,768 tCO₂</strong>
+        </Text>
 
         <Text variant="large">Emission factors (recommended baseline)</Text>
         <DetailsList items={emissionFactors} columns={columns} selectionMode={0} setKey="efTable" />
 
         <Text variant="small">
-          <strong>NOTE:</strong> Emission factors must be chosen from a reputable source (IPCC, IMO, IPCC/UNFCCC tables, or national EPA lists).
-          For accuracy and auditing, we record the source and version of the factor used for each calculation.
+          <strong>Note:</strong> Always record the *source and version* of the emission factor used (IPCC table or IMO guidance). The platform stores that metadata
+          per calculation for auditability.
         </Text>
 
-        <Text variant="large">Data schema</Text>
-        <Text>Sample JSON payload (POST /emissions):</Text>
-        <pre style={{ background: "#f4f4f4", padding: 12, borderRadius: 6 }}>
+        <Text variant="large">Data schema — POST /emissions</Text>
+        <pre style={{ padding: 12, borderRadius: 6, background: "#0b0b0b22", overflowX: "auto" }}>
 {`{
   "device_id": "vessel-001",
-  "voyage_id": "voyage-20250812-001",     // optional
+  "voyage_id": "voyage-20250812-001",
   "fuel_type": "diesel",
-  "fuel_amount": 1200.0,                  // in tonnes
+  "fuel_amount": 1200.0,
   "timestamp": "2025-08-12T08:00:00Z",
-  "evidence": {                           // optional metadata for verification
+  "evidence": {
     "bunker_receipt_url": "https://...",
     "fuel_density_kg_per_m3": 860,
     "source": "sensor|manual|bunker_receipt"
@@ -89,96 +122,139 @@ const DocumentationPage: React.FC = () => {
 }`}
         </pre>
 
-        <Text variant="large">CSV template</Text>
-        <pre style={{ whiteSpace: "pre-wrap", background: "#f4f4f4", padding: 12, borderRadius: 6 }}>{csvTemplate}</pre>
-        <DefaultButton text="Copy CSV to clipboard" onClick={() => navigator.clipboard?.writeText(csvTemplate)} />
-
-        <Text variant="large">Credits & issuance (MVP)</Text>
-        <Text>
-          For the MVP we compute an indicative credit value as:
-        </Text>
-        <Text><code>credits = (co2_kg / 1000) × CREDIT_RATE</code> where <code>CREDIT_RATE</code> is a configurable USD/tonne placeholder.</Text>
-        <Text variant="small">
-          <strong>Important:</strong> Formal carbon credits require independent verification by an accredited verifier (e.g., Lloyd's Register, DNV, or Verra-approved verifiers).
-          Our platform records audit metadata (evidence links, verifier id, verification timestamp) for each credit. Ensure a verification process is completed before using credits in any market or registry.
-        </Text>
-        <Text variant="large">References & standards</Text>
-        <ul>
-          <li><strong>IMO</strong> — MEPC.245(66) and related guidance (methodology for calculation & reporting).</li>
-          <li><strong>EU MRV</strong> — Regulation (EU) 2015/757 (Monitoring, Reporting & Verification of CO₂ emissions from maritime transport).</li>
-          <li><strong>IPCC / EPA</strong> — emission factor tables and guidance for fuel types.</li>
-        </ul>
-        
-        <Text variant="large">Pilot & onboarding checklist (for partners)</Text>
-        <ol>
-          <li>Agreement on scope & duration (4–6 weeks, 3–10 vessels recommended).</li>
-          <li>Shared vessel metadata (IMO, DWT, engine kW) and sample logs or CSVs.</li>
-          <li>Verified decision on scope (spot checks or full verification) and evidence requirements.</li>
-          <li>Contact & escalation points for data issues.</li>
-        </ol>
-
-          <Text variant="small" styles={{ root: { color: "#666" } }}>
-            References: IPCC 2006 Guidelines; IMO MEPC.245(66); GHG Protocol Corporate Standard.
-          </Text>
+        <Stack horizontal tokens={{ childrenGap: 8 }}>
+          <DefaultButton text="Copy CSV template" onClick={copyCsv} />
+          <DefaultButton text="Open CSV example" onClick={() => alert(csvTemplate)} />
         </Stack>
       </Section>
 
-      <Section title="Carbon Credits & Compliance">
+      <Section title="Credibility-first design (short)">
+        <Text variant="large">Core principles</Text>
+        <ol>
+          <li><Text>Verification beyond standards — telemetry, remote sensing & third-party audits.</Text></li>
+          <li><Text>Radical transparency — public registry with downloadable evidence bundles.</Text></li>
+          <li><Text>Shift from offsets to insetting & reductions — actionable packages, not just credits.</Text></li>
+          <li><Text>Risk-tiering & rating — deterministic A/B/C with component breakdown.</Text></li>
+          <li><Text>Continuous disclosure — mandatory project metadata and periodic audits.</Text></li>
+        </ol>
+
+        <Text variant="large">Credit rating (overview)</Text>
         <Text>
-          Credits are represented as equivalent tonnes of CO₂ reduced. In this early stage, these are indicative and tracked
-          internally; integration with registries (Gold Standard / Verra or accredited bodies in Nigeria) is planned for later phases.  
-          Users earn credits when emissions are reduced below baseline values
-            or offset via certified projects. Credits are tracked transparently and
-            will be verified with external registries in future updates.
+          Each credit is assigned a score (0–100) from the following weighted components:
         </Text>
         <ul>
-          <li><Text>1 credit = 1 tonne CO₂e reduced (indicative)</Text></li>
-          <li><Text>Issuance basis: verified reduction against baseline / regulatory benchmarks</Text></li>
+          <li><Text>Monitoring quality — 30%</Text></li>
+          <li><Text>Additionality — 25%</Text></li>
+          <li><Text>Permanence — 20%</Text></li>
+          <li><Text>Auditor score — 15%</Text></li>
+          <li><Text>Data integrity — 10%</Text></li>
         </ul>
-      </Section>
-
-      <Section  title={""}>
-      <h2 className="text-2xl font-semibold mb-2">🔒 Data Integrity & Security</h2>
-          <p>
-            Our system ensures secure authentication, encrypted data transmission,
-            and privacy protection. EnergyX is designed with compliance to{" "}
-            <strong>GDPR</strong> and <strong>ISO 27001</strong> principles.
-          </p>
         <Text>
-          Security is built-in with HTTPS, JWT authentication, role-based access, and audit logs. We intend to meet
-          GDPR principles and encrypt sensitive data at rest using Azure security and scalable tools.
+          Tiers: <strong>A</strong> (score ≥ 80), <strong>B</strong> (50–79), <strong>C</strong> (&lt;50).
         </Text>
       </Section>
 
-      <Section title="Input Methods">
+      <Section title="Provenance & Public Registry">
+        <Text>
+          The platform exposes a public registry endpoint returning issued credits and their rating + links to evidence bundles:
+        </Text>
+
+        <pre style={{ padding: 12, borderRadius: 6, background: "#0b0b0b22", overflowX: "auto" }}>
+{`GET /registry/credits?page=1&per_page=50
+Response:
+{
+  total: 123,
+  page: 1,
+  per_page: 50,
+  items: [
+    { id: 101, project_id: 5, credits_awarded: 12.5, issued_at: '2025-08-12T08:00:00Z',
+      rating: { overall: 83.6, components: { monitoring_quality: 90, additionality: 80, ... } } }
+  ]
+}`}
+        </pre>
+
+        <Text variant="small">
+          Evidence bundles contain receipts, geotagged images, satellite thumbnails and a manifest of file hashes. For production, we store evidence in object storage
+          and publish signed URLs in the manifest.
+        </Text>
+      </Section>
+
+      <Section title="APIs & Quickstart (developer) — minimal">
+        <Text variant="small">These are the demo endpoints available in the MVP implementation.</Text>
+
+        <pre style={{ padding: 12, borderRadius: 6, background: "#0b0b0b22", overflowX: "auto" }}>
+{`POST /emissions
+GET  /emissions
+POST /projects
+POST /audits/submit
+POST /audits/upload_evidence/{audit_id}
+POST /ratings/compute/{credit_id}
+GET  /ratings/{credit_id}
+GET  /registry/credits
+GET  /registry/credits/{credit_id}
+POST /satellite/run   <-- demo remote-sensing stub
+`}
+        </pre>
+
+        <Text variant="small">Sample compute-rating payload:</Text>
+        <pre style={{ padding: 12, borderRadius: 6, background: "#0b0b0b22", overflowX: "auto" }}>
+{`POST /ratings/compute/123
+{
+  "components": {
+    "monitoring_quality": 80,
+    "additionality": 70,
+    "permanence": 60,
+    "auditor_score": 90,
+    "data_integrity": 85
+  }
+}
+`}
+        </pre>
+
+        <Text variant="small">
+          For telemetry devices, we recommend signing payloads (HMAC) and authenticating clients via OIDC/JWT. Auditor actions should be RBAC protected.
+        </Text>
+      </Section>
+
+      <Section title="Satellite & automated checks (demo)">
+        <Text>
+          You can run a simulated remote-sensing check using the Satellite stub endpoint. It returns NDVI mean and a simple pass/fail heuristic.
+        </Text>
+        <pre style={{ padding: 12, borderRadius: 6, background: "#0b0b0b22", overflowX: "auto" }}>
+        {`POST /satellite/run
+        { "project_id": 5 }
+        Response:
+        { "ndvi_mean": 0.42, "tree_cover_delta": -0.002, "pass": true, "note": "simulated" }
+        `}
+        </pre>
+        <DefaultButton text="Run a satellite demo" onClick={() => window.open("/satellite-stub", "_blank")} />
+      </Section>
+
+      <Section title="Pilot & onboarding checklist">
+        <ol>
+          <li><Text>Agree on scope & timeframe (4–6 weeks pilot recommended).</Text></li>
+          <li><Text>Share sample data (CSV) and vessel metadata (IMO, DWT, engine kW).</Text></li>
+          <li><Text>Decide verification level & required evidence.</Text></li>
+          <li><Text>Run ingestion → verification → provisional credits → audit cycle.</Text></li>
+        </ol>
+      </Section>
+
+      <Section title="References & further reading">
         <ul>
-          <li><Text>Manual entry (forms)</Text></li>
-          <li><Text>CSV / Excel bulk uploads</Text></li>
-          <li><Text>IoT / sensors (REST ingestion endpoint or MQTT adapter in future)</Text></li>
+          <li><Link href="https://www.ipcc.ch" target="_blank">IPCC Guidelines</Link></li>
+          <li><Link href="https://www.imo.org" target="_blank">IMO (MEPC guidance)</Link></li>
+          <li><Link href="https://ghgprotocol.org" target="_blank">GHG Protocol</Link></li>
+          <li><Link href="https://energytracker.asia/are-carbon-offsets-a-scam/" target="_blank">Energy Tracker Asia — Are carbon offsets a scam?</Link></li>
         </ul>
       </Section>
 
-      <Section  title={""}>
-      <h2 className="text-2xl font-semibold mb-2">🚀 Roadmap</h2>
-        <ul>
-          <li><Text>Phase 1 — MVP: Core Emission Calculations (manual entry, CSV upload), dashboard, & Reporting</Text></li>
-          <li><Text>Phase 2 — Integrations: IoT sensors, AIS, telematics providers</Text></li>
-          <li><Text>Phase 3 — Registry integrations: Gold Standard, Verra, EU ETS</Text></li>
-          <li><Text>Phase 4 — Optimization: route/fuel suggestions and marketplace</Text></li>
-        </ul>
-         
-        <Text variant="small" styles={{ root: { color: "#666" } }}>
-          IMO MEPC.245(66) — Guidance on method of calculation of the attained Energy Efficiency Design Index (EEDI) (useful for fuel-to-CO₂ factors & calculation guidance).
-        </Text>
-        ,{" "}
-        <Text variant="small" styles={{ root: { color: "#666" } }}>
-          Want to learn more? Contact the team at info@exzing.com or view the referenced standards:
-          {" "}
-          <Link href="https://www.ipcc.ch" target="_blank">IPCC</Link>,{" "}
-          <Link href="https://www.imo.org" target="_blank">IMO</Link>,{" "}
-          <Link href="https://ghgprotocol.org" target="_blank">GHG Protocol</Link>.
-        </Text>
-      </Section>
+      <Stack horizontal horizontalAlign="space-between" styles={{ root: { marginTop: 12 } }}>
+        <Text variant="small">© {new Date().getFullYear()} Exzing-EnergyX — Methodology & API</Text>
+        <div>
+          <DefaultButton text="Open registry (demo)" onClick={() => window.open("/registry/credits", "_blank")} />
+          <DefaultButton text="Auditor dashboard" onClick={() => window.open("/auditor", "_blank")} styles={{ root: { marginLeft: 8 } }} />
+        </div>
+      </Stack>
     </Stack>
   );
 };
