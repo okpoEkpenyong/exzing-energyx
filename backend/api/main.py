@@ -5,7 +5,7 @@ from backend.api.database import create_db_and_tables
 from backend.api.routers import metrics
 import os
 
-from backend.api.routers import emissions, credits, devices, health, items, auth, vessels
+from backend.api.routers import emissions,credits,devices,health,items,auth,vessels,predict
 
 
 app = FastAPI(title="Exzing EnergyX Carbon Intelligence Platform", version="1.0")
@@ -46,14 +46,16 @@ app.add_middleware(
 )
 
 # Routers
+app.include_router(auth.router, prefix="/auth", tags=["Auth"])
 app.include_router(emissions.router, prefix="/emissions", tags=["Emissions"])
 app.include_router(credits.router, prefix="/credits", tags=["Carbon Credits"])
 app.include_router(devices.router, prefix="/devices", tags=["Devices"])
 app.include_router(health.router,prefix="/health", tags=["Health"])
 app.include_router(items.router, prefix="/items", tags=["Items"])
 app.include_router(metrics.router, prefix="/metrics", tags=["Metrics"])
-app.include_router(auth.router, prefix="/auth", tags=["Auth"])
 app.include_router(vessels.router,prefix="/vessels", tags=["Vessels"])
+app.include_router(predict.router, prefix="/predict", tags=["AI Predictions"])
+
 
 
 @app.on_event("startup")

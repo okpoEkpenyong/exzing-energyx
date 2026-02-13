@@ -1,4 +1,3 @@
-# backend\api\schemas\credits.py
 
 # backend/api/schemas/credits.py
 from pydantic import BaseModel
