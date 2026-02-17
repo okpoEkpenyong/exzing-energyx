@@ -2,6 +2,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Stack, Text, Separator, ProgressIndicator, DetailsList, IColumn, MessageBar, MessageBarType } from "@fluentui/react";
 import { fetchDashboardMetrics, DashboardMetrics } from "../services/metricsServices";
+import { getCreditDetail, listCredits } from "../services/creditService.ts";
 
 // chart imports (react-chartjs-2 & chart.js)
 import { Line, Bar } from "react-chartjs-2";
@@ -36,8 +37,8 @@ const VesselSnapshot: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   // API base — use Vite env; fallback is only for local dev
-  // const API_BASE = (import.meta.env.VITE_API_BASE_URL as string) ?? "https://exzing-energyx.onrender.com";
-  const API_BASE = "http://localhost:5000";
+  const API_BASE = (import.meta.env.VITE_API_BASE_URL as string) ?? "https://exzing-energyx.onrender.com";
+  // const API_BASE = "http://localhost:5000";
 
   useEffect(() => {
     let mounted = true;
@@ -63,7 +64,6 @@ const VesselSnapshot: React.FC = () => {
   }, [API_BASE]);
 
  
-
   useEffect(() => {
     let mounted = true;
     const loadEmissions = async () => {
@@ -71,12 +71,13 @@ const VesselSnapshot: React.FC = () => {
       setError(null);
       try {
         // const res: EmissionsResponse = await getEmissions();
-        const res = await getEmissions() as any;
+        // const res = await getEmissions() as any;
+         const res = await listCredits(1, 10);
         // const res = await getEmissions(); // <-- returns paginated object
         console.log({ emission_res: res });
         if (!mounted) return;
         // ✅ Extract items before setting state
-        setEmissions(res.items ?? []); 
+        setEmissions(res ?? []); 
       } catch (err: any) {
         console.error("Emissions load error:", err);
         if (mounted) setError(String(err?.message ?? err));
@@ -98,8 +99,8 @@ const VesselSnapshot: React.FC = () => {
   const perVessel = useMemo(() => {
     const map = new Map<string, number>(); // device_id => tonnes
     for (const e of emissions) {  
-      const id = e.device_id ?? "unknown";
-      const co2kg = Number(e.co2_emitted ?? 0);
+      const id = e.emission.device_id ?? "unknown";
+      const co2kg = Number(e.emission.co2_emitted ?? 0);
       const prev = map.get(id) ?? 0;
       map.set(id, prev + co2kg / 1000.0);
     }

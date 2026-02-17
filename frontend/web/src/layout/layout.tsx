@@ -25,6 +25,8 @@ import LandingPage from "../pages/landingPage";
 import SatelliteStub from "../pages/satelliteStub";
 import AuditorDashboard from "../pages/auditorDashboard";
 import CreditDetail from "../pages/creditDetail";
+import AiPredictionsPage from "../pages/aiPredictionsPage";
+
 
 const Layout: FC = (): ReactElement => {
   const isMobile = useIsMobile();
@@ -67,6 +69,8 @@ const Layout: FC = (): ReactElement => {
             <Route path="/credits/:id" element={<CreditDetail />} />
             <Route path="/auditor" element={<AuditorDashboard />} />
             <Route path="/satellite-stub" element={<SatelliteStub />} />
+            <Route path="/ai" element={<AiPredictionsPage />} />
+
 
             <Route path="*" element={<LandingPage />} />
           </Routes>

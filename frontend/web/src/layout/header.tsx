@@ -85,6 +85,7 @@ const Header: FC<HeaderProps> = ({ isMobile }): ReactElement => {
     { to: "/dashboard", label: "Dashboard" },
     { to: "/documentation", label: "Documentation" },
     { to: "/voyage", label: "Voyage Log" },
+    { to: "/ai", label: "Prediction"},
     { to: "/login", label: "Login" },
   ];
 

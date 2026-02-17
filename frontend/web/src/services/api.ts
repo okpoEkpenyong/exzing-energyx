@@ -39,6 +39,7 @@ export async function getHealth() {
 
 export async function getEmissions(): Promise<EmissionLog | null> {
   const res = await fetch(`${API_BASE}/emissions/`);
+  console.log("emission response:", res)
   if (!res.ok) throw new Error("Failed to fetch emissions");
   return res.json();
 }

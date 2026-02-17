@@ -84,10 +84,10 @@ const DashboardPage = () => {
           >
           <Stack.Item grow styles={{ root: { minWidth: 300 } }}>
             <CreditsDashboard />
-            <VesselSnapshot />
-            <AuditorDashboard />
-            <SatelliteStub />
             <CreditDetail />
+            <VesselSnapshot/>
+            <AuditorDashboard/>
+            <SatelliteStub /> 
           </Stack.Item>
           </Stack>
         </Stack>
