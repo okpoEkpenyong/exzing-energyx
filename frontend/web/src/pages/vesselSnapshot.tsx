@@ -63,7 +63,8 @@ const VesselSnapshot: React.FC = () => {
     };
   }, [API_BASE]);
 
- 
+//  uvicorn api.main:app --reload
+
   useEffect(() => {
     let mounted = true;
     const loadEmissions = async () => {
