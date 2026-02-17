@@ -10,6 +10,8 @@ from backend.api.deps import get_db
 
 router = APIRouter()
 
+#  const res = await fetch(`${API_BASE}/metrics/dashboard`);
+
 @router.get("/dashboard")
 def dashboard_metrics(db: Session = Depends(get_db)):
     # --- Emissions & basic aggregates (existing logic) ---

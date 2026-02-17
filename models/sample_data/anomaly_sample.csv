@@ -1,0 +1,6 @@
+reported_emissions,variance,reporting_count,supplier_age
+50000,0.05,12,5
+120000,0.20,3,1
+45000,0.03,24,10
+300000,0.50,2,0.5
+52000,0.04,18,6

@@ -30,7 +30,7 @@ def build_pipeline():
         ("cat", cat_pipe, cat_features),
     ], remainder="passthrough")  # numeric features pass through
 
-    model = LGBMRegressor(n_estimators=500, learning_rate=0.05)
+    model = LGBMRegressor(n_estimators=50, learning_rate=0.05)
     pipe = Pipeline([
         ("preproc", preproc),
         ("model", model)
@@ -60,8 +60,8 @@ def train_scope3(df, target_col="emissions_kgco2e", model_name=DEFAULT_MODEL_NAM
     preds = np.stack([tree.predict(df) for tree in model.estimators_])
     std_dev = preds.std(axis=0)
 
-    pipe["predicted_scope3"] = preds
-    pipe["uncertainty"] = std_dev
+    # pipe["predicted_scope3"] = preds
+    # pipe["uncertainty"] = std_dev
 
     mae = np.mean(np.abs(preds - y_val))
     print(f"[scope3] Trained {model_name}, val MAE={mae:.2f} kgCO2e")

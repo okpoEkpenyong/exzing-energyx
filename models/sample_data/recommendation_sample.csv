@@ -1,0 +1,6 @@
+supplier,total_emissions,emission_intensity,category,compliance_score
+Alpha Metals,120000,0.45,steel,72
+Oceanic Logistics,80000,0.30,transport,85
+SkyFreight Ltd,150000,0.75,air_transport,60
+Textile Global,60000,0.25,textiles,90
+ChemCore,200000,0.65,chemicals,55

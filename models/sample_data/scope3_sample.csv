@@ -1,0 +1,6 @@
+category,transport_mode,quantity,distance_km,unit_weight_kg,spend
+electronics,sea,100,12000,2.5,50000
+steel,road,50,800,15,20000
+textiles,air,20,6000,1.2,15000
+machinery,rail,10,3000,50,75000
+chemicals,sea,200,15000,5,120000

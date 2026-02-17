@@ -71,6 +71,8 @@ def get_emissions(
     pydantic_items: List[schemas.EmissionOut] = [schemas.EmissionOut.from_orm(i) for i in items]
 
     return schemas.EmissionList(total=total, page=page, per_page=per_page, items=pydantic_items)
+
+    
 @router.get("/{emission_id}", response_model=schemas.EmissionOut)
 def get_emission(emission_id: int, db: Session = Depends(get_db)):
     e = db.query(models.EmissionLog).filter(models.EmissionLog.id == emission_id).first()

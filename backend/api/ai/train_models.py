@@ -13,19 +13,19 @@ def train_all_demo():
     # Demo training uses sample CSVs from ./data
     # scope3 dataset must include emissions_kgco2e target column
     try:
-        df_scope3 = pd.read_csv("./data/scope3_samples.csv")
+        df_scope3 = pd.read_csv("./sample_data/scope3_sample.csv")
         train_scope3(df_scope3, target_col="emissions_kgco2e")
     except Exception as e:
         print("scope3 train skipped:", e)
 
     try:
-        df_anon = pd.read_csv("./data/anomaly_features.csv")
+        df_anon = pd.read_csv("./sample_data/anomaly_sample.csv")
         train_anomaly_detector(df_anon)
     except Exception as e:
         print("anomaly train skipped:", e)
 
     try:
-        series = pd.read_csv("./data/emissions_timeseries.csv")["emissions"]
+        series = pd.read_csv("./sample_data/emissions_timeseries.csv")["emissions"]
         train_forecast(series)
     except Exception as e:
         print("forecast train skipped:", e)
